@@ -7,7 +7,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="logo">HempBrush</div>
+      <div className="logo">FlexiFib</div>
 
       <ul className={isMobile ? "nav-links-mobile" : "nav-links"} onClick={() => setIsMobile(false)}>
         <li><Link to="/">Home</Link></li>
