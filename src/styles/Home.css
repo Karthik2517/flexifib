@@ -1,0 +1,17 @@
+.home-page {
+    padding: 2rem;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .product-section {
+    margin-top: 3rem;
+    text-align: center;
+  }
+  
+  .product-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
