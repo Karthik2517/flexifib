@@ -1,17 +1,107 @@
 .home-page {
-    padding: 2rem;
+    margin: 0;
+    padding: 0; /* ✅ Removed 3rem padding */
     font-family: 'Poppins', sans-serif;
+    background-color: #fffaf7;
+    color: #2f4f2f;
   }
   
   .product-section {
-    margin-top: 3rem;
+    margin-top: 4rem;
     text-align: center;
+    padding-bottom: 5rem; /* Prevent overlap with footer */
+  }
+  
+  .product-section h2 {
+    font-size: 2.5rem;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 2rem;
+    color: #3a3a3a;
+    letter-spacing: 0.5px;
   }
   
   .product-grid {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 2rem;
-    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  /* Product Card Styles */
+  .product-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Portrait image container for better brush alignment */
+  .product-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    object-position: top;
+  }
+  
+  .product-card h3 {
+    font-size: 1.3rem;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 0.3rem;
+    min-height: 2.4rem;
+  }
+  
+  .product-card p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-card span {
+    display: block;
+    font-weight: 600;
+    color: #2f4f2f;
+    margin-bottom: 1rem;
+  }
+  
+  .product-card button {
+    padding: 0.6rem 1.2rem;
+    background-color: #2f4f2f;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .product-card button:hover {
+    background-color: #3d6c3d;
+  }
+  
+  /* Responsive tweaks */
+  @media (max-width: 768px) {
+    .product-section h2 {
+      font-size: 2rem;
+    }
+  
+    .product-card img {
+      height: auto;
+      aspect-ratio: 3 / 4;
+    }
   }
   

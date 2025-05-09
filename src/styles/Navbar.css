@@ -3,23 +3,26 @@
     justify-content: space-between;
     align-items: center;
     padding: 1.2rem 2rem;
-    background-color: #fff;
-    color: #2f4f2f;
-    border-bottom: 1px solid #eee;
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    width: 100%;
     position: sticky;
     top: 0;
     z-index: 1000;
+    border-radius: 0 0 16px 16px;
   }
   
   .logo {
     font-size: 1.8rem;
     font-weight: bold;
     font-family: 'Cormorant Garamond', serif;
+    color: #2f4f2f;
   }
   
   .nav-links {
     display: flex;
-    gap: 1.5rem;
+    align-items: center;
+    gap: 2rem;
     list-style: none;
   }
   
@@ -27,10 +30,47 @@
     text-decoration: none;
     color: #2f4f2f;
     font-weight: 500;
+    transition: color 0.3s ease;
   }
   
   .nav-links a:hover {
-    color: #648c64;
+    color: #3d6c3d;
+  }
+  
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .login-btn {
+    background-color: #f2f2f2;
+    color: #2f4f2f;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .login-btn:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .cta-btn {
+    background-color: #2f4f2f;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .cta-btn:hover {
+    background-color: #3e6e3e;
   }
   
   .mobile-menu-icon {
@@ -42,7 +82,7 @@
     color: #2f4f2f;
   }
   
-  /* Mobile Styling */
+  /* Mobile Styles */
   @media (max-width: 768px) {
     .nav-links {
       display: none;
@@ -57,14 +97,18 @@
       flex-direction: column;
       gap: 1rem;
       position: absolute;
-      top: 70px;
+      top: 100%;
       right: 20px;
       background-color: #fff;
       padding: 1rem 2rem;
       border: 1px solid #ccc;
       border-radius: 12px;
-      box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
       z-index: 1001;
+    }
+  
+    .nav-actions {
+      display: none;
     }
   }
   

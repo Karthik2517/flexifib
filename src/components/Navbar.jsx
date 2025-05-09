@@ -18,8 +18,13 @@ const Navbar = () => {
         <li><a href="#contact">Contact</a></li>
       </ul>
 
+      <div className="nav-actions">
+        <button className="login-btn">Log in</button>
+        <button className="cta-btn">Get Started</button>
+      </div>
+
       <button className="mobile-menu-icon" onClick={() => setIsMobile(!isMobile)}>
-        {isMobile ? <>&#10005;</> : <>&#9776;</>} {/* X or hamburger icon */}
+        {isMobile ? <>&#10005;</> : <>&#9776;</>}
       </button>
     </nav>
   );

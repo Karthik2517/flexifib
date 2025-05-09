@@ -1,23 +1,81 @@
 .product-card {
-    border: 1px solid #eee;
-    border-radius: 12px;
-    padding: 1rem;
-    text-align: center;
-    max-width: 200px;
-  }
-  
-  .product-card img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .product-card button {
-    margin-top: 0.5rem;
-    padding: 0.4rem 0.8rem;
-    background-color: #2f4f2f;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+/* This box enforces portrait shape */
+.portrait-image-box {
+  width: 100%;
+  height: 340px; /* Portrait height */
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.portrait-image-box img {
+  height: 100%;
+  width: 70%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+.product-card h3 {
+  font-size: 1.3rem;
+  font-family: 'Playfair Display', serif;
+  margin: 1rem 0 0.3rem;
+  min-height: 2.4rem;
+}
+
+.product-card p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.product-card span {
+  display: block;
+  font-weight: 600;
+  color: #2f4f2f;
+  margin-bottom: 1rem;
+}
+
+.product-card button {
+  padding: 0.6rem 1.2rem;
+  background-color: #2f4f2f;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-card button:hover {
+  background-color: #3d6c3d;
+}
+
+.product-card img {
+    width: 200px;
+    height: 280px;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    margin: 0 auto 1rem;
   }
   

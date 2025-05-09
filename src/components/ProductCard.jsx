@@ -4,7 +4,9 @@ import '../styles/ProductCard.css';
 const ProductCard = ({ title, subtitle, price, image }) => {
   return (
     <div className="product-card">
-      <img src={image} alt={title} />
+      <div className="image-wrapper">
+        <img src={image} alt={title} />
+      </div>
       <h3>{title}</h3>
       <p>{subtitle}</p>
       <span>{price}</span>

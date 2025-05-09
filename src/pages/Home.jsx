@@ -7,6 +7,7 @@ import '../styles/Home.css';
 import brush1 from '../assets/brush1.png';
 import brush2 from '../assets/brush2.png';
 import brush3 from '../assets/brush3.png';
+import WhySwitch from '../components/WhySwitch';
 
 const products = [
   {
@@ -38,6 +39,7 @@ const Home = () => {
     <div className="home-page">
         <Navbar />
       <HeroSection />
+      <WhySwitch /> 
       <section className="product-section">
         <h2>Meet Our Hemp Brush Lineup</h2>
         <div className="product-grid">
