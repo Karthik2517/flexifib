@@ -16,11 +16,25 @@
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
 }
 
+.product-card .image-wrapper {
+  width: 100%;
+  max-width: 200px; /* Or your preferred max-width for the image */
+  margin: 0 auto 1rem;
+}
+
+.product-card .image-wrapper img {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
 .product-card h3 {
   font-size: 1.3rem;
   font-family: 'Playfair Display', serif;
   margin: 1rem 0 0.3rem;
-  min-height: 2.4rem;
+  min-height: 2.4rem; /* Adjust if titles wrap differently */
 }
 
 .product-card p {
@@ -45,19 +59,42 @@
   font-size: 0.95rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: auto; /* Pushes button to the bottom if card heights vary */
 }
 
 .product-card button:hover {
   background-color: #3d6c3d;
 }
 
-/* Styles for the image within .image-wrapper or directly if .image-wrapper has no specific styling needs */
-.product-card .image-wrapper img, /* If using .image-wrapper */
-.product-card > img /* If img is a direct child for some reason, or for the existing specific img rule */ {
-  width: 200px;  /* Consider making this responsive, e.g., width: 100%; max-width: 200px; */
-  height: 280px; /* Consider using aspect-ratio or making height: auto; for responsiveness */
-  object-fit: contain;
-  object-position: center;
-  display: block;
-  margin: 0 auto 1rem;
+/* Responsive adjustments for product cards */
+@media (max-width: 768px) {
+  .product-card h3 {
+    font-size: 1.2rem;
+  }
+  .product-card p {
+    font-size: 0.9rem;
+  }
+  .product-card button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    padding: 1rem;
+  }
+  .product-card h3 {
+    font-size: 1.1rem;
+    min-height: auto; /* Allow height to adjust more freely */
+  }
+  .product-card p {
+    font-size: 0.85rem;
+  }
+  .product-card span {
+    font-size: 0.9rem;
+  }
+  .product-card .image-wrapper {
+    max-width: 150px; /* Smaller images on very small screens */
+  }
 }

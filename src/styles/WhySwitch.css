@@ -1,106 +1,142 @@
 .why-switch {
-    text-align: center;
-    padding: 4rem 2rem;
-    background-color: #f6f4ef;
-    color: #2f4f2f;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  
-  .why-switch.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .why-switch h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .switch-intro {
-    max-width: 700px;
-    margin: 0 auto 3rem;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    padding: 0 1rem;
-  }
-  
-  .switch-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 1rem;
-  }
-  
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: #f6f4ef;
+  color: #2f4f2f;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.why-switch.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.why-switch h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.switch-intro {
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  padding: 0 1rem;
+}
+
+.switch-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem; /* Added padding for grid content on smaller screens */
+}
+
+.switch-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex-basis: 270px; /* Use flex-basis for better control in flex container */
+  max-width: 100%; /* Allow shrinking */
+}
+
+.switch-card:hover {
+  transform: translateY(-5px);
+}
+
+.switch-icon {
+  height: 60px;
+  max-width: 100%;
+  margin-bottom: 1rem;
+}
+
+.switch-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.switch-card p {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  /* Cards will stack due to flex-wrap if there isn't enough space.
+     The flex-basis helps them take up appropriate width before wrapping.
+     If explicit stacking is desired, set flex-direction: column on switch-grid here.
+  */
   .switch-card {
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s;
-    display: flex;
-    flex-direction: column;
+    flex-basis: calc(50% - 1rem); /* Example: 2 cards per row on medium screens */
+    max-width: 320px; /* Max width for cards when they stack or are fewer */
+  }
+  .why-switch h2 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-switch {
+    padding: 3rem 1.5rem;
+  }
+  .why-switch h2 {
+    font-size: 2rem;
+  }
+  .switch-intro {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  .switch-grid {
+    flex-direction: column; /* Stack cards vertically */
     align-items: center;
-    text-align: center;
-    width: 270px;
+    gap: 1.5rem;
   }
-  
-  .switch-card:hover {
-    transform: translateY(-5px);
+  .switch-card {
+    width: 100%; /* Full width when stacked */
+    max-width: 350px; /* Max width for stacked cards */
+    flex-basis: auto; /* Reset flex-basis */
   }
-  
-  .switch-icon {
-    height: 60px;
-    max-width: 100%;
-    margin-bottom: 1rem;
-  }
-  
   .switch-card h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.8rem;
+    font-size: 1.15rem;
   }
-  
   .switch-card p {
+    font-size: 0.9rem;
+  }
+  .switch-icon {
+    height: 55px;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-switch {
+    padding: 2.5rem 1rem;
+  }
+  .why-switch h2 {
+    font-size: 1.8rem;
+  }
+  .switch-intro {
     font-size: 0.95rem;
-    color: #444;
-    line-height: 1.5;
   }
-  
-  /* Responsive */
-  @media (max-width: 900px) {
-    .switch-grid {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .switch-card {
-      width: 100%;
-      max-width: 300px;
-    }
-  
-    .why-switch h2 {
-      font-size: 2rem;
-    }
-  
-    .switch-intro {
-      font-size: 1rem;
-    }
-  
-    .switch-card h3 {
-      font-size: 1.1rem;
-    }
-  
-    .switch-card p {
-      font-size: 0.9rem;
-    }
-  
-    .switch-icon {
-      height: 50px;
-    }
+  .switch-card {
+    padding: 1.2rem;
   }
-  
+  .switch-card h3 {
+    font-size: 1.1rem;
+  }
+  .switch-icon {
+    height: 50px;
+  }
+}

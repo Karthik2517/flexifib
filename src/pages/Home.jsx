@@ -35,14 +35,6 @@ const products = [
   }
 ];
 
-// Placeholder Section Style (can be moved to Home.css or a separate CSS file)
-const sectionStyle = {
-  padding: '4rem 2rem',
-  textAlign: 'center',
-  minHeight: '60vh', // Ensure sections have some height for scrolling
-  borderTop: '1px solid #eee'
-};
-
 const Home = () => {
   return (
     <div className="home-page">
@@ -54,12 +46,11 @@ const Home = () => {
       </section>
 
       {/* WhySwitch component already renders a <section> with id="why" */}
-      {/* We will target its id directly in CSS or ensure it has the scroll-target-section class if needed */}
-      <WhySwitch /> 
+      <WhySwitch />
 
       <section id="shop" className="product-section scroll-target-section">
         <h2>Meet Our Hemp Brush Lineup</h2>
-        <p style={{ marginBottom: '2rem', fontSize: '1.1rem', color: '#555' }}>
+        <p className="section-intro">
           Browse our selection of eco-friendly hemp brushes. More exciting products coming soon!
         </p>
         <div className="product-grid">
@@ -69,25 +60,23 @@ const Home = () => {
         </div>
       </section>
 
-      <section id="story" style={sectionStyle} className="scroll-target-section">
+      <section id="story" className="content-section scroll-target-section">
         <h2>Our Story</h2>
         <p>Content about our story coming soon...</p>
         <p>We started FlexiFib with a mission to reduce plastic waste...</p>
       </section>
 
-      <section id="reviews" style={sectionStyle} className="scroll-target-section">
+      <section id="reviews" className="content-section scroll-target-section">
         <h2>Reviews</h2>
         <p>What our customers are saying...</p>
-        <div style={{ marginTop: '2rem', border: '1px dashed #ccc', padding: '1rem' }}>
+        <div className="review-item">
           <p>"Absolutely love these brushes! So gentle and eco-friendly." - Jane D.</p>
         </div>
-        <div style={{ marginTop: '1rem', border: '1px dashed #ccc', padding: '1rem' }}>
+        <div className="review-item">
           <p>"Finally, a sustainable toothbrush that actually works well." - John S.</p>
         </div>
       </section>
-
-      {/* Footer component renders a <footer> with id="contact" */}
-      {/* We will target its id directly in CSS or ensure it has the scroll-target-section class if needed */}
+      
       <Footer />
     </div>
   );

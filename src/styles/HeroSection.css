@@ -2,9 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 80vh; /* Use min-height instead of height for flexibility */
+  height: 100vh; /* Retain 100vh for larger screens if desired, but min-height provides a fallback */
   margin: 0;
-  padding: 0;
+  padding: 2rem 1rem; /* Add some padding for content spacing */
   background-size: cover;
   background-position: center;
   position: relative;
@@ -31,16 +32,17 @@
 }
 
 .hero-content h1 {
-  font-size: 2.5rem;
+  font-size: 2.5rem; /* Base size for larger screens */
   margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
 .hero-content p {
-  font-size: 1.2rem;
+  font-size: 1.2rem; /* Base size for larger screens */
   margin-bottom: 1.5rem;
+  line-height: 1.6;
 }
 
-/* Styles for the "Shop Now" anchor tag to make it look like a button */
 .hero-content .hero-button {
   display: inline-block;
   padding: 0.75rem 1.5rem;
@@ -50,32 +52,52 @@
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out; /* Added transform transition */
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
   text-decoration: none;
   text-align: center;
 }
 
 .hero-content .hero-button:hover {
   background-color: #3e6e3e;
-  transform: translateY(-2px); /* Slight lift on hover */
+  transform: translateY(-2px);
 }
 
 .hero-content .hero-button:active {
-  transform: translateY(0px); /* Pressed effect */
+  transform: translateY(0px);
 }
 
-
+/* Tablet and larger mobile */
 @media (max-width: 768px) {
+  .hero-section {
+    min-height: 70vh; /* Adjust height for tablets */
+    padding: 3rem 1rem;
+  }
   .hero-content h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
-
   .hero-content p {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
+  .hero-content .hero-button {
+    padding: 0.7rem 1.3rem;
+    font-size: 0.95rem;
+  }
+}
 
+/* Smaller mobile */
+@media (max-width: 480px) {
+  .hero-section {
+    min-height: 60vh; /* Adjust height for smaller mobiles */
+    padding: 2rem 1rem;
+  }
+  .hero-content h1 {
+    font-size: 1.8rem; /* Further reduce font size */
+  }
+  .hero-content p {
+    font-size: 1rem; /* Further reduce font size */
+  }
   .hero-content .hero-button {
     padding: 0.6rem 1.2rem;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 }

@@ -6,28 +6,38 @@
   color: #2f4f2f;
 }
 
-/* Add scroll-margin-top to all sections that are navigation targets, except for #home */
-/* This value should be roughly the height of your fixed navbar when scrolled */
-.scroll-target-section, 
-section#why, /* Target WhySwitch section specifically by its ID */
-footer#contact /* Target Footer specifically by its ID */ {
-  scroll-margin-top: 80px; /* Adjust this value as needed */
-                             /* Based on navbar: 0.5rem top + (0.6rem padding + 1.5rem content + 0.6rem padding) height ~ 3.2rem ~ 50px. Add buffer. */
+/* scroll-margin-top ensures fixed navbar doesn't overlap section titles on jump links */
+/* Value should be slightly more than the navbar's height when scrolled */
+.scroll-target-section,
+section#why, /* WhySwitch section ID */
+footer#contact /* Footer section ID */ {
+  scroll-margin-top: 90px; /* Adjusted based on Navbar's scrolled height + buffer */
 }
-
 
 .product-section {
-  margin-top: 4rem; /* This existing margin might also play a role, but scroll-margin-top is for the scroll target itself */
+  margin-top: 0; /* WhySwitch provides its own spacing */
   text-align: center;
-  padding-bottom: 5rem; 
+  padding: 4rem 2rem; /* Default padding */
 }
 
-.product-section h2 {
+.product-section h2,
+.content-section h2 {
   font-size: 2.5rem;
   font-family: 'Playfair Display', serif;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem; /* Consistent bottom margin for headings */
   color: #3a3a3a;
   letter-spacing: 0.5px;
+}
+
+.product-section .section-intro,
+.content-section p {
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
 }
 
 .product-grid {
@@ -39,19 +49,71 @@ footer#contact /* Target Footer specifically by its ID */ {
   padding: 0 1rem;
 }
 
-/* Product Card Styles - these are likely in ProductCard.css or shared, ensure they are consistent */
-/* ... (rest of your .product-card styles if they are defined here) ... */
+/* Styles for #story and #reviews sections, formerly inline */
+.content-section {
+  padding: 4rem 2rem;
+  text-align: center;
+  min-height: auto; /* Let content define height, vh can be tricky */
+  border-top: 1px solid #eee;
+}
 
+.review-item {
+  margin-top: 1rem;
+  border: 1px dashed #ccc;
+  padding: 1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-/* Responsive tweaks */
+/* Responsive tweaks for sections */
 @media (max-width: 768px) {
-  .scroll-target-section, 
+  .scroll-target-section,
   section#why,
   footer#contact {
-    scroll-margin-top: 70px; /* Adjust for mobile navbar height if different */
+    scroll-margin-top: 80px; /* Adjusted for potentially slightly smaller mobile navbar */
   }
 
-  .product-section h2 {
+  .product-section,
+  .content-section {
+    padding: 3rem 1.5rem;
+  }
+
+  .product-section h2,
+  .content-section h2 {
     font-size: 2rem;
+  }
+
+  .product-section .section-intro,
+  .content-section p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-target-section,
+  section#why,
+  footer#contact {
+    scroll-margin-top: 70px; /* Further adjustment if mobile navbar is even smaller */
+  }
+
+  .product-section,
+  .content-section {
+    padding: 2rem 1rem;
+  }
+
+  .product-section h2,
+  .content-section h2 {
+    font-size: 1.8rem;
+  }
+
+   .product-section .section-intro,
+  .content-section p {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .product-grid {
+    gap: 1.5rem;
   }
 }

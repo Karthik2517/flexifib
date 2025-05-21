@@ -5,57 +5,52 @@
   align-items: center;
   padding: 0.8rem 1.5rem;
   background-color: #ffffff; /* Solid white background */
-  
   position: fixed;
-  top: 1rem; 
+  top: 1rem;
   left: 50%;
-  transform: translateX(-50%); 
-  width: 90%; 
-  max-width: 1100px; 
-  
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1100px;
   z-index: 1000;
-  border-radius: 25px; 
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
-  
+  border-radius: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.4s ease-in-out, padding 0.3s ease-in-out, top 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 
 .navbar.scrolled {
-  background-color: #ffffff; 
-  box-shadow: 0 8px 25px rgba(47, 79, 47, 0.15); 
-  top: 0.5rem; 
-  width: 95%; 
-  padding: 0.6rem 1.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 8px 25px rgba(47, 79, 47, 0.15);
+  top: 0.5rem;
+  width: 95%;
+  padding: 0.7rem 1.5rem; /* Slightly adjusted padding for scrolled state */
 }
 
-/* Styling for the logo link to remove default anchor styles */
 .logo-link {
   text-decoration: none;
-  color: inherit; /* Inherit color from parent or set explicitly */
-  display: inline-block; /* To ensure it behaves as expected */
+  color: inherit;
+  display: inline-block;
 }
 
 .logo {
-  font-size: 1.7rem; 
+  font-size: 1.7rem;
   font-weight: bold;
   font-family: 'Cormorant Garamond', serif;
   color: #2f4f2f;
-  transition: font-size 0.3s ease-in-out, transform 0.2s ease-in-out; /* Added transform for subtle hover effect */
+  transition: font-size 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .logo-link:hover .logo {
-  transform: scale(1.03); /* Slight zoom on hover */
+  transform: scale(1.03);
 }
 
-
 .navbar.scrolled .logo {
-  font-size: 1.5rem;
+  font-size: 1.5rem; /* Adjusted for scrolled state */
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1.8rem; 
+  gap: 1.8rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -63,12 +58,12 @@
 
 .nav-links a {
   text-decoration: none;
-  color: #2f4f2f; 
+  color: #2f4f2f;
   font-weight: 500;
   transition: color 0.3s ease, transform 0.3s ease;
   position: relative;
-  padding: 0.3rem 0.2rem; 
-  padding-bottom: 0.4rem; 
+  padding: 0.3rem 0.2rem;
+  padding-bottom: 0.4rem;
 }
 
 .nav-links a::after {
@@ -77,8 +72,8 @@
   width: 0;
   height: 2px;
   bottom: 0;
-  left: 50%; 
-  transform: translateX(-50%); 
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #3e6e3e;
   transition: width 0.3s ease-in-out;
 }
@@ -95,27 +90,28 @@
 /* Mobile Menu Icon (Hamburger) */
 .mobile-menu-icon {
   display: none;
-  font-size: 1.5rem;
+  font-size: 1.5rem; /* Ensured size for visibility */
   background: none;
   border: none;
   cursor: pointer;
   color: #2f4f2f;
   z-index: 1005;
-  padding: 0.5rem;
+  padding: 0.75rem; /* Increased padding for better touch area */
   position: relative;
-  width: 30px;
-  height: 22px;
+  width: 30px; /* Original width */
+  height: 22px; /* Original height */
+  box-sizing: content-box; /* Ensure padding doesn't shrink the icon bars */
 }
 
 .mobile-menu-icon .icon-bar {
   display: block;
   width: 100%;
   height: 3px;
-  background-color: #2f4f2f; 
+  background-color: #2f4f2f;
   border-radius: 1px;
-  transition: all 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+  transition: all 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   position: absolute;
-  left: 0; 
+  left: 0;
 }
 
 .mobile-menu-icon .icon-bar:nth-child(1) {
@@ -139,33 +135,42 @@
 
 .mobile-menu-icon.open .icon-bar:nth-child(2) {
   opacity: 0;
-  transform: translateX(-20px); 
+  transform: translateX(-20px);
 }
 
 .mobile-menu-icon.open .icon-bar:nth-child(3) {
-  bottom: 50%; 
+  bottom: 50%;
   transform: translateY(50%) rotate(-45deg);
 }
-
 
 /* Mobile Styles */
 @media (max-width: 768px) {
   .navbar {
-    width: calc(100% - 2rem); 
+    width: calc(100% - 2rem);
     left: 1rem;
     right: 1rem;
-    transform: none; 
-    top: 0.5rem; 
+    transform: none;
+    top: 0.5rem;
     border-radius: 20px;
-    background-color: #ffffff; 
+    background-color: #ffffff;
+    padding: 0.6rem 1rem; /* Adjusted padding for mobile */
   }
 
   .navbar.scrolled {
-    width: calc(100% - 1rem); 
+    width: calc(100% - 1rem);
     left: 0.5rem;
     right: 0.5rem;
     top: 0.25rem;
-    background-color: #ffffff; 
+    background-color: #ffffff;
+    padding: 0.5rem 1rem; /* Adjusted padding for mobile scrolled */
+  }
+  
+  .logo {
+    font-size: 1.5rem; /* Slightly smaller logo on mobile */
+  }
+  
+  .navbar.scrolled .logo {
+    font-size: 1.4rem; /* Slightly smaller logo on mobile when scrolled */
   }
 
   .nav-links {
@@ -174,13 +179,13 @@
     gap: 1.5rem;
     position: fixed;
     top: 0;
-    right: -100%; 
-    width: min(75vw, 300px); 
+    right: -100%;
+    width: min(75vw, 280px); /* Slightly reduced max-width */
     height: 100vh;
-    background-color: #ffffff; 
-    padding: 6rem 2rem 2rem;
+    background-color: #ffffff;
+    padding: 5rem 2rem 2rem; /* Adjusted top padding */
     box-shadow: -5px 0 20px rgba(0, 0, 0, 0.15);
-    transition: right 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.35); 
+    transition: right 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.35);
     z-index: 1001;
   }
 
@@ -189,13 +194,13 @@
   }
 
   .nav-links a {
-    font-size: 1.2rem; 
+    font-size: 1.1rem; /* Adjusted font size for mobile links */
     width: 100%;
     text-align: center;
-    padding: 0.8rem 0; 
+    padding: 0.8rem 0;
   }
 
-  .nav-links a::after { 
+  .nav-links a::after {
     left: 50%;
     transform: translateX(-50%);
     bottom: 0.2rem;
@@ -214,16 +219,37 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.4s ease-in-out, visibility 0s 0.4s linear; 
+    transition: opacity 0.4s ease-in-out, visibility 0s 0.4s linear;
   }
 
   .navbar.mobile-menu-active .mobile-menu-backdrop {
     opacity: 1;
     visibility: visible;
     transition: opacity 0.4s ease-in-out, visibility 0s 0s linear;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.5rem 0.75rem; /* Further reduce padding on very small screens */
+  }
+  .navbar.scrolled {
+    padding: 0.4rem 0.75rem;
+  }
+  .logo {
+    font-size: 1.4rem;
+  }
+  .navbar.scrolled .logo {
+    font-size: 1.3rem;
+  }
+  .nav-links a {
+    font-size: 1rem;
+  }
+   .mobile-menu-icon {
+    padding: 0.6rem; /* Adjust padding for very small screens if needed */
   }
 }
