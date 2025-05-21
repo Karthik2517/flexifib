@@ -1,69 +1,146 @@
 .footer {
-  background-color: #f7f5f1;
-  padding: 3rem 1rem 2rem;
-  color: #2f4f2f;
+  background-color: #2f4f2f; /* Dark green background for contrast */
+  color: #f0f0f0; /* Lighter text color for readability on dark background */
+  padding: 4rem 2rem 2rem; /* Increased padding */
   font-family: 'Poppins', sans-serif;
   text-align: center;
-  border-top: 1px solid #e0e0e0;
+  border-top: 4px solid #3e6e3e; /* Accent border */
 }
 
 .footer-content {
   max-width: 900px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content within the footer */
 }
 
 .footer-logo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
+  font-size: 2.2rem; /* Larger logo */
+  margin-bottom: 0.75rem;
+  color: #ffffff; /* White logo text */
+  letter-spacing: 1px;
 }
 
 .footer-tagline {
-  font-size: 1rem;
-  margin-bottom: 1.2rem;
-  color: #555;
+  font-size: 1.1rem; /* Slightly larger tagline */
+  margin-bottom: 2rem; /* More space below tagline */
+  color: #c0c0c0; /* Softer grey for tagline */
+  font-style: italic;
 }
 
-.footer-contact {
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-  color: #444;
+.footer-contact-heading {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.footer-contact p {
+  font-size: 1rem; /* Consistent font size for contact details */
+  color: #d0d0d0;
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+}
+
+.footer-contact a {
+  color: #ffffff; /* Make links stand out */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-contact a:hover {
+  color: #b3ffd9; /* Light mint green for hover - adjust to your brand */
+  text-decoration: underline;
+}
+
+/* Optional: Add a section for social media links if you have them */
+.footer-socials {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-socials a {
+  color: #ffffff;
+  font-size: 1.5rem; /* Larger icons */
+  margin: 0 0.75rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-socials a:hover {
+  color: #b3ffd9;
+  transform: scale(1.1);
 }
 
 .footer-copy {
-  font-size: 0.85rem;
-  color: #aaa;
+  font-size: 0.9rem; /* Slightly larger copyright */
+  color: #a0a0a0; /* Softer grey */
+  margin-top: 2.5rem; /* More space above copyright */
+  padding-top: 1.5rem;
+  border-top: 1px solid #4a664a; /* Subtle separator line */
+  width: 100%;
+  max-width: 600px;
 }
 
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .footer {
-    padding: 2.5rem 1rem 1.5rem;
+    padding: 3rem 1.5rem 1.5rem;
   }
   .footer-logo {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
   .footer-tagline {
+    font-size: 1rem;
+  }
+  .footer-contact-heading {
+    font-size: 1.1rem;
+  }
+  .footer-contact p {
     font-size: 0.95rem;
   }
-  .footer-contact {
-    font-size: 0.9rem;
+  .footer-socials a {
+    font-size: 1.4rem;
+    margin: 0 0.6rem;
+  }
+  .footer-copy {
+    font-size: 0.85rem;
+    margin-top: 2rem;
   }
 }
 
 @media (max-width: 480px) {
   .footer {
-    padding: 2rem 1rem 1.5rem;
+    padding: 2.5rem 1rem 1.5rem;
   }
   .footer-logo {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
   .footer-tagline {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
   }
-  .footer-contact {
-    font-size: 0.85rem;
+   .footer-contact-heading {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+  .footer-contact p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .footer-socials {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .footer-socials a {
+    font-size: 1.3rem;
+    margin: 0 0.5rem;
   }
   .footer-copy {
     font-size: 0.8rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
   }
 }

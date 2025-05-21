@@ -57,10 +57,37 @@ const Home = () => {
         </div>
       </section>
 
+      {/* OUR STORY SECTION - Rolled back to simple paragraph structure */}
       <section id="story" className="content-section scroll-target-section">
         <h2>Our Story</h2>
-        <p>Content about our story coming soon...</p>
-        <p>We started FlexiFib with a mission to reduce plastic waste...</p>
+        <p className="story-paragraph-original">
+          At FlexiFib, our passion for a healthier planet is matched only by our commitment to your well-being.
+          We believe that the products we use daily should be a reflection of our values – and for us,
+          that means sustainability, quality, and a deep respect for nature.
+        </p>
+        <p className="story-paragraph-original">
+          We saw a world awash in plastic, and a growing desire among people like us for alternatives
+          that didn't force a compromise between personal care and environmental responsibility.
+          Why should something as fundamental as brushing our teeth contribute to centuries of waste?
+          This question fueled our resolve.
+        </p>
+        <p className="story-paragraph-original">
+          Our journey led us to the remarkable hemp plant. Its natural strength, rapid renewability,
+          and minimal ecological footprint made it the clear choice for our flagship product.
+          Hemp allows us to craft brushes that are not only durable and effective but also fully
+          biodegradable, returning to the earth without leaving a trace.
+        </p>
+        <p className="story-paragraph-original">
+          From the moment FlexiFib was conceived, our guiding principle has been "eco-friendly without compromise."
+          This means meticulous attention to detail, from sourcing sustainable materials to ensuring our
+          brushes provide a superior clean. We are dedicated to transparency, innovation, and creating
+          products you can trust and feel good about using.
+        </p>
+        <p className="story-paragraph-original">
+          FlexiFib is more than a brand; it's a community of conscious consumers. We're excited to continue
+          exploring innovative ways to reduce plastic waste in our daily lives, one thoughtfully designed
+          product at a time. Join us in creating a future where sustainability and self-care go hand in hand.
+        </p>
       </section>
 
       <section id="reviews" className="content-section scroll-target-section">
@@ -73,7 +100,7 @@ const Home = () => {
           <p>"Finally, a sustainable toothbrush that actually works well." - John S.</p>
         </div>
       </section>
-      
+
       <Footer />
     </div>
   );
