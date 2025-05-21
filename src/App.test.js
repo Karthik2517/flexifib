@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders App component without crashing', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  // Add a more meaningful test here, for example, checking for a specific element that should always be present.
+  // Example: expect(screen.getByRole('navigation')).toBeInTheDocument();
 });

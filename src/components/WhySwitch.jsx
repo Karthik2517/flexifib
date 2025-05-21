@@ -18,21 +18,27 @@ const WhySwitch = () => {
 
   useEffect(() => {
     const element = ref.current;
-  
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
+        if (entry.isIntersecting) {
+          setVisible(true);
+        }
       },
       { threshold: 0.3 }
     );
-  
-    if (element) observer.observe(element);
-  
+
+    if (element) {
+      observer.observe(element);
+    }
+
     return () => {
-      if (element) observer.unobserve(element);
+      if (element) {
+        observer.unobserve(element);
+      }
     };
   }, []);
-  
+
 
   return (
     <section className={`why-switch ${visible ? 'visible' : ''}`} id="why" ref={ref}>
