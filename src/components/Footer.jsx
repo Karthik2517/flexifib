@@ -3,7 +3,7 @@ import '../styles/Footer.css';
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer" id="contact">
       <div className="footer-content">
         <h2 className="footer-logo">HempBrush</h2>
         <p className="footer-tagline">Eco-friendly brushes for a cleaner tomorrow.</p>

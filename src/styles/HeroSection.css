@@ -40,7 +40,9 @@
   margin-bottom: 1.5rem;
 }
 
-.hero-content button {
+/* Styles for the "Shop Now" anchor tag to make it look like a button */
+.hero-content .hero-button {
+  display: inline-block;
   padding: 0.75rem 1.5rem;
   background-color: #2f4f2f;
   border: none;
@@ -48,12 +50,20 @@
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out; /* Added transform transition */
+  text-decoration: none;
+  text-align: center;
 }
 
-.hero-content button:hover {
+.hero-content .hero-button:hover {
   background-color: #3e6e3e;
+  transform: translateY(-2px); /* Slight lift on hover */
 }
+
+.hero-content .hero-button:active {
+  transform: translateY(0px); /* Pressed effect */
+}
+
 
 @media (max-width: 768px) {
   .hero-content h1 {
@@ -62,5 +72,10 @@
 
   .hero-content p {
     font-size: 1rem;
+  }
+
+  .hero-content .hero-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
   }
 }

@@ -1,28 +1,61 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import '../styles/Navbar.css';
 
 const Navbar = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    // Cleanup function to remove the event listener
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); // Empty dependency array means this effect runs once on mount and cleanup on unmount
+
+  const handleLinkClick = () => {
+    setIsMobileMenuOpen(false); // Close mobile menu on link click
+  };
 
   return (
-    <nav className="navbar">
-      <div className="logo">FlexiFib</div>
+    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMobileMenuOpen ? 'mobile-menu-active' : ''}`}>
+      {/* Wrapped the logo div in an anchor tag */}
+      <a href="#home" className="logo-link" onClick={handleLinkClick}>
+        <div className="logo">FlexiFib</div>
+      </a>
 
-      <ul className={isMobile ? "nav-links-mobile" : "nav-links"} onClick={() => setIsMobile(false)}>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/shop">Shop</Link></li>
-        <li><a href="#why">Why Switch?</a></li>
-        <li><a href="#story">Our Story</a></li>
-        <li><a href="#reviews">Reviews</a></li>
-        <li><a href="#contact">Contact</a></li>
+      <ul className={`nav-links ${isMobileMenuOpen ? 'open' : ''}`}>
+        <li><a href="#home" onClick={handleLinkClick}>Home</a></li>
+        <li><a href="#why" onClick={handleLinkClick}>Why Switch?</a></li>
+        <li><a href="#shop" onClick={handleLinkClick}>Shop</a></li>
+        <li><a href="#story" onClick={handleLinkClick}>Our Story</a></li>
+        <li><a href="#reviews" onClick={handleLinkClick}>Reviews</a></li>
+        <li><a href="#contact" onClick={handleLinkClick}>Contact</a></li>
       </ul>
 
-      {/* nav-actions div is removed as it's now empty */}
-
-      <button className="mobile-menu-icon" onClick={() => setIsMobile(!isMobile)}>
-        {isMobile ? <>&#10005;</> : <>&#9776;</>}
+      <button
+        className={`mobile-menu-icon ${isMobileMenuOpen ? 'open' : ''}`}
+        onClick={toggleMobileMenu}
+        aria-label="Toggle menu"
+        aria-expanded={isMobileMenuOpen}
+      >
+        <span className="icon-bar"></span>
+        <span className="icon-bar"></span>
+        <span className="icon-bar"></span>
       </button>
+      {isMobileMenuOpen && <div className="mobile-menu-backdrop" onClick={toggleMobileMenu}></div>}
     </nav>
   );
 };
