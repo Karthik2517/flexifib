@@ -18,10 +18,7 @@ const Navbar = () => {
         <li><a href="#contact">Contact</a></li>
       </ul>
 
-      <div className="nav-actions">
-        <button className="login-btn">Log in</button>
-        <button className="cta-btn">Get Started</button>
-      </div>
+      {/* nav-actions div is removed as it's now empty */}
 
       <button className="mobile-menu-icon" onClick={() => setIsMobile(!isMobile)}>
         {isMobile ? <>&#10005;</> : <>&#9776;</>}
