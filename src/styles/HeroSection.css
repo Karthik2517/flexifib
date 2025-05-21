@@ -2,10 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 80vh; /* Use min-height instead of height for flexibility */
-  height: 100vh; /* Retain 100vh for larger screens if desired, but min-height provides a fallback */
+  min-height: 80vh;
+  height: 100vh; 
   margin: 0;
-  padding: 2rem 1rem; /* Add some padding for content spacing */
+  padding: 2rem 1rem;
   background-size: cover;
   background-position: center;
   position: relative;
@@ -21,7 +21,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* dark overlay for readability */
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
 
@@ -32,13 +32,13 @@
 }
 
 .hero-content h1 {
-  font-size: 2.5rem; /* Base size for larger screens */
+  font-size: 2.5rem;
   margin-bottom: 1rem;
   line-height: 1.2;
 }
 
 .hero-content p {
-  font-size: 1.2rem; /* Base size for larger screens */
+  font-size: 1.2rem;
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
@@ -66,10 +66,9 @@
   transform: translateY(0px);
 }
 
-/* Tablet and larger mobile */
 @media (max-width: 768px) {
   .hero-section {
-    min-height: 70vh; /* Adjust height for tablets */
+    min-height: 70vh;
     padding: 3rem 1rem;
   }
   .hero-content h1 {
@@ -84,17 +83,16 @@
   }
 }
 
-/* Smaller mobile */
 @media (max-width: 480px) {
   .hero-section {
-    min-height: 60vh; /* Adjust height for smaller mobiles */
+    min-height: 60vh;
     padding: 2rem 1rem;
   }
   .hero-content h1 {
-    font-size: 1.8rem; /* Further reduce font size */
+    font-size: 1.8rem;
   }
   .hero-content p {
-    font-size: 1rem; /* Further reduce font size */
+    font-size: 1rem;
   }
   .hero-content .hero-button {
     padding: 0.6rem 1.2rem;

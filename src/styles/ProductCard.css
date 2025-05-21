@@ -18,13 +18,13 @@
 
 .product-card .image-wrapper {
   width: 100%;
-  max-width: 200px; /* Or your preferred max-width for the image */
+  max-width: 200px;
   margin: 0 auto 1rem;
 }
 
 .product-card .image-wrapper img {
   width: 100%;
-  height: auto; /* Maintain aspect ratio */
+  height: auto;
   object-fit: contain;
   object-position: center;
   display: block;
@@ -34,7 +34,7 @@
   font-size: 1.3rem;
   font-family: 'Playfair Display', serif;
   margin: 1rem 0 0.3rem;
-  min-height: 2.4rem; /* Adjust if titles wrap differently */
+  min-height: 2.4rem;
 }
 
 .product-card p {
@@ -59,14 +59,13 @@
   font-size: 0.95rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: auto; /* Pushes button to the bottom if card heights vary */
+  margin-top: auto;
 }
 
 .product-card button:hover {
   background-color: #3d6c3d;
 }
 
-/* Responsive adjustments for product cards */
 @media (max-width: 768px) {
   .product-card h3 {
     font-size: 1.2rem;
@@ -86,7 +85,7 @@
   }
   .product-card h3 {
     font-size: 1.1rem;
-    min-height: auto; /* Allow height to adjust more freely */
+    min-height: auto;
   }
   .product-card p {
     font-size: 0.85rem;
@@ -95,6 +94,6 @@
     font-size: 0.9rem;
   }
   .product-card .image-wrapper {
-    max-width: 150px; /* Smaller images on very small screens */
+    max-width: 150px;
   }
 }

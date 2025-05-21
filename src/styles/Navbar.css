@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.8rem 1.5rem;
-  background-color: #ffffff; /* Solid white background */
+  background-color: #ffffff;
   position: fixed;
   top: 1rem;
   left: 50%;
@@ -22,7 +22,7 @@
   box-shadow: 0 8px 25px rgba(47, 79, 47, 0.15);
   top: 0.5rem;
   width: 95%;
-  padding: 0.7rem 1.5rem; /* Slightly adjusted padding for scrolled state */
+  padding: 0.7rem 1.5rem;
 }
 
 .logo-link {
@@ -44,7 +44,7 @@
 }
 
 .navbar.scrolled .logo {
-  font-size: 1.5rem; /* Adjusted for scrolled state */
+  font-size: 1.5rem;
 }
 
 .nav-links {
@@ -87,60 +87,58 @@
   transform: translateY(-2px);
 }
 
-/* Mobile Menu Icon (Hamburger) */
+/* Mobile Menu Icon (Hamburger) - Revised */
 .mobile-menu-icon {
-  display: none;
-  font-size: 1.5rem; /* Ensured size for visibility */
+  display: none; /* Hidden by default, shown in media query */
   background: none;
   border: none;
   cursor: pointer;
-  color: #2f4f2f;
+  padding: 10px; /* Larger touch area */
+  position: relative; /* For positioning icon bars */
+  width: 28px;   /* Container width */
+  height: 20px;  /* Container height (3 bars * 2px height + 2 gaps * 7px = 20px) - adjust as needed */
   z-index: 1005;
-  padding: 0.75rem; /* Increased padding for better touch area */
-  position: relative;
-  width: 30px; /* Original width */
-  height: 22px; /* Original height */
-  box-sizing: content-box; /* Ensure padding doesn't shrink the icon bars */
+  box-sizing: border-box;
 }
 
 .mobile-menu-icon .icon-bar {
   display: block;
   width: 100%;
-  height: 3px;
-  background-color: #2f4f2f;
-  border-radius: 1px;
-  transition: all 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  height: 2px;   /* Bar thickness */
+  background-color: #2f4f2f; /* Bar color */
+  border-radius: 1px; /* Rounded ends */
+  transition: all 0.3s ease-in-out;
   position: absolute;
   left: 0;
 }
 
 .mobile-menu-icon .icon-bar:nth-child(1) {
-  top: 0;
+  top: 0; /* Top bar */
 }
 
 .mobile-menu-icon .icon-bar:nth-child(2) {
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%); /* Middle bar, perfectly centered */
 }
 
 .mobile-menu-icon .icon-bar:nth-child(3) {
-  bottom: 0;
+  bottom: 0; /* Bottom bar */
 }
 
 /* Hamburger to X animation */
 .mobile-menu-icon.open .icon-bar:nth-child(1) {
-  top: 50%;
-  transform: translateY(-50%) rotate(45deg);
+  top: 50%; /* Move to center */
+  transform: translateY(-50%) rotate(45deg); /* Rotate */
 }
 
 .mobile-menu-icon.open .icon-bar:nth-child(2) {
-  opacity: 0;
-  transform: translateX(-20px);
+  opacity: 0; /* Fade out middle bar */
+  transform: translateX(-15px); /* Optional: slide out effect */
 }
 
 .mobile-menu-icon.open .icon-bar:nth-child(3) {
-  bottom: 50%;
-  transform: translateY(50%) rotate(-45deg);
+  top: 50%; /* Move to center */
+  transform: translateY(-50%) rotate(-45deg); /* Rotate */
 }
 
 /* Mobile Styles */
@@ -153,7 +151,7 @@
     top: 0.5rem;
     border-radius: 20px;
     background-color: #ffffff;
-    padding: 0.6rem 1rem; /* Adjusted padding for mobile */
+    padding: 0.6rem 1rem;
   }
 
   .navbar.scrolled {
@@ -162,15 +160,15 @@
     right: 0.5rem;
     top: 0.25rem;
     background-color: #ffffff;
-    padding: 0.5rem 1rem; /* Adjusted padding for mobile scrolled */
+    padding: 0.5rem 1rem;
   }
-  
+
   .logo {
-    font-size: 1.5rem; /* Slightly smaller logo on mobile */
+    font-size: 1.5rem;
   }
-  
+
   .navbar.scrolled .logo {
-    font-size: 1.4rem; /* Slightly smaller logo on mobile when scrolled */
+    font-size: 1.4rem;
   }
 
   .nav-links {
@@ -180,10 +178,10 @@
     position: fixed;
     top: 0;
     right: -100%;
-    width: min(75vw, 280px); /* Slightly reduced max-width */
+    width: min(75vw, 280px);
     height: 100vh;
     background-color: #ffffff;
-    padding: 5rem 2rem 2rem; /* Adjusted top padding */
+    padding: 5rem 2rem 2rem;
     box-shadow: -5px 0 20px rgba(0, 0, 0, 0.15);
     transition: right 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.35);
     z-index: 1001;
@@ -194,7 +192,7 @@
   }
 
   .nav-links a {
-    font-size: 1.1rem; /* Adjusted font size for mobile links */
+    font-size: 1.1rem;
     width: 100%;
     text-align: center;
     padding: 0.8rem 0;
@@ -207,10 +205,7 @@
   }
 
   .mobile-menu-icon {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    display: block; /* Show the hamburger icon */
   }
 
   .mobile-menu-backdrop {
@@ -235,7 +230,7 @@
 
 @media (max-width: 480px) {
   .navbar {
-    padding: 0.5rem 0.75rem; /* Further reduce padding on very small screens */
+    padding: 0.5rem 0.75rem;
   }
   .navbar.scrolled {
     padding: 0.4rem 0.75rem;
@@ -249,7 +244,9 @@
   .nav-links a {
     font-size: 1rem;
   }
-   .mobile-menu-icon {
-    padding: 0.6rem; /* Adjust padding for very small screens if needed */
+  .mobile-menu-icon {
+    padding: 8px; /* Adjust touch area if needed */
+    width: 26px;
+    height: 18px; /* (3 bars * 2px) + (2 gaps * 6px) = 18px for example */
   }
 }

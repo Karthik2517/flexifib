@@ -6,25 +6,23 @@
   color: #2f4f2f;
 }
 
-/* scroll-margin-top ensures fixed navbar doesn't overlap section titles on jump links */
-/* Value should be slightly more than the navbar's height when scrolled */
 .scroll-target-section,
-section#why, /* WhySwitch section ID */
-footer#contact /* Footer section ID */ {
-  scroll-margin-top: 90px; /* Adjusted based on Navbar's scrolled height + buffer */
+section#why,
+footer#contact {
+  scroll-margin-top: 90px;
 }
 
 .product-section {
-  margin-top: 0; /* WhySwitch provides its own spacing */
+  margin-top: 0;
   text-align: center;
-  padding: 4rem 2rem; /* Default padding */
+  padding: 4rem 2rem;
 }
 
 .product-section h2,
 .content-section h2 {
   font-size: 2.5rem;
   font-family: 'Playfair Display', serif;
-  margin-bottom: 1rem; /* Consistent bottom margin for headings */
+  margin-bottom: 1rem;
   color: #3a3a3a;
   letter-spacing: 0.5px;
 }
@@ -49,11 +47,10 @@ footer#contact /* Footer section ID */ {
   padding: 0 1rem;
 }
 
-/* Styles for #story and #reviews sections, formerly inline */
 .content-section {
   padding: 4rem 2rem;
   text-align: center;
-  min-height: auto; /* Let content define height, vh can be tricky */
+  min-height: auto; 
   border-top: 1px solid #eee;
 }
 
@@ -66,12 +63,11 @@ footer#contact /* Footer section ID */ {
   margin-right: auto;
 }
 
-/* Responsive tweaks for sections */
 @media (max-width: 768px) {
   .scroll-target-section,
   section#why,
   footer#contact {
-    scroll-margin-top: 80px; /* Adjusted for potentially slightly smaller mobile navbar */
+    scroll-margin-top: 80px;
   }
 
   .product-section,
@@ -94,7 +90,7 @@ footer#contact /* Footer section ID */ {
   .scroll-target-section,
   section#why,
   footer#contact {
-    scroll-margin-top: 70px; /* Further adjustment if mobile navbar is even smaller */
+    scroll-margin-top: 70px;
   }
 
   .product-section,
@@ -115,5 +111,6 @@ footer#contact /* Footer section ID */ {
 
   .product-grid {
     gap: 1.5rem;
+    padding: 0 0.5rem; /* Reduce padding for product grid on very small screens */
   }
 }

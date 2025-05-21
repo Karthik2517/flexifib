@@ -3,10 +3,9 @@ import HeroSection from '../components/HeroSection';
 import ProductCard from '../components/ProductCard';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import WhySwitch from '../components/WhySwitch'; // WhySwitch already has its own section tag and id
-import '../styles/Home.css'; // Styles for Home page layout and new sections
+import WhySwitch from '../components/WhySwitch';
+import '../styles/Home.css';
 
-// Image imports - ensure these paths are correct
 import brush1 from '../assets/brush1.png';
 import brush2 from '../assets/brush2.png';
 import brush3 from '../assets/brush3.png';
@@ -40,12 +39,10 @@ const Home = () => {
     <div className="home-page">
       <Navbar />
 
-      {/* HeroSection is the target for #home, it should be at the very top */}
       <section id="home">
         <HeroSection />
       </section>
 
-      {/* WhySwitch component already renders a <section> with id="why" */}
       <WhySwitch />
 
       <section id="shop" className="product-section scroll-target-section">
