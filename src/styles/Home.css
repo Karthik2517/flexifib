@@ -12,42 +12,49 @@ footer#contact {
   scroll-margin-top: 90px;
 }
 
-/* Product Section Styles */
+/* PRODUCT SECTION STYLES */
 .product-section {
   text-align: center;
-  padding: 4rem 2rem;
-  background-color: #ffffff;
+  padding: 5rem 2rem;
+  background-color: #fdfcfa;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 }
 
 .product-section h2,
-.content-section h2 { /* General heading style */
+.content-section h2, /* General heading for content sections */
+.reviews-section h2 { /* Specific for reviews section heading */
   font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
-  color: #3a3a3a;
-  margin-bottom: 1.5rem; /* Adjusted for consistency */
+  font-size: 2.8rem;
+  color: #2f4f2f;
+  margin-bottom: 1.25rem;
   letter-spacing: 0.5px;
+  text-align: center;
 }
 
-.product-section .section-intro {
-  margin-bottom: 2.5rem;
-  font-size: 1.1rem;
-  color: #555;
+.product-section .section-intro,
+.content-section > p:not(.story-paragraph-original), /* General intro for content sections */
+.reviews-section .reviews-intro { /* Specific for reviews section intro */
+  margin-bottom: 3.5rem;
+  font-size: 1.15rem;
+  color: #5a5a5a;
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-  line-height: 1.7;
+  line-height: 1.8;
+  text-align: center;
 }
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2.5rem;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* General Content Section (used by Story, Reviews) */
+/* General Content Section (used by Story) */
 .content-section {
   padding: 4rem 2rem;
   text-align: center;
@@ -55,111 +62,151 @@ footer#contact {
   border-top: 1px solid #e0e0e0;
 }
 
-/* Styling for introductory/general paragraphs directly under .content-section */
-.content-section > p:not(.story-paragraph-original) {
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
-  color: #555;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.7;
+#story {
+  background-color: #f6f4ef;
 }
-
-/* OUR STORY SECTION - Rolled back styles */
-#story { /* Target the #story section specifically */
-  background-color: #f6f4ef; /* A soft background for distinction */
-}
-
 #story h2 {
-  margin-bottom: 2rem; /* More space after the "Our Story" heading */
+  margin-bottom: 2rem;
 }
-
-.story-paragraph-original { /* Class for original story paragraphs */
+.story-paragraph-original {
   font-size: 1.05rem;
   color: #444;
   line-height: 1.8;
-  max-width: 700px; /* Limit width for readability */
-  margin: 0 auto 1.5rem auto; /* Center and space out paragraphs */
-  text-align: left; /* Left-align for easier reading of longer text */
+  max-width: 700px;
+  margin: 0 auto 1.5rem auto;
+  text-align: left;
 }
 
-/* Review Section Styles */
-.review-item {
-  margin-top: 1.5rem;
-  border: 1px solid #e0e0e0;
-  padding: 1.5rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+/* REVIEWS SECTION - STYLES */
+.reviews-section {
+  padding: 5rem 2rem;
+  background-color: #f0f2ef; /* A slightly different neutral background */
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.review-card {
   background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  padding: 2rem 1.75rem; /* Generous padding */
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes author to bottom if card height varies */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.review-item p {
-  margin: 0;
+.review-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.review-text {
   font-size: 1rem;
-  line-height: 1.6;
+  color: #333;
+  line-height: 1.7;
+  margin-bottom: 1.5rem; /* Space between text and author */
   font-style: italic;
-  color: #444;
-}
-.review-item p:last-of-type {
-  font-style: normal;
-  text-align: right;
-  font-size: 0.9rem;
-  color: #2f4f2f;
-  margin-top: 0.5rem;
-  font-weight: 600;
+  position: relative;
+  padding-left: 2.5rem; /* Space for quote mark */
 }
 
-/* Responsive adjustments */
+.review-text::before {
+  content: '“'; /* Opening quote */
+  font-family: 'Times New Roman', Times, serif; /* A classic serif for quotes */
+  font-size: 3.5rem;
+  color: #3e6e3e; /* Accent color for quote */
+  position: absolute;
+  left: 0;
+  top: -0.5rem;
+  line-height: 1;
+  opacity: 0.8;
+}
+
+.review-author {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2f4f2f; /* Brand color for author */
+  text-align: right;
+  margin-top: auto; /* Pushes author to bottom */
+}
+
+
+/* RESPONSIVE ADJUSTMENTS */
 @media (max-width: 768px) {
-  .scroll-target-section, section#why, footer#contact {
-    scroll-margin-top: 80px;
+  .product-section, .content-section, .reviews-section { /* Include reviews-section */
+    padding: 4rem 1.5rem;
   }
-  .product-section, .content-section {
-    padding: 3rem 1.5rem;
+  .product-section h2, .content-section h2, .reviews-section h2 {
+    font-size: 2.3rem;
   }
-  .product-section h2, .content-section h2 {
-    font-size: 2rem;
+  .product-section .section-intro, .content-section > p:not(.story-paragraph-original), .reviews-section .reviews-intro {
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
   }
-  .product-section .section-intro, .content-section > p:not(.story-paragraph-original) {
-    font-size: 1rem;
+  .story-paragraph-original { font-size: 1rem; line-height: 1.7; }
+
+  .reviews-grid {
+    grid-template-columns: 1fr; /* Stack reviews on tablets */
+    gap: 1.5rem;
   }
-  .story-paragraph-original {
-    font-size: 1rem;
-    line-height: 1.7;
+  .review-card {
+    padding: 1.5rem 1.25rem;
+  }
+  .review-text {
+    font-size: 0.95rem;
+  }
+  .review-text::before {
+    font-size: 3rem;
+  }
+  .review-author {
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
-  .scroll-target-section, section#why, footer#contact {
-    scroll-margin-top: 70px;
+  .product-section, .content-section, .reviews-section {
+    padding: 3rem 1rem;
   }
-  .product-section, .content-section {
-    padding: 2.5rem 1rem;
+  .product-section h2, .content-section h2, .reviews-section h2 {
+    font-size: 2rem;
   }
-  .product-section h2, .content-section h2 {
-    font-size: 1.8rem;
+  .product-section .section-intro, .content-section > p:not(.story-paragraph-original), .reviews-section .reviews-intro {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
   }
-  .product-section .section-intro, .content-section > p:not(.story-paragraph-original) {
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-  }
-  .story-paragraph-original {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-bottom: 1.2rem;
-  }
+  .story-paragraph-original { font-size: 0.9rem; line-height: 1.6; }
+
   .product-grid {
-    gap: 1.5rem;
-    padding: 0 0.5rem;
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
-  .review-item {
-    padding: 1.2rem;
+  .review-card {
+    padding: 1.25rem 1rem;
   }
-  .review-item p {
+  .review-text {
     font-size: 0.9rem;
+    padding-left: 2rem;
   }
+  .review-text::before {
+    font-size: 2.5rem;
+    top: -0.25rem;
+  }
+  .review-author {
+    font-size: 0.85rem;
+  }
+}
+
+/* Other general media queries (scroll-margin, etc.) */
+@media (max-width: 768px) {
+  .scroll-target-section, section#why, footer#contact { scroll-margin-top: 80px; }
+}
+@media (max-width: 480px) {
+  .scroll-target-section, section#why, footer#contact { scroll-margin-top: 70px; }
 }

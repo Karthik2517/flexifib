@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import WhySwitch from '../components/WhySwitch';
 import '../styles/Home.css';
 
+// Image imports - ensure these paths are correct
 import brush1 from '../assets/brush1.png';
 import brush2 from '../assets/brush2.png';
 import brush3 from '../assets/brush3.png';
@@ -57,7 +58,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* OUR STORY SECTION - Rolled back to simple paragraph structure */}
       <section id="story" className="content-section scroll-target-section">
         <h2>Our Story</h2>
         <p className="story-paragraph-original">
@@ -90,17 +90,36 @@ const Home = () => {
         </p>
       </section>
 
-      <section id="reviews" className="content-section scroll-target-section">
-        <h2>Reviews</h2>
-        <p>What our customers are saying...</p>
-        <div className="review-item">
-          <p>"Absolutely love these brushes! So gentle and eco-friendly." - Jane D.</p>
-        </div>
-        <div className="review-item">
-          <p>"Finally, a sustainable toothbrush that actually works well." - John S.</p>
+      {/* REVIEWS SECTION - UPDATED */}
+      <section id="reviews" className="content-section scroll-target-section reviews-section">
+        <h2>What Our Customers Are Saying</h2>
+        <p className="section-intro reviews-intro">
+          We love our community! Here’s how FlexiFib is making a difference.
+        </p>
+        <div className="reviews-grid">
+          <div className="review-card">
+            <p className="review-text">"Absolutely love these brushes! So gentle on my gums and I feel great knowing they're eco-friendly. The best sustainable swap I've made."</p>
+            <p className="review-author">- Jane D.</p>
+          </div>
+          <div className="review-card">
+            <p className="review-text">"Finally, a sustainable toothbrush that actually works well and doesn't cost the earth. The bristles are perfect. Highly recommend!"</p>
+            <p className="review-author">- John S.</p>
+          </div>
+          <div className="review-card">
+            <p className="review-text">"I was skeptical about hemp toothbrushes, but FlexiFib changed my mind. Cleans effectively and the handle feels sturdy. Plus, zero plastic guilt!"</p>
+            <p className="review-author">- Alex P.</p>
+          </div>
+          <div className="review-card">
+            <p className="review-text">"The quality is fantastic, and I adore the minimalist design. It's a small change that makes me feel good about my daily routine. Will be buying more for the family."</p>
+            <p className="review-author">- Maria L.</p>
+          </div>
+          <div className="review-card">
+            <p className="review-text">"Great product and even better mission. Switching to FlexiFib was easy and my teeth have never felt cleaner. Love supporting a company that cares."</p>
+            <p className="review-author">- Sam B.</p>
+          </div>
         </div>
       </section>
-
+      
       <Footer />
     </div>
   );
