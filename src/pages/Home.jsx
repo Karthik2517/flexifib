@@ -47,9 +47,9 @@ const Home = () => {
       <WhySwitch />
 
       <section id="shop" className="product-section scroll-target-section">
-        <h2>Meet Our Hemp Brush Lineup</h2>
+        <h2>Our Products</h2>
         <p className="section-intro">
-          Browse our selection of eco-friendly hemp brushes. More exciting products coming soon!
+          Browse our selection of eco-friendly hemp products. More exciting products coming soon!
         </p>
         <div className="product-grid">
           {products.map(product => (
