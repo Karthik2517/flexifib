@@ -10,7 +10,6 @@ const ProductCard = ({ title, subtitle, price, image }) => {
       <h3>{title}</h3>
       <p>{subtitle}</p>
       <span>{price}</span>
-      <button>Add to Cart</button>
     </div>
   );
 };
