@@ -23,7 +23,7 @@ footer#contact {
 
 .product-section h2,
 .content-section h2, /* General heading for content sections */
-.reviews-section h2 { /* Specific for reviews section heading */
+.reviews-section h2 {
   font-family: 'Playfair Display', serif;
   font-size: 2.8rem;
   color: #2f4f2f;
@@ -33,8 +33,8 @@ footer#contact {
 }
 
 .product-section .section-intro,
-.content-section > p:not(.story-paragraph-original), /* General intro for content sections */
-.reviews-section .reviews-intro { /* Specific for reviews section intro */
+.content-section > p:not(.story-paragraph-basic), /* Exclude our specific story paragraphs from this rule */
+.reviews-section .reviews-intro {
   margin-bottom: 3.5rem;
   font-size: 1.15rem;
   color: #5a5a5a;
@@ -54,35 +54,49 @@ footer#contact {
   padding: 0 1rem;
 }
 
-/* General Content Section (used by Story) */
+/* General Content Section (base for Story, Reviews) */
 .content-section {
   padding: 4rem 2rem;
   text-align: center;
   min-height: auto;
   border-top: 1px solid #e0e0e0;
+  opacity: 1; /* Ensure sections are visible by default */
+  transform: translateY(0); /* Reset any lingering transforms */
 }
 
-#story {
-  background-color: #f6f4ef;
+/* OUR STORY SECTION - STYLES REVERTED TO SIMPLE & VISIBLE */
+/* This class 'story-section-basic' is added to the #story section in Home.jsx */
+.story-section-basic {
+  background-color: #f6f4ef; /* Original background color */
+  opacity: 1 !important; /* Force visibility */
+  transform: none !important; /* Reset any transforms */
 }
-#story h2 {
-  margin-bottom: 2rem;
+
+.story-section-basic h2 { /* Styles for the "Our Story" heading */
+  font-family: 'Playfair Display', serif; /* Retain from general .content-section h2 if desired */
+  font-size: 2.8rem; /* Match other section titles */
+  color: #2f4f2f;
+  margin-bottom: 2rem; /* Space below heading */
+  text-align: center;
 }
-.story-paragraph-original {
+
+.story-paragraph-basic { /* Class for story paragraphs */
   font-size: 1.05rem;
   color: #444;
   line-height: 1.8;
   max-width: 700px;
-  margin: 0 auto 1.5rem auto;
-  text-align: left;
+  margin: 0 auto 1.5rem auto; /* Center and space out paragraphs */
+  text-align: left; /* Left-align for readability */
+  opacity: 1; /* Ensure visible */
+  transform: none; /* Ensure no transform */
 }
 
-/* REVIEWS SECTION - STYLES */
+
+/* REVIEWS SECTION - STYLES (as you provided previously) */
 .reviews-section {
   padding: 5rem 2rem;
-  background-color: #f0f2ef; /* A slightly different neutral background */
+  background-color: #f0f2ef;
 }
-
 .reviews-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -90,120 +104,90 @@ footer#contact {
   max-width: 1200px;
   margin: 0 auto;
 }
-
 .review-card {
   background-color: #ffffff;
-  padding: 2rem 1.75rem; /* Generous padding */
+  padding: 2rem 1.75rem;
   border-radius: 12px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Pushes author to bottom if card height varies */
+  justify-content: space-between;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .review-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
-
 .review-text {
   font-size: 1rem;
   color: #333;
   line-height: 1.7;
-  margin-bottom: 1.5rem; /* Space between text and author */
+  margin-bottom: 1.5rem;
   font-style: italic;
   position: relative;
-  padding-left: 2.5rem; /* Space for quote mark */
+  padding-left: 2.5rem;
 }
-
 .review-text::before {
-  content: '“'; /* Opening quote */
-  font-family: 'Times New Roman', Times, serif; /* A classic serif for quotes */
+  content: '“';
+  font-family: 'Times New Roman', Times, serif;
   font-size: 3.5rem;
-  color: #3e6e3e; /* Accent color for quote */
+  color: #3e6e3e;
   position: absolute;
   left: 0;
   top: -0.5rem;
   line-height: 1;
   opacity: 0.8;
 }
-
 .review-author {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #2f4f2f; /* Brand color for author */
+  color: #2f4f2f;
   text-align: right;
-  margin-top: auto; /* Pushes author to bottom */
+  margin-top: auto;
 }
 
 
 /* RESPONSIVE ADJUSTMENTS */
 @media (max-width: 768px) {
-  .product-section, .content-section, .reviews-section { /* Include reviews-section */
+  .product-section, .content-section, .reviews-section {
     padding: 4rem 1.5rem;
   }
-  .product-section h2, .content-section h2, .reviews-section h2 {
+  .product-section h2, .content-section h2, .reviews-section h2, .story-section-basic h2 { /* Added .story-section-basic h2 */
     font-size: 2.3rem;
   }
-  .product-section .section-intro, .content-section > p:not(.story-paragraph-original), .reviews-section .reviews-intro {
+  .product-section .section-intro, .content-section > p:not(.story-paragraph-basic), .reviews-section .reviews-intro {
     font-size: 1.1rem;
     margin-bottom: 3rem;
   }
-  .story-paragraph-original { font-size: 1rem; line-height: 1.7; }
+  .story-paragraph-basic { font-size: 1rem; line-height: 1.7; }
 
-  .reviews-grid {
-    grid-template-columns: 1fr; /* Stack reviews on tablets */
-    gap: 1.5rem;
-  }
-  .review-card {
-    padding: 1.5rem 1.25rem;
-  }
-  .review-text {
-    font-size: 0.95rem;
-  }
-  .review-text::before {
-    font-size: 3rem;
-  }
-  .review-author {
-    font-size: 0.9rem;
-  }
+  .reviews-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .review-card { padding: 1.5rem 1.25rem; }
+  .review-text { font-size: 0.95rem; }
+  .review-text::before { font-size: 3rem; }
+  .review-author { font-size: 0.9rem; }
 }
 
 @media (max-width: 480px) {
   .product-section, .content-section, .reviews-section {
     padding: 3rem 1rem;
   }
-  .product-section h2, .content-section h2, .reviews-section h2 {
+  .product-section h2, .content-section h2, .reviews-section h2, .story-section-basic h2 {
     font-size: 2rem;
   }
-  .product-section .section-intro, .content-section > p:not(.story-paragraph-original), .reviews-section .reviews-intro {
+  .product-section .section-intro, .content-section > p:not(.story-paragraph-basic), .reviews-section .reviews-intro {
     font-size: 1rem;
     margin-bottom: 2.5rem;
   }
-  .story-paragraph-original { font-size: 0.9rem; line-height: 1.6; }
+  .story-paragraph-basic { font-size: 0.9rem; line-height: 1.6; }
 
-  .product-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  .review-card {
-    padding: 1.25rem 1rem;
-  }
-  .review-text {
-    font-size: 0.9rem;
-    padding-left: 2rem;
-  }
-  .review-text::before {
-    font-size: 2.5rem;
-    top: -0.25rem;
-  }
-  .review-author {
-    font-size: 0.85rem;
-  }
+  .product-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .review-card { padding: 1.25rem 1rem; }
+  .review-text { font-size: 0.9rem; padding-left: 2rem; }
+  .review-text::before { font-size: 2.5rem; top: -0.25rem; }
+  .review-author { font-size: 0.85rem; }
 }
 
-/* Other general media queries (scroll-margin, etc.) */
 @media (max-width: 768px) {
   .scroll-target-section, section#why, footer#contact { scroll-margin-top: 80px; }
 }
