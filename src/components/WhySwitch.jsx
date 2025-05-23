@@ -75,6 +75,10 @@ const WhySwitch = () => {
       <div className="visual-comparison-images-container">
         <h3 className="visual-comparison-heading">A Clearer Choice</h3>
         <div className="images-flex-grid">
+        <div className="comparison-image-wrapper">
+            <img src={tissueImg} alt="FlexiFib Tissue vs Conventional Tissue" />
+            {/* Optional caption: <p className="image-caption">HempBrush Advantages</p> */}
+          </div>
           <div className="comparison-image-wrapper">
             <img src={brushTheChangeImg} alt="FlexiFib HempBrush vs Conventional Toothbrush Comparison" />
             {/* Optional caption: <p className="image-caption">HempBrush Advantages</p> */}
@@ -83,10 +87,7 @@ const WhySwitch = () => {
             <img src={repackageTheFutureImg} alt="Hemp Based Packaging Solutions" />
             {/* Optional caption: <p className="image-caption">Sustainable Packaging</p> */}
           </div>
-          <div className="comparison-image-wrapper">
-            <img src={tissueImg} alt="FlexiFib HempBrush vs Conventional Toothbrush Comparison" />
-            {/* Optional caption: <p className="image-caption">HempBrush Advantages</p> */}
-          </div>
+          
         </div>
       </div>
     </section>
