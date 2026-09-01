@@ -1,13 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  width: 100%;
-  height: 100%;
-  background-color: #fffaf7;
-  font-family: 'Poppins', sans-serif;
-  scroll-behavior: smooth;
+/* App-level styles — base resets are in index.css */
+.home-page {
+  overflow-x: clip;
 }

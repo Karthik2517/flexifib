@@ -44,6 +44,13 @@
   padding: 0 1rem;
 }
 
+.switch-grid .stagger-item,
+.switch-grid .stagger-item > *,
+.images-flex-grid .stagger-item,
+.images-flex-grid .stagger-item > * {
+  height: 100%;
+}
+
 .switch-card {
   background: white;
   padding: 2.5rem 2rem;

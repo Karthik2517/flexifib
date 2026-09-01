@@ -54,22 +54,28 @@ footer#contact {
   padding: 0 1rem;
 }
 
+.product-grid .stagger-item,
+.reviews-grid .stagger-item {
+  height: 100%;
+}
+
+.product-grid .stagger-item > *,
+.reviews-grid .stagger-item > * {
+  height: 100%;
+}
+
 /* General Content Section (base for Story, Reviews) */
 .content-section {
   padding: 4rem 2rem;
   text-align: center;
   min-height: auto;
   border-top: 1px solid #e0e0e0;
-  opacity: 1; /* Ensure sections are visible by default */
-  transform: translateY(0); /* Reset any lingering transforms */
 }
 
-/* OUR STORY SECTION - STYLES REVERTED TO SIMPLE & VISIBLE */
+/* OUR STORY SECTION */
 /* This class 'story-section-basic' is added to the #story section in Home.jsx */
 .story-section-basic {
   background-color: #f6f4ef; /* Original background color */
-  opacity: 1 !important; /* Force visibility */
-  transform: none !important; /* Reset any transforms */
 }
 
 .story-section-basic h2 { /* Styles for the "Our Story" heading */
@@ -87,8 +93,6 @@ footer#contact {
   max-width: 700px;
   margin: 0 auto 1.5rem auto; /* Center and space out paragraphs */
   text-align: left; /* Left-align for readability */
-  opacity: 1; /* Ensure visible */
-  transform: none; /* Ensure no transform */
 }
 
 

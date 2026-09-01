@@ -1,14 +1,21 @@
 import React from 'react';
 import '../styles/Footer.css';
+import { useReveal } from '../hooks/useReveal';
 // If you use icon libraries like FontAwesome or React Icons:
 // import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
+  const [footerRef, footerVisible] = useReveal({ threshold: 0.05 });
+
   return (
-    <footer className="footer" id="contact">
+    <footer
+      className={`footer reveal-parent ${footerVisible ? 'visible' : ''}`}
+      id="contact"
+      ref={footerRef}
+    >
       <div className="footer-content">
         <h2 className="footer-logo">FlexiFib</h2> {/* Updated from HempBrush to FlexiFib to match navbar */}
-        <p className="footer-tagline">Eco-friendly brushes for a cleaner tomorrow.</p>
+        <p className="footer-tagline">Eco-friendly products for a cleaner tomorrow.</p>
         
         <div className="footer-contact">
           <h3 className="footer-contact-heading">Get in Touch</h3>

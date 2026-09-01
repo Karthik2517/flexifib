@@ -1,15 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import '../styles/WhySwitch.css';
+import { useReveal } from '../hooks/useReveal';
 
-// Original icon imports
+// Icon imports
 import biodegradableIcon from '../assets/icons/biodegradable.png';
 import plasticFreeIcon from '../assets/icons/plastic-free.png';
 import safeIcon from '../assets/icons/safe.png';
 import carbonIcon from '../assets/icons/footprint.png';
 
-// TODO: Add your new comparison images to the assets folder and update these paths
-import brushTheChangeImg from '../assets/image1.jpeg'; // Example path from your uploaded files
-import repackageTheFutureImg from '../assets/image2.jpeg'; // Example path
+// Comparison images
+import brushTheChangeImg from '../assets/image1.jpeg';
+import repackageTheFutureImg from '../assets/image2.jpeg';
 import tissueImg from '../assets/image3.jpeg';
 
 const benefits = [
@@ -19,75 +20,49 @@ const benefits = [
   { title: 'Low Carbon Footprint', description: 'Hemp is fast-growing and carbon-negative — good for you and the planet.', icon: carbonIcon },
 ];
 
+const comparisonImages = [
+  { src: tissueImg, alt: 'FlexiFib Tissue vs Conventional Tissue' },
+  { src: brushTheChangeImg, alt: 'FlexiFib HempBrush vs Conventional Toothbrush Comparison' },
+  { src: repackageTheFutureImg, alt: 'Hemp Based Packaging Solutions' },
+];
+
 const WhySwitch = () => {
-  const sectionRef = useRef(null); // Use this ref for the main section
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const element = sectionRef.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(element);
-        }
-      },
-      { threshold: 0.1 } // Lower threshold to trigger sooner
-    );
-
-    observer.observe(element);
-
-    return () => {
-      if (element) { // Check if element still exists
-        observer.unobserve(element);
-      }
-    };
-  }, []);
-
+  const [sectionRef, isVisible] = useReveal({ threshold: 0.1 });
 
   return (
-    // The 'visible' class will be added here by the IntersectionObserver
     <section
-      className={`why-switch ${isVisible ? 'visible' : ''}`}
+      className={`why-switch reveal-parent ${isVisible ? 'visible' : ''}`}
       id="why"
       ref={sectionRef}
     >
       <h2>Why Make the Switch?</h2>
       <p className="switch-intro">
         Plastic toothbrushes take centuries to decompose. Our hemp brushes are made to be used guilt-free —
-        they’re sustainable, safe, and stylish.
+        they're sustainable, safe, and stylish.
       </p>
-      
-      {/* Existing benefits grid */}
+
       <div className="switch-grid">
         {benefits.map((benefit, index) => (
-          <div className="switch-card" key={index}>
-            <img src={benefit.icon} alt={benefit.title} className="switch-icon" />
-            <h3>{benefit.title}</h3>
-            <p>{benefit.description}</p>
+          <div className="stagger-item" style={{ '--i': index }} key={index}>
+            <div className="switch-card">
+              <img src={benefit.icon} alt={benefit.title} className="switch-icon" />
+              <h3>{benefit.title}</h3>
+              <p>{benefit.description}</p>
+            </div>
           </div>
         ))}
       </div>
 
-      {/* NEW SECTION FOR SIDE-BY-SIDE COMPARISON IMAGES */}
       <div className="visual-comparison-images-container">
         <h3 className="visual-comparison-heading">A Clearer Choice</h3>
         <div className="images-flex-grid">
-        <div className="comparison-image-wrapper">
-            <img src={tissueImg} alt="FlexiFib Tissue vs Conventional Tissue" />
-            {/* Optional caption: <p className="image-caption">HempBrush Advantages</p> */}
-          </div>
-          <div className="comparison-image-wrapper">
-            <img src={brushTheChangeImg} alt="FlexiFib HempBrush vs Conventional Toothbrush Comparison" />
-            {/* Optional caption: <p className="image-caption">HempBrush Advantages</p> */}
-          </div>
-          <div className="comparison-image-wrapper">
-            <img src={repackageTheFutureImg} alt="Hemp Based Packaging Solutions" />
-            {/* Optional caption: <p className="image-caption">Sustainable Packaging</p> */}
-          </div>
-          
+          {comparisonImages.map((img, index) => (
+            <div className="stagger-item" style={{ '--i': benefits.length + index }} key={index}>
+              <div className="comparison-image-wrapper">
+                <img src={img.src} alt={img.alt} loading="lazy" decoding="async" />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
