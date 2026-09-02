@@ -6,8 +6,9 @@
   min-height: 100dvh;
   margin: 0;
   padding: 4rem 6%;
+  background-image: var(--hero-bg-desktop);
   background-size: cover;
-  background-position: center;
+  background-position: right center;
   position: relative;
   text-align: left;
   color: #ffffff;
@@ -18,9 +19,9 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: inherit;
+  background-image: var(--hero-bg-desktop);
   background-size: cover;
-  background-position: center;
+  background-position: right center;
   z-index: 0;
   animation: kenBurnsGPU 22s ease-in-out infinite alternate;
   will-change: transform;
@@ -249,6 +250,13 @@
     min-height: 85vh;
     min-height: 85dvh;
     padding: 5rem 6% 3rem;
+    background-image: var(--hero-bg-mobile);
+    background-position: center bottom;
+  }
+
+  .hero-section::after {
+    background-image: var(--hero-bg-mobile);
+    background-position: center bottom;
   }
   
   .hero-section::before {

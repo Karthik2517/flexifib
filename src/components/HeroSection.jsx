@@ -1,10 +1,18 @@
 import React from 'react';
 import '../styles/HeroSection.css';
 import heroImg from '../assets/hero-bg3.jpg';
+import heroMobileImg from '../assets/hero-bg-mobile.jpg';
 
 const HeroSection = () => {
   return (
-    <section className="hero-section" aria-label="Hero" style={{ backgroundImage: `url(${heroImg})` }}>
+    <section 
+      className="hero-section" 
+      aria-label="Hero" 
+      style={{ 
+        '--hero-bg-desktop': `url(${heroImg})`,
+        '--hero-bg-mobile': `url(${heroMobileImg})`
+      }}
+    >
       <span className="hero-leaf hero-leaf-1" aria-hidden="true">
         <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
