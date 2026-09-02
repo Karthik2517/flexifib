@@ -17,6 +17,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 html, body {
@@ -33,6 +34,13 @@ html, body {
 body {
   margin: 0;
   padding: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile Touch & Hardware Acceleration Optimizations */
+a, button, input, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 a {
@@ -51,7 +59,8 @@ a {
   opacity: 0;
   transform: translate3d(0, 30px, 0);
   transition: opacity 0.8s var(--ease-standard),
-    transform 0.8s var(--ease-standard);
+              transform 0.8s var(--ease-standard);
+  will-change: opacity, transform;
 }
 
 .reveal-parent.visible {
@@ -63,13 +72,30 @@ a {
   opacity: 0;
   transform: translate3d(0, 36px, 0);
   transition: opacity 0.7s var(--ease-standard),
-    transform 0.7s var(--ease-standard);
+              transform 0.7s var(--ease-standard);
   transition-delay: calc(var(--i, 0) * 0.09s);
+  will-change: opacity, transform;
 }
 
 .reveal-parent.visible .stagger-item {
   opacity: 1;
   transform: translate3d(0, 0, 0);
+}
+
+/* Mobile Reveal Animation Tuning — Tighter offset & timing for mobile screens */
+@media (max-width: 768px) {
+  .reveal-parent {
+    transform: translate3d(0, 20px, 0);
+    transition: opacity 0.6s var(--ease-standard),
+                transform 0.6s var(--ease-standard);
+  }
+
+  .stagger-item {
+    transform: translate3d(0, 22px, 0);
+    transition: opacity 0.55s var(--ease-standard),
+                transform 0.55s var(--ease-standard);
+    transition-delay: calc(var(--i, 0) * 0.06s);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

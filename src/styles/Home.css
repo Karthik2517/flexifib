@@ -4,6 +4,7 @@
   font-family: 'Poppins', sans-serif;
   background-color: #fffaf7;
   color: #2f4f2f;
+  overflow-x: clip;
 }
 
 .scroll-target-section,
@@ -22,7 +23,7 @@ footer#contact {
 }
 
 .product-section h2,
-.content-section h2, /* General heading for content sections */
+.content-section h2,
 .reviews-section h2 {
   font-family: 'Playfair Display', serif;
   font-size: 2.8rem;
@@ -33,7 +34,7 @@ footer#contact {
 }
 
 .product-section .section-intro,
-.content-section > p:not(.story-paragraph-basic), /* Exclude our specific story paragraphs from this rule */
+.content-section > p:not(.story-paragraph-basic),
 .reviews-section .reviews-intro {
   margin-bottom: 3.5rem;
   font-size: 1.15rem;
@@ -73,34 +74,33 @@ footer#contact {
 }
 
 /* OUR STORY SECTION */
-/* This class 'story-section-basic' is added to the #story section in Home.jsx */
 .story-section-basic {
-  background-color: #f6f4ef; /* Original background color */
+  background-color: #f6f4ef;
 }
 
-.story-section-basic h2 { /* Styles for the "Our Story" heading */
-  font-family: 'Playfair Display', serif; /* Retain from general .content-section h2 if desired */
-  font-size: 2.8rem; /* Match other section titles */
+.story-section-basic h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
   color: #2f4f2f;
-  margin-bottom: 2rem; /* Space below heading */
+  margin-bottom: 2rem;
   text-align: center;
 }
 
-.story-paragraph-basic { /* Class for story paragraphs */
+.story-paragraph-basic {
   font-size: 1.05rem;
   color: #444;
   line-height: 1.8;
   max-width: 700px;
-  margin: 0 auto 1.5rem auto; /* Center and space out paragraphs */
-  text-align: left; /* Left-align for readability */
+  margin: 0 auto 1.5rem auto;
+  text-align: left;
 }
 
-
-/* REVIEWS SECTION - STYLES (as you provided previously) */
+/* REVIEWS SECTION - STYLES */
 .reviews-section {
   padding: 5rem 2rem;
   background-color: #f0f2ef;
 }
+
 .reviews-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -108,20 +108,30 @@ footer#contact {
   max-width: 1200px;
   margin: 0 auto;
 }
+
 .review-card {
   background-color: #ffffff;
   padding: 2rem 1.75rem;
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
 }
+
 .review-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  transform: translate3d(0, -6px, 0);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.09);
 }
+
+.review-card:active {
+  transform: scale(0.985);
+}
+
 .review-text {
   font-size: 1rem;
   color: #333;
@@ -131,6 +141,7 @@ footer#contact {
   position: relative;
   padding-left: 2.5rem;
 }
+
 .review-text::before {
   content: '“';
   font-family: 'Times New Roman', Times, serif;
@@ -142,6 +153,7 @@ footer#contact {
   line-height: 1;
   opacity: 0.8;
 }
+
 .review-author {
   font-size: 0.95rem;
   font-weight: 600;
@@ -150,51 +162,97 @@ footer#contact {
   margin-top: auto;
 }
 
-
-/* RESPONSIVE ADJUSTMENTS */
+/* RESPONSIVE ADJUSTMENTS FOR MOBILE & TABLETS */
 @media (max-width: 768px) {
-  .product-section, .content-section, .reviews-section {
-    padding: 4rem 1.5rem;
+  .scroll-target-section, section#why, footer#contact {
+    scroll-margin-top: 80px;
   }
-  .product-section h2, .content-section h2, .reviews-section h2, .story-section-basic h2 { /* Added .story-section-basic h2 */
-    font-size: 2.3rem;
-  }
-  .product-section .section-intro, .content-section > p:not(.story-paragraph-basic), .reviews-section .reviews-intro {
-    font-size: 1.1rem;
-    margin-bottom: 3rem;
-  }
-  .story-paragraph-basic { font-size: 1rem; line-height: 1.7; }
 
-  .reviews-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-  .review-card { padding: 1.5rem 1.25rem; }
-  .review-text { font-size: 0.95rem; }
-  .review-text::before { font-size: 3rem; }
-  .review-author { font-size: 0.9rem; }
+  .product-section, .content-section, .reviews-section {
+    padding: 3.5rem 1.25rem;
+  }
+  
+  .product-section h2, .content-section h2, .reviews-section h2, .story-section-basic h2 {
+    font-size: 2.2rem;
+  }
+  
+  .product-section .section-intro, .content-section > p:not(.story-paragraph-basic), .reviews-section .reviews-intro {
+    font-size: 1.05rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .story-paragraph-basic {
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .review-card {
+    padding: 1.6rem 1.35rem;
+    border-radius: 14px;
+  }
+  
+  .review-text {
+    font-size: 0.95rem;
+  }
+  
+  .review-text::before {
+    font-size: 3rem;
+  }
+  
+  .review-author {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {
+  .scroll-target-section, section#why, footer#contact {
+    scroll-margin-top: 70px;
+  }
+
   .product-section, .content-section, .reviews-section {
     padding: 3rem 1rem;
   }
+  
   .product-section h2, .content-section h2, .reviews-section h2, .story-section-basic h2 {
-    font-size: 2rem;
+    font-size: 1.85rem;
   }
+  
   .product-section .section-intro, .content-section > p:not(.story-paragraph-basic), .reviews-section .reviews-intro {
-    font-size: 1rem;
-    margin-bottom: 2.5rem;
+    font-size: 0.98rem;
+    margin-bottom: 2rem;
   }
-  .story-paragraph-basic { font-size: 0.9rem; line-height: 1.6; }
 
-  .product-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .review-card { padding: 1.25rem 1rem; }
-  .review-text { font-size: 0.9rem; padding-left: 2rem; }
-  .review-text::before { font-size: 2.5rem; top: -0.25rem; }
-  .review-author { font-size: 0.85rem; }
-}
+  .story-paragraph-basic {
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
 
-@media (max-width: 768px) {
-  .scroll-target-section, section#why, footer#contact { scroll-margin-top: 80px; }
-}
-@media (max-width: 480px) {
-  .scroll-target-section, section#why, footer#contact { scroll-margin-top: 70px; }
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    padding: 0;
+  }
+  
+  .review-card {
+    padding: 1.35rem 1.1rem;
+  }
+  
+  .review-text {
+    font-size: 0.9rem;
+    padding-left: 2rem;
+  }
+  
+  .review-text::before {
+    font-size: 2.4rem;
+    top: -0.25rem;
+  }
+  
+  .review-author {
+    font-size: 0.85rem;
+  }
 }

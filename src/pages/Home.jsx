@@ -9,9 +9,9 @@ import { useReveal } from '../hooks/useReveal';
 import '../styles/Home.css';
 
 // Image imports
-import brush1 from '../assets/brush1.png';
-import brush2 from '../assets/brush2.png';
-import brush3 from '../assets/brush3.png';
+import hempBrushImg from '../assets/hemp_brush.jpg';
+import hempTissueImg from '../assets/hemp_tissue.jpg';
+import hempPackagingImg from '../assets/hemp_packaging.jpg';
 
 const products = [
   {
@@ -19,21 +19,21 @@ const products = [
     title: 'Hemp Brush',
     subtitle: 'Naturally antibacterial bristles for a superior clean.',
     price: '£5',
-    image: brush1
+    image: hempBrushImg
   },
   {
     id: 2,
     title: 'Hemp Tissue',
     subtitle: 'Soft, sustainable tissue that decomposes in weeks.',
     price: '£5',
-    image: brush2
+    image: hempTissueImg
   },
   {
     id: 3,
     title: 'Hemp Packaging',
     subtitle: 'Plastic-free packaging that returns to the earth.',
     price: '£5',
-    image: brush3
+    image: hempPackagingImg
   }
 ];
 
@@ -113,20 +113,20 @@ const Home = () => {
           </p>
           <p className="story-paragraph-basic stagger-item" style={{ '--i': 1 }}>
             We saw a world awash in plastic, and a growing desire among people like us for alternatives
-            that didn't force a compromise between personal care and environmental responsibility.
-            Why should something as fundamental as brushing our teeth contribute to centuries of waste?
+            that didn't force a compromise between daily comfort and environmental responsibility.
+            Why should something as fundamental as our everyday essentials contribute to centuries of waste?
             This question fuelled our resolve.
           </p>
           <p className="story-paragraph-basic stagger-item" style={{ '--i': 2 }}>
             Our journey led us to the remarkable hemp plant. Its natural strength, rapid renewability,
-            and minimal ecological footprint made it the clear choice for our flagship product.
-            Hemp allows us to craft brushes that are not only durable and effective but also fully
+            and minimal ecological footprint made it the clear choice for our flagship products.
+            Hemp allows us to craft products that are not only durable and effective but also fully
             biodegradable, returning to the earth without leaving a trace.
           </p>
           <p className="story-paragraph-basic stagger-item" style={{ '--i': 3 }}>
             From the moment FlexiFib was conceived, our guiding principle has been "eco-friendly without compromise."
             This means meticulous attention to detail, from sourcing sustainable materials to ensuring our
-            brushes provide a superior clean. We are dedicated to transparency, innovation, and creating
+            products provide superior quality and sustainability. We are dedicated to transparency, innovation, and creating
             products you can trust and feel good about using.
           </p>
           <p className="story-paragraph-basic stagger-item" style={{ '--i': 4 }}>

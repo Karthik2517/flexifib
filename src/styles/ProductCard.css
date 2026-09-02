@@ -1,5 +1,5 @@
 .product-card {
-  background: white;
+  background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
@@ -8,11 +8,17 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
 }
 
 .product-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  transform: translate3d(0, -8px, 0);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+}
+
+.product-card:active {
+  transform: scale(0.985);
 }
 
 .image-wrapper {
@@ -66,9 +72,12 @@
 
 /* Accessible Add to Cart button */
 .add-to-cart-btn {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  padding: 1rem;
+  min-height: 48px;
+  padding: 0.9rem 1rem;
   background: #2f4f2f;
   color: white;
   border: none;
@@ -77,18 +86,20 @@
   font-weight: 500;
   text-align: center;
   cursor: pointer;
-  transform: translateY(100%);
+  transform: translate3d(0, 100%, 0);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
               background-color 0.3s ease;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .product-card:hover .add-to-cart-btn,
 .add-to-cart-btn:focus-visible {
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 
 .add-to-cart-btn:hover {
@@ -102,13 +113,15 @@
 
 .add-to-cart-btn:active {
   background: #264026;
+  transform: translate3d(0, 0, 0) scale(0.98);
 }
 
-/* Always show button on touch devices */
-@media (hover: none) {
+/* Always show button cleanly on touch devices */
+@media (hover: none), (max-width: 768px) {
   .add-to-cart-btn {
     position: relative;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
+    border-radius: 0 0 20px 20px;
   }
 }
 
@@ -143,7 +156,7 @@
 
   .product-card span {
     font-size: 1.1rem;
-    margin: 0 1rem 1rem;
+    margin: 0 1rem 0.8rem;
     padding-top: 0.6rem;
   }
 }

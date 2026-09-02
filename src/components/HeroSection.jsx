@@ -23,8 +23,8 @@ const HeroSection = () => {
       </span>
 
       <div className="hero-content">
-        <h1 className="hero-title">Brush Better. Live Cleaner.</h1>
-        <p className="hero-subtitle">Eco-friendly hemp brushes crafted for a cleaner planet and a brighter smile.</p>
+        <h1 className="hero-title">Rooted in Nature. Crafted for Living.</h1>
+        <p className="hero-subtitle">Eco-friendly hemp products crafted for a cleaner planet and a sustainable lifestyle.</p>
         {/* Changed button to an anchor tag to navigate to the #shop section */}
         <a href="#shop" className="hero-button">Shop Now</a>
       </div>
