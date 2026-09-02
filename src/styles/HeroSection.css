@@ -247,17 +247,17 @@
 /* Tablet & Mobile Responsiveness */
 @media (max-width: 768px) {
   .hero-section {
-    min-height: 90vh;
-    min-height: 90dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
     padding: 6rem 6% 3rem;
     background-image: var(--hero-bg-mobile);
-    background-position: 75% bottom;
+    background-position: center center;
     background-size: cover;
   }
 
   .hero-section::after {
     background-image: var(--hero-bg-mobile);
-    background-position: 75% bottom;
+    background-position: center center;
     background-size: cover;
   }
   
@@ -293,9 +293,9 @@
 
 @media (max-width: 480px) {
   .hero-section {
-    min-height: 80vh;
-    min-height: 80dvh;
-    padding: 4.5rem 5% 2.5rem;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 5rem 5% 3rem;
   }
   
   .hero-content {
