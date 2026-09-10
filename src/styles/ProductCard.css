@@ -116,6 +116,11 @@
   transform: translate3d(0, 0, 0) scale(0.98);
 }
 
+.add-to-cart-btn.added {
+  background-color: #1b5e20 !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
 /* Always show button cleanly on touch devices */
 @media (hover: none), (max-width: 768px) {
   .add-to-cart-btn {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useCart } from '../context/CartContext';
 import '../styles/Navbar.css';
 
 const navItems = [
@@ -11,6 +12,7 @@ const navItems = [
 ];
 
 const Navbar = () => {
+  const { totalCount, toggleCart } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -114,16 +116,32 @@ const Navbar = () => {
         })}
       </ul>
 
-      <button
-        className={`mobile-menu-icon ${isMobileMenuOpen ? 'open' : ''}`}
-        onClick={toggleMobileMenu}
-        aria-label="Toggle menu"
-        aria-expanded={isMobileMenuOpen}
-      >
-        <span className="icon-bar"></span>
-        <span className="icon-bar"></span>
-        <span className="icon-bar"></span>
-      </button>
+      <div className="nav-actions">
+        <button
+          className="nav-cart-btn"
+          onClick={toggleCart}
+          aria-label={`Shopping cart with ${totalCount} items`}
+        >
+          <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          {totalCount > 0 && <span className="nav-cart-badge">{totalCount}</span>}
+        </button>
+
+        <button
+          className={`mobile-menu-icon ${isMobileMenuOpen ? 'open' : ''}`}
+          onClick={toggleMobileMenu}
+          aria-label="Toggle menu"
+          aria-expanded={isMobileMenuOpen}
+        >
+          <span className="icon-bar"></span>
+          <span className="icon-bar"></span>
+          <span className="icon-bar"></span>
+        </button>
+      </div>
+
       {isMobileMenuOpen && <div className="mobile-menu-backdrop" onClick={closeMobileMenu}></div>}
     </nav>
   );
