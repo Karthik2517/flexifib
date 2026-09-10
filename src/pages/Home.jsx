@@ -113,28 +113,26 @@ const Home = () => {
         </section>
 
         {/* REVIEWS SECTION */}
-        {reviews.length > 0 && (
-          <section
-            id="reviews"
-            className={`content-section scroll-target-section reviews-section reveal-parent ${reviewsVisible ? 'visible' : ''}`}
-            ref={reviewsRef}
-          >
-            <h2>What Our Customers Are Saying</h2>
-            <p className="section-intro reviews-intro">
-              We love our community! Here's how FlexiFib is making a difference.
-            </p>
-            <div className="reviews-grid">
-              {reviews.map((review, i) => (
-                <div className="stagger-item" style={{ '--i': i }} key={i}>
-                  <div className="review-card">
-                    <p className="review-text">{review.text}</p>
-                    <p className="review-author">{review.author}</p>
-                  </div>
+        <section
+          id="reviews"
+          className={`content-section scroll-target-section reviews-section reveal-parent ${reviewsVisible ? 'visible' : ''}`}
+          ref={reviewsRef}
+        >
+          <h2>What Our Customers Are Saying</h2>
+          <p className="section-intro reviews-intro">
+            We love our community! Here's how FlexiFib is making a difference.
+          </p>
+          <div className="reviews-grid">
+            {reviews.map((review, i) => (
+              <div className="stagger-item" style={{ '--i': i }} key={i}>
+                <div className="review-card">
+                  <p className="review-text">{review.text}</p>
+                  <p className="review-author">{review.author}</p>
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
 
       <Footer />

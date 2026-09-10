@@ -6,7 +6,7 @@ const navItems = [
   { label: 'Why Switch?', href: '#why' },
   { label: 'Shop', href: '#shop' },
   { label: 'Our Story', href: '#story' },
-  // { label: 'Reviews', href: '#reviews' },
+  { label: 'Reviews', href: '#reviews' },
   { label: 'Contact', href: '#contact' },
 ];
 
