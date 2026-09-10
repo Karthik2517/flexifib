@@ -1,7 +1,5 @@
 const Stripe = require('stripe');
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
-
 module.exports = async function handler(req, res) {
   // CORS Headers for safety
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -18,13 +16,25 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    if (!process.env.STRIPE_SECRET_KEY) {
-      return res.status(500).json({
-        error: 'Stripe is not configured yet. Please add STRIPE_SECRET_KEY in your Vercel Environment Variables.'
+    const secretKey = process.env.STRIPE_SECRET_KEY;
+    if (!secretKey || secretKey.trim() === '') {
+      return res.status(400).json({
+        error: 'Stripe API key is missing. Please add STRIPE_SECRET_KEY in your Vercel Project Settings > Environment Variables, then redeploy.'
       });
     }
 
-    const { items } = req.body || {};
+    const stripe = new Stripe(secretKey);
+
+    let body = req.body;
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch (e) {
+        body = {};
+      }
+    }
+
+    const { items } = body || {};
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ error: 'Cart is empty or invalid.' });
