@@ -52,10 +52,23 @@ const CartDrawer = () => {
         body: JSON.stringify({ items }),
       });
 
-      const data = await response.json();
+      const contentType = response.headers.get('content-type') || '';
+      let data = {};
+
+      if (contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        const rawText = await response.text();
+        if (rawText.includes('<!DOCTYPE') || rawText.includes('<html')) {
+          throw new Error(
+            'The API serverless function is not running locally. When deployed to Vercel with STRIPE_SECRET_KEY, checkout will connect automatically.'
+          );
+        }
+        throw new Error(rawText || 'Unable to connect to Stripe checkout.');
+      }
 
       if (!response.ok || !data.url) {
-        throw new Error(data.error || 'Unable to connect to Stripe checkout.');
+        throw new Error(data.error || 'Unable to create checkout session.');
       }
 
       // Redirect user to secure Stripe checkout page
