@@ -37,32 +37,8 @@ const products = [
   }
 ];
 
-const reviews = [
-  {
-    text: "I switched to FlexiFib three months ago and I'll never go back. The bristles are gentle yet effective, and knowing my brush won't sit in a landfill for centuries is a huge relief.",
-    author: '— Sarah M.'
-  },
-  {
-    text: "Honestly, I was sceptical at first — a hemp toothbrush? But the quality blew me away. It feels premium and my dentist even noticed my gums look healthier.",
-    author: '— James R.'
-  },
-  {
-    text: "As someone who's trying to reduce plastic in every area of life, FlexiFib was a no-brainer. Beautiful packaging, great product, and a company that genuinely cares.",
-    author: '— Priya K.'
-  },
-  {
-    text: "My whole family uses FlexiFib now. The kids love the feel of the bristles, and I love that we're teaching them about sustainability through everyday choices.",
-    author: '— Tom & Lisa D.'
-  },
-  {
-    text: "The hemp tissue is surprisingly soft — better than most mainstream brands. Plus it composts in my garden! Absolutely brilliant.",
-    author: '— Amara O.'
-  },
-  {
-    text: "I've gifted FlexiFib brushes to everyone I know. It sparks such great conversations about sustainable living. The quality speaks for itself.",
-    author: '— David C.'
-  }
-];
+// Customer reviews (kept blank for now until real reviews are available)
+const reviews = [];
 
 const Home = () => {
   const [shopRef, shopVisible] = useReveal();
@@ -137,26 +113,28 @@ const Home = () => {
         </section>
 
         {/* REVIEWS SECTION */}
-        <section
-          id="reviews"
-          className={`content-section scroll-target-section reviews-section reveal-parent ${reviewsVisible ? 'visible' : ''}`}
-          ref={reviewsRef}
-        >
-          <h2>What Our Customers Are Saying</h2>
-          <p className="section-intro reviews-intro">
-            We love our community! Here's how FlexiFib is making a difference.
-          </p>
-          <div className="reviews-grid">
-            {reviews.map((review, i) => (
-              <div className="stagger-item" style={{ '--i': i }} key={i}>
-                <div className="review-card">
-                  <p className="review-text">{review.text}</p>
-                  <p className="review-author">{review.author}</p>
+        {reviews.length > 0 && (
+          <section
+            id="reviews"
+            className={`content-section scroll-target-section reviews-section reveal-parent ${reviewsVisible ? 'visible' : ''}`}
+            ref={reviewsRef}
+          >
+            <h2>What Our Customers Are Saying</h2>
+            <p className="section-intro reviews-intro">
+              We love our community! Here's how FlexiFib is making a difference.
+            </p>
+            <div className="reviews-grid">
+              {reviews.map((review, i) => (
+                <div className="stagger-item" style={{ '--i': i }} key={i}>
+                  <div className="review-card">
+                    <p className="review-text">{review.text}</p>
+                    <p className="review-author">{review.author}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
+        )}
       </main>
 
       <Footer />
