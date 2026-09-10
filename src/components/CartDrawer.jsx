@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import '../styles/CartDrawer.css';
 
@@ -16,6 +16,9 @@ const CartDrawer = () => {
     subtotal
   } = useCart();
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   // Handle ESC key to close drawer
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -28,12 +31,44 @@ const CartDrawer = () => {
       window.addEventListener('keydown', handleKeyDown);
     } else {
       document.body.style.overflow = '';
+      setErrorMessage('');
     }
     return () => {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isCartOpen, closeCart]);
+
+  const handleCheckout = async () => {
+    setIsLoading(true);
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ items }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.url) {
+        throw new Error(data.error || 'Unable to connect to Stripe checkout.');
+      }
+
+      // Redirect user to secure Stripe checkout page
+      window.location.href = data.url;
+    } catch (error) {
+      console.error('Checkout error:', error);
+      setErrorMessage(
+        error.message || 'Something went wrong while connecting to checkout. Please try again.'
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const progressPercent = Math.min(
     100,
@@ -163,6 +198,15 @@ const CartDrawer = () => {
         {/* Footer */}
         {items.length > 0 && (
           <div className="cart-footer">
+            {errorMessage && (
+              <div className="cart-error-alert" role="alert">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                </svg>
+                <span>{errorMessage}</span>
+              </div>
+            )}
+
             <div className="cart-subtotal-row">
               <span>Subtotal</span>
               <span className="subtotal-amount">£{subtotal.toFixed(2)}</span>
@@ -178,13 +222,19 @@ const CartDrawer = () => {
             </div>
             <button
               className="checkout-btn"
-              onClick={() => {
-                alert('Thank you for choosing sustainable hemp products! Checkout integration is coming soon.');
-              }}
+              onClick={handleCheckout}
+              disabled={isLoading}
             >
-              Proceed to Checkout • £{subtotal.toFixed(2)}
+              {isLoading ? (
+                <span className="checkout-loading-wrap">
+                  <span className="checkout-spinner" />
+                  Connecting to Secure Checkout...
+                </span>
+              ) : (
+                `Proceed to Checkout • £${subtotal.toFixed(2)}`
+              )}
             </button>
-            <button className="cart-clear-link" onClick={clearCart}>
+            <button className="cart-clear-link" onClick={clearCart} disabled={isLoading}>
               Clear Cart
             </button>
           </div>
