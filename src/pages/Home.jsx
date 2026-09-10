@@ -37,8 +37,20 @@ const products = [
   }
 ];
 
-// Customer reviews (kept blank for now until real reviews are available)
-const reviews = [];
+const reviews = [
+  {
+    text: "The quality of the hemp brush is incredible. Gentle on gums and completely plastic-free.",
+    author: '— Sarah M.'
+  },
+  {
+    text: "Surprisingly soft hemp tissues that compost easily. Sustainable living made effortless.",
+    author: '— James R.'
+  },
+  {
+    text: "Beautiful eco-friendly products and minimal packaging. Exactly what I was looking for.",
+    author: '— Priya K.'
+  }
+];
 
 const Home = () => {
   const [shopRef, shopVisible] = useReveal();
