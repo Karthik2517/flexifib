@@ -57,24 +57,50 @@ module.exports = async function handler(req, res) {
       };
     });
 
+    // Calculate subtotal to apply the £20 free shipping threshold
+    const subtotal = items.reduce((acc, item) => {
+      const price = item.numericPrice || parseFloat(String(item.price).replace(/[^0-9.]/g, '')) || 5;
+      const qty = Math.max(1, parseInt(item.quantity, 10) || 1);
+      return acc + price * qty;
+    }, 0);
+
+    const FREE_SHIPPING_THRESHOLD = 20;
+    const isFreeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
+
+    const shipping_options = isFreeShipping
+      ? [
+          {
+            shipping_rate_data: {
+              type: 'fixed_amount',
+              fixed_amount: { amount: 0, currency: 'gbp' },
+              display_name: 'Free Eco Delivery (Orders £20+)',
+              delivery_estimate: {
+                minimum: { unit: 'business_day', value: 3 },
+                maximum: { unit: 'business_day', value: 5 },
+              },
+            },
+          },
+        ]
+      : [
+          {
+            shipping_rate_data: {
+              type: 'fixed_amount',
+              fixed_amount: { amount: 299, currency: 'gbp' }, // £2.99
+              display_name: 'Standard Eco Delivery',
+              delivery_estimate: {
+                minimum: { unit: 'business_day', value: 3 },
+                maximum: { unit: 'business_day', value: 5 },
+              },
+            },
+          },
+        ];
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       shipping_address_collection: {
         allowed_countries: ['GB', 'US', 'CA', 'AU', 'DE', 'FR', 'NL', 'IE'],
       },
-      shipping_options: [
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: { amount: 0, currency: 'gbp' },
-            display_name: 'Plastic-Free Eco Delivery (Free)',
-            delivery_estimate: {
-              minimum: { unit: 'business_day', value: 3 },
-              maximum: { unit: 'business_day', value: 5 },
-            },
-          },
-        },
-      ],
+      shipping_options,
       line_items,
       mode: 'payment',
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
