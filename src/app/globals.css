@@ -1,0 +1,243 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+ * FlexiFib design tokens
+ * ---------------------------------------------------------------------------
+ * Three layers (see UX_ENGINEERING_STANDARD.md §Design system):
+ *   1. Primitive tokens  – raw palette, never referenced by components
+ *   2. Semantic tokens   – surface / text / border / action roles
+ *   3. Component tokens  – shadcn variable names + a few component specifics
+ * Change the brand by editing layer 1 or the layer-2 mapping only.
+ */
+
+@theme {
+  /* 1. Primitive palette ---------------------------------------------------- */
+  --color-forest-950: #0f2a21;
+  --color-forest-900: #17382c;
+  --color-forest-800: #1f4a3a;
+  --color-forest-700: #2b5c49;
+  --color-forest-600: #3d7360;
+
+  --color-cream-50: #fbf9f4;
+  --color-sand-100: #f5f0e7;
+  --color-sand-200: #ece4d6;
+  --color-sand-300: #ddd2bf;
+
+  --color-sage-100: #e6eee7;
+  --color-sage-200: #d3e1d5;
+
+  --color-brass-600: #8f6a32;
+  --color-brass-300: #dcc596;
+
+  --color-ink-900: #1b211e;
+  --color-ink-700: #3a423e;
+  --color-ink-600: #545d58;
+
+  --color-clay-600: #a3402c;
+
+  /* Typography ------------------------------------------------------------- */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-serif), ui-serif, Georgia, serif;
+
+  /* Fluid type scale: 320px → 1440px, no breakpoint jumps */
+  --text-display: clamp(2.5rem, 1.75rem + 3.2vw, 4.5rem);
+  --text-display--line-height: 1.04;
+  --text-title: clamp(2.125rem, 1.6rem + 2.4vw, 3.5rem);
+  --text-title--line-height: 1.08;
+  --text-heading: clamp(1.75rem, 1.4rem + 1.5vw, 2.625rem);
+  --text-heading--line-height: 1.15;
+  --text-subheading: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  --text-subheading--line-height: 1.25;
+  --text-lead: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --text-lead--line-height: 1.6;
+
+  /* Layout ----------------------------------------------------------------- */
+  --container-page: 76rem;
+  --container-prose: 42rem;
+
+  /* Motion ----------------------------------------------------------------- */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Elevation -------------------------------------------------------------- */
+  --shadow-card: 0 1px 2px rgb(23 56 44 / 0.04), 0 4px 16px -4px rgb(23 56 44 / 0.06);
+  --shadow-card-hover: 0 2px 4px rgb(23 56 44 / 0.05), 0 12px 32px -8px rgb(23 56 44 / 0.14);
+  --shadow-drawer: -16px 0 48px -12px rgb(15 42 33 / 0.22);
+}
+
+/* 2 & 3. Semantic + component tokens ---------------------------------------- */
+:root {
+  --surface-page: var(--color-cream-50);
+  --surface-raised: #ffffff;
+  --surface-warm: var(--color-sand-100);
+  --surface-tint: var(--color-sage-100);
+  --surface-inverse: var(--color-forest-900);
+  --surface-inverse-deep: var(--color-forest-950);
+
+  --text-primary: var(--color-ink-900);
+  --text-brand: var(--color-forest-900);
+  --text-muted: var(--color-ink-600);
+  --text-inverse: #f4f1ea;
+  --text-inverse-muted: #c9d3cc;
+  --text-accent: var(--color-brass-600);
+  --text-accent-inverse: var(--color-brass-300);
+
+  --border-subtle: #e6dfd2;
+  --border-strong: var(--color-forest-900);
+
+  --action-primary: var(--color-forest-900);
+  --action-primary-hover: var(--color-forest-800);
+  --action-primary-text: #ffffff;
+
+  --focus-ring: var(--color-forest-600);
+
+  /* Spacing primitives used by layout components */
+  --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+  --section-y: clamp(3.5rem, 2.25rem + 5vw, 6.5rem);
+  --stack-gap: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+
+  /* Motion durations (see standard §Motion) */
+  --duration-micro: 140ms;
+  --duration-popover: 180ms;
+  --duration-drawer: 280ms;
+  --duration-large: 380ms;
+
+  /* shadcn component tokens mapped onto the semantic layer */
+  --background: var(--surface-page);
+  --foreground: var(--text-primary);
+  --card: var(--surface-raised);
+  --card-foreground: var(--text-primary);
+  --popover: var(--surface-raised);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--action-primary);
+  --primary-foreground: var(--action-primary-text);
+  --secondary: var(--surface-tint);
+  --secondary-foreground: var(--text-brand);
+  --muted: var(--surface-warm);
+  --muted-foreground: var(--text-muted);
+  --accent: var(--surface-tint);
+  --accent-foreground: var(--text-brand);
+  --destructive: var(--color-clay-600);
+  --border: var(--border-subtle);
+  --input: var(--color-sand-300);
+  --ring: var(--focus-ring);
+  --radius: 0.625rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-surface-page: var(--surface-page);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-warm: var(--surface-warm);
+  --color-surface-tint: var(--surface-tint);
+  --color-surface-inverse: var(--surface-inverse);
+  --color-surface-inverse-deep: var(--surface-inverse-deep);
+  --color-text-brand: var(--text-brand);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverse: var(--text-inverse);
+  --color-text-inverse-muted: var(--text-inverse-muted);
+  --color-text-accent: var(--text-accent);
+  --color-text-accent-inverse: var(--text-accent-inverse);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply bg-background font-sans text-foreground antialiased;
+    text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    @apply bg-background text-[0.9375rem] leading-relaxed text-foreground sm:text-base;
+    min-height: 100dvh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading font-semibold tracking-[-0.01em] text-balance text-text-brand;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* One strong, consistent focus indicator — never removed without replacement */
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--color-sage-200);
+    color: var(--color-forest-950);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: calc(var(--container-page) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}

@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NEXT_TELEMETRY_DISABLED: 1
+
+jobs:
+  quality:
+    name: Lint, types & unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build-storybook
+
+  e2e:
+    name: E2E & accessibility (${{ matrix.project }})
+    needs: quality
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium, firefox, webkit, mobile-chrome, mobile-safari]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npx playwright install --with-deps ${{ contains(matrix.project, 'safari') && 'webkit' || contains(matrix.project, 'chrome') && 'chromium' || matrix.project }}
+      - run: npx playwright test --project=${{ matrix.project }} --grep-invert "visual regression"
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.project }}
+          path: playwright-report
+          retention-days: 14
+
+  visual:
+    name: Visual regression
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      # Missing baselines are created (and uploaded) rather than failing; commit them
+      # from the artifact to start enforcing. Existing baselines must match.
+      - run: npx playwright test tests/e2e/visual.spec.ts --project=chromium --project=mobile-chrome --update-snapshots=missing
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-snapshots
+          path: |
+            tests/e2e/**/*-snapshots/
+            test-results/
+          retention-days: 14
+
+  performance:
+    name: Performance budgets (Lighthouse)
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run build
+      - run: npx -y @lhci/cli@0.15 autorun

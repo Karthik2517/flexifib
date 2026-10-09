@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# FlexiFib storefront
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The website for **FLEXIFIB ECO LTD** — the Launch Collection shop plus the EcoBrush, HempSoft and FlexiPack programme pages.
 
-## Available Scripts
+Built to the [UX Engineering Standard](./UX_ENGINEERING_STANDARD.md): Next.js 16 (App Router, Cache Components), React 19.3, TypeScript, Tailwind CSS 4, shadcn/ui on Base UI, Motion, Stripe Checkout and Resend.
 
-In the project directory, you can run:
+## Getting started
 
-### `npm start`
+```bash
+npm install
+cp .env.example .env.local   # then fill in keys (all optional for local dev)
+npm run dev                  # http://localhost:3000
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Without keys the site still runs: checkout shows a friendly "temporarily unavailable" message and form submissions are logged to the terminal.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Scripts
 
-### `npm test`
+| Command | What it does |
+|---|---|
+| `npm run dev` | Development server |
+| `npm run build` / `npm start` | Production build / server |
+| `npm run lint` · `npm run typecheck` | ESLint · strict TypeScript |
+| `npm test` | Unit and component tests (Vitest) |
+| `npm run test:e2e` | Playwright journeys + axe accessibility on all browsers |
+| `npm run test:visual` | Visual regression screenshots |
+| `npm run storybook` | Component lab on http://localhost:6006 |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Where things live
 
-### `npm run build`
+```
+src/
+  app/                 Routes (one folder per page), server actions, sitemap, robots
+  components/
+    ui/                shadcn/ui primitives on Base UI (owned source)
+    layout/            Header, footer, Container/Section
+    patterns/          Branded building blocks (hero, cards, pathway, prose pages…)
+    cart/              Basket button, lazy drawer, add-to-basket, order completion
+    forms/             Shared form hook and fields; contact, business, email forms
+    consent/           Cookie banner, preferences, consent-aware GA4 + Web Vitals
+  content/             ← Edit copy, products, prices and company details here
+  lib/                 Pricing, checkout, cart store, schemas, email, Stripe
+tests/unit · tests/e2e
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Common edits
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Products and prices:** `src/content/products.ts`. Prices are in pence and are the *only* prices checkout uses.
+  > ⚠️ Launch Collection prices are currently **£5 placeholders** and product attributes are `null` (“Awaiting supplier confirmation”) until supplier data is verified.
+- **Shipping rules:** `shipping` in the same file (UK only, £2.99, free from £20).
+- **Company details / inboxes / navigation:** `src/content/site.ts` (set `registeredOffice` before launch).
+- **Programme pages:** `src/content/programmes.ts` and `src/app/products/*`.
+- **Green-claims guardrail:** `src/content/sustainability.ts`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Environment variables
 
-### `npm run eject`
+See [`.env.example`](./.env.example). Set them in Vercel → Project → Settings → Environment Variables.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Deployment
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Vercel, from `main`. Preview deployments are automatically `noindex` (see `src/app/robots.ts`).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Checkout flow
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. The basket (browser storage) sends only `{ slug, quantity }` to the `startCheckout` server action.
+2. The server prices every line from `src/content/products.ts`, adds the shipping rule and creates a Stripe Checkout session.
+3. Stripe redirects to `/checkout/success`, which **retrieves the session from Stripe** and only clears the basket if `payment_status === "paid"`.
