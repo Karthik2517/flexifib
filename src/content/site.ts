@@ -27,6 +27,7 @@ export const inboxes = {
   wholesale: "wholesale@flexifib.com",
   press: "press@flexifib.com",
   research: "research@flexifib.com",
+  careers: "careers@flexifib.com",
 } as const
 
 export type Inbox = keyof typeof inboxes
@@ -60,6 +61,7 @@ export const footerNav: { title: string; links: NavItem[] }[] = [
     links: [
       { label: "For Business", href: "/business" },
       { label: "Partnerships", href: "/business#enquiry" },
+      { label: "Careers", href: "/careers" },
       { label: "Our Story", href: "/our-story" },
       { label: "Insights", href: "/insights" },
     ],
@@ -81,6 +83,7 @@ export const footerNav: { title: string; links: NavItem[] }[] = [
       { label: "Cookies", href: "/legal/cookies" },
       { label: "Terms", href: "/legal/terms" },
       { label: "Accessibility", href: "/legal/accessibility" },
+      { label: "Recruitment privacy", href: "/legal/recruitment-privacy" },
       { label: "Company information", href: "/legal/company" },
     ],
   },

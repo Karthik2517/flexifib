@@ -13,6 +13,7 @@ export const routes = [
   "/our-story",
   "/business",
   "/insights",
+  "/careers",
   "/contact",
   "/help",
   "/help/shipping",
@@ -23,6 +24,7 @@ export const routes = [
   "/legal/cookies",
   "/legal/terms",
   "/legal/accessibility",
+  "/legal/recruitment-privacy",
   "/legal/company",
 ]
 

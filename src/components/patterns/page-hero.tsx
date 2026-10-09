@@ -17,6 +17,7 @@ export function PageHero({
   imagePosition = "center",
   tone = "warm",
   size = "default",
+  aside,
   children,
 }: {
   eyebrow?: string
@@ -29,6 +30,8 @@ export function PageHero({
   imagePosition?: string
   tone?: "warm" | "inverse"
   size?: "default" | "large"
+  /** Non-photographic right-hand panel (e.g. an illustration card) used instead of `image` */
+  aside?: ReactNode
   children?: ReactNode
 }) {
   const inverse = tone === "inverse"
@@ -43,7 +46,7 @@ export function PageHero({
       <div
         className={cn(
           "grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.82fr)]",
-          !image && "lg:grid-cols-1"
+          !image && !aside && "lg:grid-cols-1"
         )}
       >
         <div
@@ -96,6 +99,12 @@ export function PageHero({
             {children && <div className="mt-8">{children}</div>}
           </div>
         </div>
+
+        {aside && !image && (
+          <div className="flex items-center px-(--gutter) pb-12 lg:py-12 lg:pr-[max(var(--gutter),calc((100vw-var(--container-page))/2))] lg:pl-0">
+            {aside}
+          </div>
+        )}
 
         {image && (
           <div className="relative aspect-[4/3] sm:aspect-[16/9] lg:aspect-auto lg:min-h-full">

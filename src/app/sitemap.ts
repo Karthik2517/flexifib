@@ -14,6 +14,7 @@ const staticRoutes = [
   "/our-story",
   "/business",
   "/insights",
+  "/careers",
   "/contact",
   "/help",
   "/help/shipping",
@@ -24,6 +25,7 @@ const staticRoutes = [
   "/legal/cookies",
   "/legal/terms",
   "/legal/accessibility",
+  "/legal/recruitment-privacy",
   "/legal/company",
 ]
 

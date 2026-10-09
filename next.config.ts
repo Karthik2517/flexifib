@@ -24,6 +24,8 @@ const nextConfig: NextConfig = {
     },
   },
   experimental: {
+    // Room for a 4 MB CV on the careers form plus multipart overhead (Vercel's cap is 4.5 MB).
+    serverActions: { bodySizeLimit: "4.4mb" },
     // Lets Playwright's instant() helper run against a production build in CI.
     exposeTestingApiInProductionBuild: process.env.EXPOSE_TESTING_API === "1",
   },

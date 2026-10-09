@@ -129,6 +129,57 @@ export function SelectField({
   )
 }
 
+/** Native checkbox: fully accessible, large hit area via the wrapping label. */
+export function CheckboxField({
+  label,
+  registration,
+  error,
+  className,
+}: Omit<BaseProps, "label" | "hint" | "optional"> & { label: React.ReactNode }) {
+  const id = useId()
+  return (
+    <div className={cn("flex flex-col gap-1.5", className)}>
+      <label htmlFor={id} className="flex min-h-11 cursor-pointer items-start gap-3 py-1 text-sm text-ink-700">
+        <input
+          id={id}
+          type="checkbox"
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? `${id}-error` : undefined}
+          className="mt-0.5 size-5 shrink-0 cursor-pointer rounded border-input accent-primary"
+          {...registration}
+        />
+        <span>{label}</span>
+      </label>
+      {error?.message && (
+        <p id={`${id}-error`} className="flex items-center gap-1.5 text-sm text-destructive">
+          <AlertCircle aria-hidden="true" className="size-3.5 shrink-0" />
+          {error.message}
+        </p>
+      )}
+    </div>
+  )
+}
+
+export function FileField({
+  accept,
+  ...props
+}: BaseProps & { accept: string }) {
+  const id = useId()
+  return (
+    <FieldShell id={id} {...props}>
+      <input
+        id={id}
+        type="file"
+        accept={accept}
+        aria-invalid={props.error ? true : undefined}
+        aria-describedby={describedBy(id, props.error, props.hint)}
+        className="w-full cursor-pointer rounded-md border border-input bg-surface-raised text-sm text-ink-700 file:mr-3 file:h-11 file:cursor-pointer file:border-0 file:border-r file:border-input file:bg-surface-tint file:px-4 file:font-semibold file:text-text-brand hover:file:bg-sage-200 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/25 focus-visible:outline-none aria-invalid:border-destructive"
+        {...props.registration}
+      />
+    </FieldShell>
+  )
+}
+
 /** Visually hidden field that only bots fill in. */
 export function Honeypot({ inputRef }: { inputRef: React.RefObject<HTMLInputElement | null> }) {
   return (

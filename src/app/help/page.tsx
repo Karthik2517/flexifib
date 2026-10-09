@@ -23,6 +23,7 @@ const legal = [
   { title: "Cookie policy", href: "/legal/cookies", text: "The cookies and similar technologies we use, and how to control them." },
   { title: "Terms & conditions", href: "/legal/terms", text: "Who we are, ordering, pricing, payment, delivery and liability." },
   { title: "Accessibility statement", href: "/legal/accessibility", text: "Our commitment, known limitations and how to report a problem." },
+  { title: "Recruitment privacy notice", href: "/legal/recruitment-privacy", text: "How we use information from job applications and expressions of interest." },
   { title: "Company information", href: "/legal/company", text: "FLEXIFIB ECO LTD, company number and registered details." },
 ]
 

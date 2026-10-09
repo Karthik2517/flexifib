@@ -22,11 +22,13 @@ export async function sendInternalEmail(options: {
   subject: string
   text: string
   replyTo?: string
+  attachments?: { filename: string; content: Buffer }[]
 }): Promise<DeliveryResult> {
   const resend = getResend()
   if (!resend) {
     if (process.env.NODE_ENV !== "production") {
-      console.info("[email:dev] Would send", options)
+      const { attachments, ...rest } = options
+      console.info("[email:dev] Would send", rest, attachments?.map((a) => a.filename) ?? [])
       return "logged"
     }
     console.error("[email] RESEND_API_KEY is not configured")
@@ -40,6 +42,7 @@ export async function sendInternalEmail(options: {
     subject: options.subject,
     text: options.text,
     replyTo: options.replyTo,
+    attachments: options.attachments,
   })
   if (error) {
     console.error("[email] Resend error", error)
