@@ -84,6 +84,20 @@ jobs:
       # default 4x slowdown would emulate a far slower phone than the budgets
       # target. 2x on a runner lands close to Lighthouse's mid-tier mobile profile.
       - run: npx -y @lhci/cli@0.15 autorun --collect.settings.throttling.cpuSlowdownMultiplier=2
+      # Surface each broken budget as an annotation on the run summary.
+      - name: Report failed budgets
+        if: failure()
+        run: |
+          node -e '
+            const fs = require("node:fs")
+            const file = ".lighthouseci/assertion-results.json"
+            if (!fs.existsSync(file)) process.exit(0)
+            for (const a of JSON.parse(fs.readFileSync(file, "utf8")).filter((a) => !a.passed)) {
+              const audit = a.auditProperty ? `${a.auditId}.${a.auditProperty}` : a.auditId
+              const actual = typeof a.actual === "number" ? Math.round(a.actual * 1000) / 1000 : a.actual
+              console.log(`::${a.level === "error" ? "error" : "warning"} title=Lighthouse ${audit}::${a.url} — ${a.name} ${a.operator} ${a.expected}, measured ${actual}`)
+            }
+          '
       - if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
