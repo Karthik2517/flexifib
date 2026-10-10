@@ -31,7 +31,8 @@ export function Section({
   return (
     <section
       data-tone={tone}
-      className={cn("section-y", tones[tone], glow && "relative isolate overflow-hidden", className)}
+      className={cn("section-y", tones[tone], // clip (not hidden) so scroll-driven card animations track the page scroll
+        glow && "relative isolate overflow-clip", className)}
       {...props}
     >
       {glow && <div aria-hidden="true" data-glow={glow} className="ambient-glow" />}

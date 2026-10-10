@@ -950,3 +950,95 @@ button:hover svg.lucide-arrow-right {
     inset 0 1px 0 #fff,
     0 14px 36px -10px rgb(220 197 150 / 0.7);
 }
+
+/* Scroll-linked motion -------------------------------------------------------------
+ * Driven by scroll position, in both directions:
+ *   text  — fades in rising from below as it enters, fades out drifting up as it
+ *           leaves the top of the screen;
+ *   cards — slide in from the left as they enter, continue to the right and fade
+ *           out as they leave. Columns in a row are staggered.
+ * Ranges use fixed distances so long blocks (e.g. legal sections) stay fully
+ * readable while on screen. Browsers without scroll-driven animations keep the
+ * IntersectionObserver reveal; reduced-motion visitors get no movement.
+ */
+@keyframes text-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 2.25rem, 0);
+  }
+}
+
+@keyframes text-out {
+  to {
+    opacity: 0;
+    transform: translate3d(0, -2.25rem, 0);
+  }
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translate3d(-3.5rem, 0, 0);
+  }
+}
+
+@keyframes card-out {
+  to {
+    opacity: 0;
+    transform: translate3d(3.5rem, 0, 0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Sideways card travel must never create a horizontal scrollbar. `clip`
+       (unlike `hidden`) doesn't become a scroll container, so view timelines
+       still follow the page. */
+    main.ambient {
+      overflow-x: clip;
+    }
+
+    .ambient.ambient [data-reveal]:not([data-reveal="stagger"], [data-reveal="image"]) {
+      opacity: 1;
+      /* `forwards` on the exit animation: it only takes over once leaving starts. */
+      animation:
+        text-in linear both,
+        text-out linear forwards;
+      animation-timeline: view(), view();
+      animation-range:
+        entry 0% entry 9rem,
+        exit calc(100% - 9rem) exit 100%;
+    }
+
+    .ambient.ambient :not(.page-hero *)[data-card],
+    .ambient.ambient [data-reveal][data-reveal-state] > [data-card] {
+      opacity: 1;
+      animation:
+        card-in cubic-bezier(0.22, 1, 0.36, 1) both,
+        card-out linear forwards;
+      animation-timeline: view(), view();
+      /* Each card slides in over a long stretch of scroll; side-by-side cards
+         start one after another (--i is the card's column, set by RevealObserver). */
+      animation-range:
+        entry calc(var(--i, 0) * 5rem) entry calc(var(--i, 0) * 5rem + 20rem),
+        exit calc(100% - 12rem) exit 100%;
+    }
+
+    /* Phone carousels scroll sideways, so the row travels as one. */
+    @media (max-width: 39.99rem) {
+      .ambient.ambient [data-layout="carousel"] {
+        animation:
+          card-in linear both,
+          card-out linear forwards;
+        animation-timeline: view(), view();
+        animation-range:
+          entry 0% entry 12rem,
+          exit calc(100% - 12rem) exit 100%;
+      }
+
+      .ambient.ambient [data-layout="carousel"] > [data-card] {
+        animation: none;
+      }
+    }
+  }
+}

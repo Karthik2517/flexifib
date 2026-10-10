@@ -37,6 +37,7 @@ export function CardGrid({
   return (
     <Tag
       data-reveal="stagger"
+      data-layout={layout}
       role={Tag === "ul" ? "list" : undefined}
       className={cn(
         "grid gap-4 sm:gap-5",
