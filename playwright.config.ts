@@ -12,6 +12,8 @@ export default defineConfig({
   use: {
     baseURL,
     trace: "on-first-retry",
+    // Entrance animations would otherwise race axe's contrast checks and screenshots.
+    contextOptions: { reducedMotion: "reduce" },
   },
   expect: {
     toHaveScreenshot: { maxDiffPixelRatio: 0.01, animations: "disabled" },

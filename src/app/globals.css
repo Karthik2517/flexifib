@@ -362,6 +362,26 @@
   will-change: transform;
 }
 
+/* Hero photo fades into the surrounding hero colour rather than meeting it at a hard edge. */
+.hero-blend {
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 38%);
+}
+
+@media (min-width: 64rem) {
+  .hero-blend {
+    mask-image:
+      linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.55) 26%, #000 50%),
+      linear-gradient(to top, transparent 0%, #000 14%);
+    mask-composite: intersect;
+  }
+
+  .hero-blend-inverse {
+    mask-image:
+      linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.4) 30%, #000 62%),
+      linear-gradient(to top, transparent 0%, #000 14%);
+  }
+}
+
 /* Gentle parallax on hero media where scroll-driven animations exist. */
 @supports (animation-timeline: scroll()) {
   @media (prefers-reduced-motion: no-preference) {

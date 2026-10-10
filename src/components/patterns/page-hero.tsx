@@ -62,7 +62,7 @@ export function PageHero({
       >
         <div
           className={cn(
-            "flex flex-col justify-center py-12 sm:py-16",
+            "relative z-10 flex flex-col justify-center py-12 sm:py-16",
             size === "large" ? "lg:min-h-[34rem] lg:py-20" : "lg:min-h-[26rem] lg:py-16",
             "pr-(--gutter) pl-(--gutter) lg:pl-[max(var(--gutter),calc((100vw-var(--container-page))/2))] lg:pr-12"
           )}
@@ -133,7 +133,15 @@ export function PageHero({
         )}
 
         {image && (
-          <div className="relative aspect-[4/3] overflow-hidden sm:aspect-[16/9] lg:aspect-auto lg:min-h-full">
+          // The photo dissolves into the hero background instead of sitting in its own
+          // panel: faded in from the top on small screens (below the copy) and from the
+          // left on large screens, where it runs behind the copy column.
+          <div
+            className={cn(
+              "hero-blend relative -mt-12 aspect-[4/3] overflow-hidden sm:-mt-20 sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:aspect-auto lg:w-[64%]",
+              inverse && "hero-blend-inverse"
+            )}
+          >
             {/* Oversized so the parallax drift never exposes an edge. */}
             <div className="hero-parallax absolute inset-x-0 -top-[9%] -bottom-[9%]">
               <Image
@@ -142,11 +150,18 @@ export function PageHero({
                 fill
                 preload
                 placeholder="blur"
-                sizes="(min-width: 1024px) 45vw, 100vw"
+                sizes="(min-width: 1024px) 64vw, 100vw"
                 className="hero-media object-cover"
                 style={{ objectPosition: imagePosition }}
               />
             </div>
+            {inverse && (
+              // Tints pale areas of the photo so they fade into the dark hero, not grey.
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-linear-to-b from-surface-inverse/80 via-surface-inverse/25 to-transparent lg:bg-linear-to-r lg:from-surface-inverse lg:via-surface-inverse/45"
+              />
+            )}
           </div>
         )}
       </div>
