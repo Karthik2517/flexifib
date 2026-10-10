@@ -1038,7 +1038,10 @@ button:hover svg.lucide-arrow-right {
 @media (max-width: 39.99rem) {
   .announcement-track {
     width: max-content;
-    animation: announcement-scroll 18s linear infinite;
+    /* Starts clear of the faded edge and holds briefly so the first phrase
+       can be read before it moves. */
+    margin-left: 2.5rem;
+    animation: announcement-scroll 18s linear 1.5s infinite;
   }
 
   /* Pause for touch and hover so the text can be read at leisure. */
@@ -1058,6 +1061,7 @@ button:hover svg.lucide-arrow-right {
   .announcement-track {
     animation: none;
     width: auto;
+    margin-left: 0;
   }
 
   .announcement-track > :not(:first-child),
