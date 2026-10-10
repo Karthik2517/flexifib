@@ -3,21 +3,32 @@ import { site } from "@/content/site"
 import { CartButton } from "@/components/cart/cart-button"
 import { MobileNav, NavLinks } from "./nav-links"
 
+function AnnouncementItems({ hidden = false }: { hidden?: boolean }) {
+  return (
+    <span aria-hidden={hidden || undefined} className="flex shrink-0 items-center gap-x-2">
+      {site.announcement.map((item, index) => (
+        <span key={item} className="flex items-center gap-x-2">
+          {index > 0 && <span aria-hidden="true">•</span>}
+          {item}
+        </span>
+      ))}
+    </span>
+  )
+}
+
 export function AnnouncementBar() {
   return (
     <div className="site-announcement relative z-30 bg-surface-inverse-deep text-text-inverse transition-colors duration-300">
-      <p className="container-page flex h-8 items-center overflow-hidden justify-center gap-x-2 py-1.5 text-center text-[0.6875rem] font-semibold tracking-[0.12em] uppercase">
-        {site.announcement.map((item, index) => (
-          <span key={item} className={index > 0 ? "hidden sm:inline" : undefined}>
-            {index > 0 && (
-              <span aria-hidden="true" className="mr-2">
-                •
-              </span>
-            )}
-            {item}
+      <div className="container-page flex h-8 items-center justify-center overflow-hidden text-[0.6875rem] font-semibold tracking-[0.12em] whitespace-nowrap uppercase max-sm:px-0">
+        {/* Phones: a seamless right-to-left ticker (second copy is decorative).
+            From 640px up the line fits and sits still. */}
+        <p className="announcement-track flex items-center gap-x-2 max-sm:gap-x-8 max-sm:pr-8">
+          <AnnouncementItems />
+          <span className="flex sm:hidden">
+            <AnnouncementItems hidden />
           </span>
-        ))}
-      </p>
+        </p>
+      </div>
     </div>
   )
 }

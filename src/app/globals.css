@@ -1027,3 +1027,46 @@ button:hover svg.lucide-arrow-right {
     }
   }
 }
+
+/* Announcement ticker (phones) ------------------------------------------------------ */
+@keyframes announcement-scroll {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (max-width: 39.99rem) {
+  .announcement-track {
+    width: max-content;
+    animation: announcement-scroll 18s linear infinite;
+  }
+
+  /* Pause for touch and hover so the text can be read at leisure. */
+  .site-announcement:hover .announcement-track,
+  .site-announcement:active .announcement-track {
+    animation-play-state: paused;
+  }
+
+  .site-announcement > div {
+    justify-content: flex-start;
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+}
+
+@media (max-width: 39.99rem) and (prefers-reduced-motion: reduce) {
+  /* No motion: show the first phrase only, centred. */
+  .announcement-track {
+    animation: none;
+    width: auto;
+  }
+
+  .announcement-track > :not(:first-child),
+  .announcement-track > :first-child > span:not(:first-child) {
+    display: none;
+  }
+
+  .site-announcement > div {
+    justify-content: center;
+    mask-image: none;
+  }
+}
