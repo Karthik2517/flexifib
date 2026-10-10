@@ -18,6 +18,7 @@ export function Pathway({
   const compact = steps.every((step) => !step.description)
   return (
     <ol
+      data-reveal="stagger"
       className={cn(
         "grid gap-3 sm:grid-cols-2",
         compact && "grid-cols-2",

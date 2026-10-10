@@ -132,7 +132,18 @@ Every interactive component defines: default, hover, `:focus-visible`, pressed (
 | Drawer / modal | `--duration-drawer` 280 ms |
 | Large transitions | `--duration-large` 380 ms |
 
-Easing: `ease-out-quart` for entrances. Motion is for feedback and continuity (basket line add/remove, add-to-basket confirmation, drawers). No section fade-ins on scroll, no parallax, no bouncing. `prefers-reduced-motion` is honoured globally in CSS and by `MotionConfig reducedMotion="user"`.
+| Hero entrance / scroll reveal | 500–550 ms, 45–55 ms stagger |
+| Page transition | 110 ms out, 180–280 ms in |
+
+Easing: `ease-out-quint` for entrances, `ease-out-quart` for UI feedback. Motion should feel quick and light: short travel (≤ 14 px), no bouncing, no scroll hijacking (native scrolling only).
+
+- **Page transitions** — React `<ViewTransition>` in `app/template.tsx`; header stays anchored.
+- **Hero** — CSS entrance staggered by `--hero-i`. The `<h1>` is often the LCP element, so it only moves (`hero-title`) and never starts transparent.
+- **Scroll reveal** — add `data-reveal` (or `data-reveal="stagger"`, `data-reveal="image"`) to an element; `components/motion/reveal-observer.tsx` hides only what is still below the fold, so content is never hidden without JavaScript.
+- **Scroll-driven extras** — hero parallax, header elevation and the reading-progress bar use CSS scroll timelines and are skipped where unsupported.
+- **Feedback** — Motion (`LazyMotion`) for the basket and add-to-basket confirmation; CSS for hover and press.
+
+Everything animates only opacity, transform or clip-path. `prefers-reduced-motion` is honoured globally in CSS, by the reveal observer and by `MotionConfig reducedMotion="user"`.
 
 ---
 

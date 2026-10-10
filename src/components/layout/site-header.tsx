@@ -24,7 +24,11 @@ export function AnnouncementBar() {
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-surface-page/92 backdrop-blur-md supports-[not(backdrop-filter:blur(0))]:bg-surface-page">
+    <header
+      // Named so page transitions leave it anchored while content crossfades beneath.
+      style={{ viewTransitionName: "site-header" }}
+      className="header-elevate sticky top-0 z-30 border-b border-border bg-surface-page/92 backdrop-blur-md supports-[not(backdrop-filter:blur(0))]:bg-surface-page"
+    >
       <div className="container-page flex h-16 items-center gap-4 lg:h-[4.5rem]">
         <MobileNav />
         <Link

@@ -53,6 +53,7 @@ export function SectionHeader({
 }) {
   return (
     <div
+      data-reveal
       className={cn(
         "mb-8 flex flex-col gap-4 sm:mb-10 md:flex-row md:items-end md:justify-between",
         className

@@ -15,7 +15,7 @@ export function Checklist({
 }) {
   const Icon = variant === "check" ? Check : Circle
   return (
-    <ul className={cn("flex flex-col gap-2.5", className)}>
+    <ul data-reveal="stagger" className={cn("flex flex-col gap-2.5", className)}>
       {items.map((item, index) => (
         <li key={index} className="flex gap-3 text-sm leading-relaxed">
           <Icon

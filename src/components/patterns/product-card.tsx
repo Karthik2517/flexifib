@@ -8,7 +8,7 @@ import { StatusBadge } from "./status-badge"
 export function ProductCard({ product }: { product: Product }) {
   const title = productTitle(product)
   return (
-    <li className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface-raised shadow-(--shadow-card) transition-[box-shadow,transform] duration-(--duration-popover) ease-out-quart has-[a:hover]:-translate-y-0.5 has-[a:hover]:shadow-(--shadow-card-hover)">
+    <li className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface-raised shadow-(--shadow-card) transition-[box-shadow,translate] duration-200 ease-out-quint has-[a:hover]:-translate-y-1 has-[a:hover]:shadow-(--shadow-card-hover)">
       <div className="relative aspect-[4/3] overflow-hidden bg-sand-200">
         <Image
           src={product.image}
@@ -16,7 +16,7 @@ export function ProductCard({ product }: { product: Product }) {
           fill
           placeholder="blur"
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover transition-transform duration-(--duration-large) ease-out-quart group-has-[a:hover]:scale-[1.02]"
+          className="object-cover transition-transform duration-400 ease-out-quint group-has-[a:hover]:scale-[1.04]"
         />
       </div>
       <div className="flex flex-1 flex-col p-5 sm:p-6">

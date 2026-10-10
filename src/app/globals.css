@@ -60,6 +60,8 @@
   /* Motion ----------------------------------------------------------------- */
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Elevation -------------------------------------------------------------- */
   --shadow-card: 0 1px 2px rgb(23 56 44 / 0.04), 0 4px 16px -4px rgb(23 56 44 / 0.06);
@@ -211,6 +213,9 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*),
     *,
     *::before,
     *::after {
@@ -240,4 +245,212 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+/* Motion ---------------------------------------------------------------------
+ * Everything below is compositor-only (opacity, transform, clip-path) and runs
+ * on CSS, so it costs no JavaScript on load. The reduced-motion rule in the base
+ * layer collapses every duration, and reveal states are never applied for those
+ * visitors (see components/motion/reveal-observer.tsx).
+ */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.875rem, 0);
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.75rem, 0);
+  }
+}
+
+/* Transform only: the headline is usually the LCP element, and an element that
+   starts transparent isn't counted as painted until its animation runs. */
+@keyframes hero-settle {
+  from {
+    transform: translate3d(0, 0.5rem, 0);
+  }
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes image-unveil {
+  from {
+    clip-path: inset(4% 4% 4% 4% round 1rem);
+  }
+}
+
+@keyframes image-settle {
+  from {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(-6%, -4%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(8%, 6%, 0) scale(1.15);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes nudge-up {
+  from {
+    transform: translate3d(0, 0.375rem, 0);
+  }
+}
+
+@keyframes header-elevate {
+  to {
+    box-shadow: 0 8px 28px -14px rgb(15 42 33 / 0.28);
+    background-color: color-mix(in oklab, var(--surface-page) 82%, transparent);
+  }
+}
+
+@keyframes reading-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Shown only where scroll-driven animations can drive it. */
+.reading-progress {
+  display: none;
+}
+
+/* Hero entrance: staggered by --hero-i, replayed on every navigation. */
+@utility hero-in {
+  animation: hero-rise 0.5s var(--ease-out-quint) backwards;
+  animation-delay: calc(var(--hero-i, 0) * 55ms);
+}
+
+@utility hero-title {
+  animation: hero-settle 0.55s var(--ease-out-quint) backwards;
+}
+
+@utility hero-media {
+  animation: hero-zoom 1s var(--ease-out-quint) backwards;
+}
+
+/* Soft drifting light behind hero copy. */
+@utility hero-glow {
+  animation: drift 22s var(--ease-in-out-soft) infinite alternate;
+  will-change: transform;
+}
+
+/* Gentle parallax on hero media where scroll-driven animations exist. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-parallax {
+      animation: parallax linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+  }
+
+  @keyframes parallax {
+    to {
+      transform: translate3d(0, 7%, 0);
+    }
+  }
+
+  /* Header gains depth once the page scrolls. */
+  .header-elevate {
+    animation: header-elevate linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 120px;
+  }
+
+  .reading-progress {
+    display: block;
+    animation: reading-progress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* Scroll reveal ------------------------------------------------------------- */
+[data-reveal]:not([data-reveal="stagger"])[data-reveal-state="pending"],
+[data-reveal="stagger"][data-reveal-state="pending"] > * {
+  opacity: 0;
+}
+
+[data-reveal]:not([data-reveal="stagger"], [data-reveal="image"])[data-reveal-state="in"],
+[data-reveal="stagger"][data-reveal-state="in"] > * {
+  /* `backwards` fill only: once finished, hover transforms work untouched. */
+  animation: rise-in 0.5s var(--ease-out-quint) backwards;
+  animation-delay: calc(var(--reveal-i, 0) * 45ms);
+}
+
+[data-reveal="image"][data-reveal-state="in"] {
+  animation: image-unveil 0.6s var(--ease-out-quint) backwards;
+}
+
+[data-reveal="image"][data-reveal-state="in"] img {
+  animation: image-settle 0.8s var(--ease-out-quint) backwards;
+}
+
+/* Page transitions (React <ViewTransition>, see app/template.tsx) ------------ */
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(.page-exit) {
+  animation: 110ms ease-out both fade-out;
+}
+
+::view-transition-new(.page-enter) {
+  animation:
+    180ms ease-out 40ms both fade-in,
+    280ms var(--ease-out-quint) both nudge-up;
+}
+
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* Micro-interactions -------------------------------------------------------- */
+
+/* Trailing arrows glide forward on hover or keyboard focus. */
+a svg.lucide-arrow-right,
+button svg.lucide-arrow-right {
+  transition: transform var(--duration-micro) var(--ease-out-quint);
+}
+
+a:hover svg.lucide-arrow-right,
+a:focus-visible svg.lucide-arrow-right,
+button:hover svg.lucide-arrow-right {
+  transform: translateX(3px);
 }

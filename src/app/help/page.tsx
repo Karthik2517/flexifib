@@ -29,7 +29,7 @@ const legal = [
 
 function LinkCard({ title, href, text }: { title: string; href: string; text: string }) {
   return (
-    <li className="group relative rounded-xl border border-border bg-surface-raised p-6 shadow-(--shadow-card) transition-[box-shadow,transform] duration-(--duration-popover) ease-out-quart hover:-translate-y-0.5 hover:shadow-(--shadow-card-hover)">
+    <li className="group relative rounded-xl border border-border bg-surface-raised p-6 shadow-(--shadow-card) transition-[box-shadow,translate] duration-200 ease-out-quint hover:-translate-y-0.5 hover:shadow-(--shadow-card-hover)">
       <h3 className="text-subheading">
         <Link href={href} className="after:absolute after:inset-0">
           {title}

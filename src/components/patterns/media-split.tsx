@@ -24,6 +24,7 @@ export function MediaSplit({
       )}
     >
       <div
+        data-reveal="image"
         className={cn(
           "relative aspect-[4/3] overflow-hidden rounded-xl bg-sand-200",
           imageSide === "right" && "md:order-2"
@@ -38,7 +39,7 @@ export function MediaSplit({
           className="object-cover"
         />
       </div>
-      <div>{children}</div>
+      <div data-reveal>{children}</div>
     </div>
   )
 }

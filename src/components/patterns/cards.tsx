@@ -22,6 +22,7 @@ export function CardGrid({
 }) {
   return (
     <Tag
+      data-reveal="stagger"
       role={Tag === "ul" ? "list" : undefined}
       className={cn("grid gap-4 sm:gap-5", columnClasses[columns], className)}
     >
@@ -46,7 +47,7 @@ export function Card({
       className={cn(
         "rounded-xl border border-border bg-surface-raised shadow-(--shadow-card)",
         interactive &&
-          "transition-[box-shadow,transform] duration-(--duration-popover) ease-out-quart hover:-translate-y-0.5 hover:shadow-(--shadow-card-hover)",
+          "group/card transition-[box-shadow,translate] duration-200 ease-out-quint hover:-translate-y-1 hover:shadow-(--shadow-card-hover)",
         className
       )}
     >
@@ -98,7 +99,7 @@ export function RowList({
 }) {
   const Tag = numbered ? "ol" : "ul"
   return (
-    <Tag role="list" className="flex flex-col gap-3">
+    <Tag role="list" data-reveal="stagger" className="flex flex-col gap-3">
       {rows.map((row, index) => (
         <Card
           as="li"

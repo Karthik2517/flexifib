@@ -72,8 +72,8 @@ export default function HomePage() {
           title="Today’s choices. Tomorrow’s materials."
           description="FlexiFib is building a new generation of hemp-based everyday products. While our proprietary products are developed and tested, the Launch Collection gives customers access to carefully selected products from specialist manufacturing partners."
         />
-        <div className="grid gap-5 lg:grid-cols-2">
-          <Card className="grid gap-6 p-6 sm:grid-cols-[1fr_auto] sm:p-8">
+        <div data-reveal="stagger" className="grid gap-5 lg:grid-cols-2">
+          <Card interactive className="grid gap-6 p-6 sm:grid-cols-[1fr_auto] sm:p-8">
             <div className="flex flex-col">
               <StatusBadge>Available today</StatusBadge>
               <h3 className="mt-4 text-subheading">Launch Collection</h3>
@@ -93,11 +93,11 @@ export default function HomePage() {
                 fill
                 placeholder="blur"
                 sizes="176px"
-                className="object-cover"
+                className="object-cover transition-transform duration-400 ease-out-quint group-hover/card:scale-[1.04]"
               />
             </div>
           </Card>
-          <Card className="grid gap-6 p-6 sm:grid-cols-[1fr_auto] sm:p-8">
+          <Card interactive className="grid gap-6 p-6 sm:grid-cols-[1fr_auto] sm:p-8">
             <div className="flex flex-col">
               <StatusBadge>In development</StatusBadge>
               <h3 className="mt-4 text-subheading">FlexiFib Innovation</h3>
@@ -117,7 +117,7 @@ export default function HomePage() {
                 fill
                 placeholder="blur"
                 sizes="176px"
-                className="object-cover object-[85%_center]"
+                className="object-cover object-[85%_center] transition-transform duration-400 ease-out-quint group-hover/card:scale-[1.04]"
               />
             </div>
           </Card>
@@ -183,7 +183,7 @@ export default function HomePage() {
 
       <Section tone="inverse" aria-labelledby="honesty">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-16">
-          <div>
+          <div data-reveal>
             <p className="eyebrow mb-3 text-text-accent-inverse">Sustainability</p>
             <h2 id="honesty" className="text-heading">
               Honesty is part of sustainability.
@@ -197,7 +197,7 @@ export default function HomePage() {
               Read Sustainability &amp; Materials
             </ButtonLink>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div data-reveal="stagger" className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-xl bg-white/6 p-6 ring-1 ring-white/10">
               <h3 className="eyebrow text-text-inverse">What we can verify today</h3>
               <Checklist items={verifiedToday.slice(0, 4)} inverse className="mt-4" />
@@ -230,7 +230,7 @@ export default function HomePage() {
             </InfoCard>
           ))}
         </CardGrid>
-        <div className="mt-10 flex justify-center">
+        <div data-reveal className="mt-10 flex justify-center">
           <ButtonLink href="/business" size="lg">
             Partner with FlexiFib
           </ButtonLink>
@@ -270,7 +270,10 @@ export default function HomePage() {
       </Section>
 
       <section aria-labelledby="journey" className="bg-sand-200">
-        <Container className="grid gap-6 py-12 sm:py-14 md:grid-cols-[1fr_minmax(0,28rem)] md:items-center md:gap-12">
+        <Container
+          data-reveal
+          className="grid gap-6 py-12 sm:py-14 md:grid-cols-[1fr_minmax(0,28rem)] md:items-center md:gap-12"
+        >
           <div>
             <h2 id="journey" className="text-subheading">
               Follow the FlexiFib journey.

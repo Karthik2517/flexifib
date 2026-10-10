@@ -17,6 +17,7 @@ export function CtaBand({
 }) {
   return (
     <div
+      data-reveal
       className={cn(
         "flex flex-col gap-6 rounded-2xl bg-surface-inverse p-7 text-text-inverse sm:p-10 md:flex-row md:items-center md:justify-between",
         className
@@ -49,7 +50,7 @@ export function NotePanel({
   as?: "div" | "aside"
 }) {
   return (
-    <Tag className={cn("rounded-xl bg-surface-tint p-6 sm:p-8", className)}>
+    <Tag data-reveal className={cn("rounded-xl bg-surface-tint p-6 sm:p-8", className)}>
       {eyebrow && <p className="eyebrow mb-2 text-text-brand">{eyebrow}</p>}
       {title && <h3 className="text-subheading">{title}</h3>}
       {children && (

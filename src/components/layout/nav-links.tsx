@@ -73,11 +73,16 @@ export function MobileNav() {
         <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-3 py-3">
           <ul className="flex flex-col">
             {[{ label: "Home", href: "/" }, ...primaryNav, { label: "Contact", href: "/contact" }].map(
-              (item) => {
+              (item, index) => {
                 const active =
                   item.href === "/" ? pathname === "/" : isActive(pathname, item.href)
                 return (
-                  <li key={item.href}>
+                  <li
+                    key={item.href}
+                    // Links cascade in as the drawer opens.
+                    style={{ animationDelay: `${60 + index * 25}ms` }}
+                    className="animate-in duration-300 ease-out-quint fill-mode-backwards fade-in slide-in-from-left-3"
+                  >
                     <Link
                       href={item.href}
                       onNavigate={() => setOpen(false)}

@@ -29,6 +29,10 @@ export function ProsePage({
 
   return (
     <>
+      <div
+        aria-hidden="true"
+        className="reading-progress fixed inset-x-0 top-0 z-40 h-0.5 origin-left bg-brass-300"
+      />
       <PageHero tone="inverse" eyebrow={eyebrow} title={title} description={<p>{intro}</p>}>
         {updated && <p className="text-sm text-text-inverse-muted">Last updated {updated}</p>}
       </PageHero>
@@ -52,7 +56,7 @@ export function ProsePage({
         )}
         <div className="max-w-(--container-prose) lg:col-start-2">
           {sections.map((section) => (
-            <section key={section.heading} aria-labelledby={slug(section.heading)} className="mb-12 last:mb-0">
+            <section data-reveal key={section.heading} aria-labelledby={slug(section.heading)} className="mb-12 last:mb-0">
               <h2 id={slug(section.heading)} className="scroll-mt-28 text-subheading">
                 {section.heading}
               </h2>
