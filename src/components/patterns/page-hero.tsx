@@ -18,6 +18,7 @@ export function PageHero({
   image,
   imageAlt,
   imagePosition = "center",
+  imageFit = "cover",
   tone = "warm",
   size = "default",
   aside,
@@ -31,6 +32,12 @@ export function PageHero({
   image?: StaticImageData
   imageAlt?: string
   imagePosition?: string
+  /**
+   * "cover" (default) spans the photo across the hero like every other page and
+   * crops around `imagePosition`. "whole" keeps a square photo uncropped for
+   * subjects that fill the frame, such as a single product.
+   */
+  imageFit?: "cover" | "whole"
   tone?: "warm" | "inverse"
   size?: "default" | "large"
   /** Non-photographic right-hand panel (e.g. an illustration card) used instead of `image` */
@@ -38,14 +45,15 @@ export function PageHero({
   children?: ReactNode
 }) {
   const inverse = tone === "inverse"
-  // Square or portrait photos keep their shape so the subject is never cropped;
-  // wide photos stretch across the hero.
-  const squareish = image ? image.width / image.height < 1.3 : false
+  const squareish = imageFit === "whole"
 
   return (
     <section
+      // Extends up behind the announcement bar and header (see .page-hero).
+      data-tone={tone}
       className={cn(
-        "relative overflow-hidden",
+        // Tablet up: every hero fills the first screen (capped on very tall displays).
+        "page-hero relative overflow-hidden md:flex md:min-h-[min(100svh,60rem)] md:flex-col",
         inverse ? "bg-surface-inverse text-text-inverse" : "bg-surface-warm"
       )}
     >
@@ -61,7 +69,7 @@ export function PageHero({
         className={cn(
           // Copy and visual sit side by side from tablet width up; the copy column
           // gets a larger share on narrower screens so headlines don't over-wrap.
-          "relative grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] xl:grid-cols-[minmax(0,1fr)_minmax(0,0.82fr)]",
+          "relative grid md:flex-1 md:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] xl:grid-cols-[minmax(0,1fr)_minmax(0,0.82fr)]",
           !image && !aside && "md:grid-cols-1! lg:grid-cols-1! xl:grid-cols-1!"
         )}
       >
@@ -147,9 +155,9 @@ export function PageHero({
           // the copy. Tablet up: it runs behind the copy column, fading in from the left.
           <div
             className={cn(
-              "hero-blend relative overflow-hidden max-md:order-first md:absolute md:inset-y-0 md:right-0",
+              "hero-blend relative overflow-hidden max-md:order-first md:absolute md:top-0 md:right-0 md:bottom-0",
               squareish
-                ? "hero-blend-square aspect-square sm:mx-auto sm:w-full sm:max-w-[32rem] md:mx-0 md:aspect-auto md:w-[44%] lg:aspect-square lg:w-auto lg:max-w-[58%]"
+                ? "hero-blend-square aspect-square sm:mx-auto sm:w-full sm:max-w-[32rem] md:mx-0 md:aspect-auto md:w-[50%] md:max-w-none lg:w-[64%]"
                 : "aspect-[4/3] sm:aspect-[16/9] md:aspect-auto md:w-[50%] lg:w-[64%]",
               inverse && "hero-blend-inverse"
             )}
@@ -164,7 +172,7 @@ export function PageHero({
                 placeholder="blur"
                 sizes={
                   squareish
-                    ? "(min-width: 768px) 50vw, (min-width: 640px) 34rem, 100vw"
+                    ? "(min-width: 1024px) 64vw, (min-width: 768px) 50vw, (min-width: 640px) 34rem, 100vw"
                     : "(min-width: 1024px) 64vw, (min-width: 768px) 50vw, 100vw"
                 }
                 className="hero-media object-cover"

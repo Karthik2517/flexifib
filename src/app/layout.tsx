@@ -5,6 +5,7 @@ import { CookieConsent } from "@/components/consent/cookie-consent"
 import { CartRoot } from "@/components/cart/cart-root"
 import { MotionProvider } from "@/components/cart/motion-provider"
 import { RevealObserver } from "@/components/motion/reveal-observer"
+import { ScrollState } from "@/components/layout/scroll-state"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { AnnouncementBar, SiteHeader } from "@/components/layout/site-header"
 import { site } from "@/content/site"
@@ -97,6 +98,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </MotionProvider>
         <Analytics />
         <RevealObserver />
+        <ScrollState />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

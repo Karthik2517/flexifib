@@ -100,6 +100,9 @@
 
   --focus-ring: var(--color-forest-600);
 
+  --surface-header: var(--surface-page);
+  --header-border: var(--border-subtle);
+
   --overlay: rgb(15 42 33 / 0.12);
   --hero-glow: rgb(211 225 213 / 0.6);
   --hero-glow-inverse: rgb(61 115 96 / 0.35);
@@ -173,6 +176,10 @@
     --action-primary-text: #ffffff;
 
     --focus-ring: #8cc4a9;
+
+    /* Header shares the hero's base colour and only gains a divider on scroll. */
+    --surface-header: var(--surface-warm);
+    --header-border: transparent;
 
     --overlay: rgb(0 0 0 / 0.55);
     --hero-glow: rgb(47 106 83 / 0.28);
@@ -407,12 +414,6 @@
   }
 }
 
-@keyframes header-elevate {
-  to {
-    box-shadow: 0 8px 28px -14px rgb(15 42 33 / 0.28);
-    background-color: color-mix(in oklab, var(--surface-page) 82%, transparent);
-  }
-}
 
 @keyframes reading-progress {
   from {
@@ -451,11 +452,17 @@
 /* Hero photo fades into the surrounding hero colour rather than meeting it at a hard edge. */
 /* Phones: the photo leads the hero and fades out at the bottom into the copy. */
 .hero-blend {
-  mask-image: linear-gradient(to top, transparent 0%, rgb(0 0 0 / 0.25) 18%, #000 55%);
+  mask-image:
+    linear-gradient(to top, transparent 0%, rgb(0 0 0 / 0.25) 18%, #000 55%),
+    linear-gradient(to bottom, transparent 0, rgb(0 0 0 / 0.5) 2.5rem, #000 6rem);
+  mask-composite: intersect;
 }
 
 .hero-blend-square {
-  mask-image: linear-gradient(to top, transparent 0%, rgb(0 0 0 / 0.25) 14%, #000 45%);
+  mask-image:
+    linear-gradient(to top, transparent 0%, rgb(0 0 0 / 0.25) 14%, #000 45%),
+    linear-gradient(to bottom, transparent 0, rgb(0 0 0 / 0.5) 2.5rem, #000 6rem);
+  mask-composite: intersect;
 }
 
 /* Large phones / small tablets: the square photo is narrower than the screen,
@@ -464,23 +471,93 @@
   .hero-blend-square {
     mask-image:
       linear-gradient(to top, transparent 0%, rgb(0 0 0 / 0.25) 14%, #000 45%),
+      linear-gradient(to bottom, transparent 0, rgb(0 0 0 / 0.5) 2.5rem, #000 6rem),
       linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%);
     mask-composite: intersect;
   }
 }
 
 @media (min-width: 48rem) {
+  /* Starts under the header but stays invisible there, fading in gradually below it. */
   .hero-blend {
+    top: 0;
     mask-image:
       linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.55) 26%, #000 50%),
-      linear-gradient(to top, transparent 0%, #000 14%);
+      linear-gradient(to top, transparent 0%, #000 14%),
+      linear-gradient(to bottom, transparent calc(var(--site-chrome) * 0.75), #000 calc(var(--site-chrome) + 9rem));
+    mask-composite: intersect;
+  }
+
+  /* Whole (uncropped) photos sit below the header so nothing at their top is
+     faded away, with only a short fade at that edge. */
+  .hero-blend-square {
+    top: var(--site-chrome);
+    mask-image:
+      linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.55) 26%, #000 50%),
+      linear-gradient(to top, transparent 0%, #000 14%),
+      linear-gradient(to bottom, transparent 0, #000 3rem);
     mask-composite: intersect;
   }
 
   .hero-blend-inverse {
     mask-image:
       linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.4) 30%, #000 62%),
-      linear-gradient(to top, transparent 0%, #000 14%);
+      linear-gradient(to top, transparent 0%, #000 14%),
+      linear-gradient(to bottom, transparent calc(var(--site-chrome) * 0.75), #000 calc(var(--site-chrome) + 9rem));
+  }
+}
+
+/* Site chrome over the hero ---------------------------------------------------
+ * The hero extends up behind the announcement bar and header so the page reads
+ * as one surface. Both are transparent at the top and the header turns solid
+ * once content scrolls beneath it (data-scrolled, components/layout/scroll-state).
+ * Light-mode dark (inverse) heroes keep solid chrome, since the dark header text
+ * would not read on them.
+ */
+:root {
+  --site-chrome: calc(6rem + 1px);
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --site-chrome: calc(6.5rem + 1px);
+  }
+}
+
+.page-hero {
+  margin-top: calc(var(--site-chrome) * -1);
+  padding-top: var(--site-chrome);
+}
+
+body:has(.page-hero[data-tone="warm"]) .site-announcement {
+  background-color: transparent;
+  color: var(--text-brand);
+}
+
+html:not([data-scrolled]) body:has(.page-hero[data-tone="warm"]) .site-header {
+  background-color: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
+
+html[data-scrolled] .site-header {
+  box-shadow: 0 8px 28px -16px rgb(15 42 33 / 0.3);
+  border-bottom-color: var(--border-subtle);
+}
+
+@media (prefers-color-scheme: dark) {
+  body:has(.page-hero[data-tone="inverse"]) .site-announcement {
+    background-color: transparent;
+  }
+
+  html:not([data-scrolled]) body:has(.page-hero[data-tone="inverse"]) .site-header {
+    background-color: transparent;
+    border-bottom-color: transparent;
+    backdrop-filter: none;
+  }
+
+  html[data-scrolled] .site-header {
+    box-shadow: 0 10px 30px -16px rgb(0 0 0 / 0.6);
   }
 }
 
@@ -498,13 +575,6 @@
     to {
       transform: translate3d(0, 7%, 0);
     }
-  }
-
-  /* Header gains depth once the page scrolls. */
-  .header-elevate {
-    animation: header-elevate linear both;
-    animation-timeline: scroll(root);
-    animation-range: 0 120px;
   }
 
   .reading-progress {

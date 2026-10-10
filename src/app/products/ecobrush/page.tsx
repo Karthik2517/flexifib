@@ -34,6 +34,7 @@ export default function EcoBrushPage() {
           </p>
         }
         image={programme.image}
+        imagePosition="50% 0%"
         imageAlt="Concept image: a toothbrush in a stone holder beside hemp leaves"
       >
         <div className="flex flex-col gap-5">

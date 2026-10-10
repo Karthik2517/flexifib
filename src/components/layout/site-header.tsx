@@ -5,8 +5,8 @@ import { MobileNav, NavLinks } from "./nav-links"
 
 export function AnnouncementBar() {
   return (
-    <div className="bg-surface-inverse-deep text-text-inverse">
-      <p className="container-page flex min-h-8 items-center justify-center gap-x-2 py-1.5 text-center text-[0.6875rem] font-semibold tracking-[0.12em] uppercase">
+    <div className="site-announcement relative z-30 bg-surface-inverse-deep text-text-inverse transition-colors duration-300">
+      <p className="container-page flex h-8 items-center overflow-hidden justify-center gap-x-2 py-1.5 text-center text-[0.6875rem] font-semibold tracking-[0.12em] uppercase">
         {site.announcement.map((item, index) => (
           <span key={item} className={index > 0 ? "hidden sm:inline" : undefined}>
             {index > 0 && (
@@ -27,7 +27,7 @@ export function SiteHeader() {
     <header
       // Named so page transitions leave it anchored while content crossfades beneath.
       style={{ viewTransitionName: "site-header" }}
-      className="header-elevate sticky top-0 z-30 border-b border-border bg-surface-page/92 backdrop-blur-md supports-[not(backdrop-filter:blur(0))]:bg-surface-page"
+      className="site-header sticky top-0 z-30 border-b border-(--header-border) bg-(--surface-header)/92 backdrop-blur-md transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-out-quart supports-[not(backdrop-filter:blur(0))]:bg-(--surface-header)"
     >
       <div className="container-page flex h-16 items-center gap-4 lg:h-[4.5rem]">
         <MobileNav />

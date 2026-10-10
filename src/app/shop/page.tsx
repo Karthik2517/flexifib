@@ -56,6 +56,8 @@ export default function ShopPage() {
           </p>
         }
         image={toothbrush}
+        imageFit="whole"
+        imagePosition="50% 18%"
         imageAlt="A toothbrush standing in a stone holder beside hemp leaves"
       >
         <NotePanel eyebrow="Transparency note" className="max-w-xl bg-surface-raised p-5 sm:p-5">

@@ -28,6 +28,7 @@ export default function InsightsPage() {
           </p>
         }
         image={researchNotebook}
+        imagePosition="60% 40%"
         imageAlt="An open notebook and pen on a wooden desk beside trailing leaves"
       />
 
