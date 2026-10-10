@@ -14,50 +14,7 @@ const MAX_STAGGER_INDEX = 5
  * A MutationObserver picks up content added by client-side navigation; its
  * callback runs before paint, so new below-the-fold content never flickers.
  */
-/**
- * Sets `--i` on each child of a stagger container to its column position within
- * its visual row (0 for the first card in a row), so scroll-driven card motion
- * can bring side-by-side cards in one after another. Single-column layouts get
- * 0 throughout, so stacked cards on phones aren't delayed.
- */
-function setColumns(container: Element) {
-  let rowTop: number | null = null
-  let column = 0
-  for (const child of Array.from(container.children) as HTMLElement[]) {
-    if (child.offsetTop !== rowTop) {
-      rowTop = child.offsetTop
-      column = 0
-    }
-    child.style.setProperty("--i", String(column++))
-  }
-}
-
 export function RevealObserver() {
-  useEffect(() => {
-    // Column positions for scroll-driven card motion; kept current on resize.
-    const columns = new ResizeObserver((entries) => {
-      for (const entry of entries) setColumns(entry.target)
-    })
-    const STAGGER = '[data-reveal="stagger"]'
-    const trackColumns = (root: ParentNode) => {
-      if (root instanceof Element && root.matches(STAGGER)) columns.observe(root)
-      root.querySelectorAll(STAGGER).forEach((el) => columns.observe(el))
-    }
-    trackColumns(document)
-    const columnMutations = new MutationObserver((records) => {
-      for (const record of records) {
-        record.addedNodes.forEach((node) => {
-          if (node instanceof Element) trackColumns(node)
-        })
-      }
-    })
-    columnMutations.observe(document.body, { childList: true, subtree: true })
-    return () => {
-      columns.disconnect()
-      columnMutations.disconnect()
-    }
-  }, [])
-
   useEffect(() => {
     if (
       !("IntersectionObserver" in window) ||
