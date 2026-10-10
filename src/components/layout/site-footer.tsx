@@ -10,7 +10,7 @@ export function SiteFooter() {
     <footer className="bg-surface-inverse-deep text-text-inverse">
       <div className="container-page grid gap-12 py-14 sm:py-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)]">
         <div>
-          <Link href="/" className="font-heading text-3xl font-bold text-text-inverse">
+          <Link href="/" className="font-heading text-3xl font-extrabold tracking-[-0.05em] text-text-inverse">
             FlexiFib
           </Link>
           <p className="mt-2 text-sm text-text-inverse-muted">{site.tagline}</p>

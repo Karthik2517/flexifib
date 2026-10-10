@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Inter, Source_Serif_4 } from "next/font/google"
+import { Inter, Manrope } from "next/font/google"
 import { Analytics } from "@/components/consent/analytics"
 import { CookieConsent } from "@/components/consent/cookie-consent"
 import { CartRoot } from "@/components/cart/cart-root"
@@ -19,11 +19,11 @@ const inter = Inter({
   display: "swap",
 })
 
-const serif = Source_Serif_4({
+// Headings and the wordmark (shared with the JARVIS product family).
+const display = Manrope({
   subsets: ["latin"],
-  variable: "--font-serif",
+  variable: "--font-display",
   display: "swap",
-  weight: ["600", "700"],
 })
 
 export const metadata: Metadata = {
@@ -77,7 +77,7 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-GB" className={`${inter.variable} ${serif.variable}`}>
+    <html lang="en-GB" className={`${inter.variable} ${display.variable}`}>
       <body className="flex min-h-dvh flex-col">
         <a
           href="#main"

@@ -65,7 +65,7 @@ export function MobileNav() {
         className="data-[side=left]:w-[min(22rem,88vw)] gap-0 border-r-0 bg-surface-page p-0 duration-(--duration-drawer)"
       >
         <SheetHeader className="border-b border-border px-5 py-4">
-          <SheetTitle className="font-heading text-2xl font-bold text-text-brand">
+          <SheetTitle className="font-heading text-2xl font-extrabold tracking-[-0.05em] text-text-brand">
             FlexiFib
           </SheetTitle>
           <SheetDescription className="sr-only">Site navigation</SheetDescription>

@@ -33,7 +33,7 @@ export function SiteHeader() {
         <MobileNav />
         <Link
           href="/"
-          className="font-heading text-[1.625rem] leading-none font-bold tracking-tight text-text-brand"
+          className="font-heading text-[1.625rem] leading-none font-extrabold tracking-[-0.05em] text-text-brand"
         >
           FlexiFib
           <span className="sr-only"> — home</span>
