@@ -218,7 +218,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
 
           <aside
             aria-labelledby="key-info"
-            className="h-fit rounded-xl border border-border bg-surface-raised p-6 shadow-(--shadow-card)"
+            data-card="" className="h-fit rounded-xl border border-border bg-surface-raised p-6 shadow-(--shadow-card)"
           >
             <h2 id="key-info" className="eyebrow text-text-brand">
               Key information

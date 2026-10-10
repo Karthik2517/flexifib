@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function CheckoutSuccessPage(props: PageProps<"/checkout/success">) {
   return (
     <Container className="section-y flex justify-center">
-      <div className="w-full max-w-xl rounded-2xl border border-border bg-surface-raised p-7 text-center shadow-(--shadow-card) sm:p-10">
+      <div data-card="" className="w-full max-w-xl rounded-2xl border border-border bg-surface-raised p-7 text-center shadow-(--shadow-card) sm:p-10">
         <Suspense fallback={<ConfirmationSkeleton />}>
           <Confirmation searchParams={props.searchParams} />
         </Suspense>

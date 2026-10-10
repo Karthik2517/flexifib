@@ -17,16 +17,24 @@ export function Container({ className, ...props }: ComponentProps<"div">) {
 
 export function Section({
   tone = "page",
+  glow,
   className,
   containerClassName,
   children,
   ...props
 }: ComponentProps<"section"> & {
   tone?: SectionTone
+  /** Soft ambient light behind the section (used inside `.ambient` pages) */
+  glow?: "left" | "right" | "center"
   containerClassName?: string
 }) {
   return (
-    <section className={cn("section-y", tones[tone], className)} {...props}>
+    <section
+      data-tone={tone}
+      className={cn("section-y", tones[tone], glow && "relative isolate overflow-hidden", className)}
+      {...props}
+    >
+      {glow && <div aria-hidden="true" data-glow={glow} className="ambient-glow" />}
       <Container className={containerClassName}>{children}</Container>
     </section>
   )

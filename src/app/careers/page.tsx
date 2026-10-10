@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 function BrandMark() {
   return (
-    <div className="flex w-full flex-col items-center justify-center rounded-2xl border border-border bg-surface-raised p-8 shadow-(--shadow-card) sm:p-10 lg:min-h-[22rem]">
+    <div data-card="" className="flex w-full flex-col items-center justify-center rounded-2xl border border-border bg-surface-raised p-8 shadow-(--shadow-card) sm:p-10 lg:min-h-[22rem]">
       <svg viewBox="0 0 200 200" role="img" aria-label="FlexiFib mark" className="w-40 sm:w-48">
         <circle cx="100" cy="100" r="88" fill="var(--color-sage-100)" />
         <rect x="92" y="40" width="16" height="130" rx="3" fill="var(--color-forest-900)" transform="rotate(-28 100 105)" />

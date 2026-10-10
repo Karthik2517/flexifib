@@ -19,7 +19,7 @@ export function CtaBand({
     <div
       data-reveal
       className={cn(
-        "flex flex-col gap-6 rounded-2xl bg-surface-inverse p-7 text-text-inverse sm:p-10 md:flex-row md:items-center md:justify-between",
+        "ambient-panel flex flex-col gap-6 rounded-3xl bg-surface-inverse p-7 text-text-inverse sm:p-10 md:flex-row md:items-center md:justify-between lg:p-12",
         className
       )}
     >

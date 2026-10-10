@@ -88,7 +88,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <MotionProvider>
           <AnnouncementBar />
           <SiteHeader />
-          <main id="main" className="flex-1" tabIndex={-1}>
+          <main id="main" className="ambient cards-blend flex-1" tabIndex={-1}>
             {children}
           </main>
           <SiteFooter />

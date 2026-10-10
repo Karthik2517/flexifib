@@ -18,8 +18,11 @@ export function ProgrammeCard({
 }) {
   const Heading = headingLevel
   return (
-    <li className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface-raised shadow-(--shadow-card) transition-[box-shadow,translate] duration-200 ease-out-quint has-[a:hover]:-translate-y-1 has-[a:hover]:shadow-(--shadow-card-hover)">
-      <div className="relative aspect-[16/9] overflow-hidden bg-surface-sunken">
+    <li
+      data-card=""
+      data-interactive=""
+      className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface-raised shadow-(--shadow-card) transition-[box-shadow,translate] duration-200 ease-out-quint has-[a:hover]:-translate-y-1 has-[a:hover]:shadow-(--shadow-card-hover)">
+      <div data-card-media="" className="relative aspect-[16/9] overflow-hidden bg-surface-sunken">
         <Image
           src={programme.image}
           alt={programme.imageAlt}

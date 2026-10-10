@@ -64,6 +64,8 @@ export function Card({
 }) {
   return (
     <Tag
+      data-card=""
+      data-interactive={interactive ? "" : undefined}
       className={cn(
         "rounded-xl border border-border bg-surface-raised shadow-(--shadow-card)",
         interactive &&

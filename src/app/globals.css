@@ -108,6 +108,30 @@
   --hero-glow-inverse: rgb(61 115 96 / 0.35);
   --input-border: var(--color-sand-300);
 
+  /* Ambient surfaces (.ambient pages) */
+  --ambient-a: rgb(211 225 213 / 0.7);
+  --ambient-b: rgb(220 197 150 / 0.22);
+  --glass-top: rgb(255 255 255 / 0.92);
+  --glass-bottom: rgb(255 255 255 / 0.68);
+  --glass-border: rgb(23 56 44 / 0.09);
+  --glass-highlight: rgb(255 255 255 / 0.9);
+  --glass-hover-border: rgb(43 92 73 / 0.28);
+
+  /* Blended cards (.cards-blend) */
+  --blend-fill: linear-gradient(160deg, rgb(255 255 255 / 0.82), rgb(255 255 255 / 0.42));
+  --blend-edge: linear-gradient(150deg, rgb(255 255 255 / 0.95), rgb(23 56 44 / 0.06) 45%, rgb(43 92 73 / 0.16));
+  --blend-edge-hover: linear-gradient(150deg, #fff, rgb(43 92 73 / 0.2) 45%, rgb(43 92 73 / 0.45));
+  --blend-shadow: 0 18px 48px -30px rgb(23 56 44 / 0.3);
+  --blend-shadow-hover: 0 28px 64px -28px rgb(23 56 44 / 0.4);
+
+  /* Ambient buttons */
+  --btn-primary-fill: linear-gradient(180deg, #2b5c49 0%, #17382c 100%);
+  --btn-primary-glow: 0 10px 28px -12px rgb(23 56 44 / 0.6);
+  --btn-primary-glow-hover: 0 16px 36px -12px rgb(43 92 73 / 0.7);
+  --btn-glass-fill: linear-gradient(180deg, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.5));
+  --btn-glass-edge: linear-gradient(150deg, rgb(23 56 44 / 0.55), rgb(23 56 44 / 0.18) 50%, rgb(23 56 44 / 0.45));
+  --btn-glass-edge-hover: linear-gradient(150deg, rgb(43 92 73 / 0.9), rgb(43 92 73 / 0.35) 50%, rgb(43 92 73 / 0.8));
+
   /* Spacing primitives used by layout components */
   --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
   --section-y: clamp(3.5rem, 2.25rem + 5vw, 6.5rem);
@@ -186,6 +210,27 @@
     --hero-glow-inverse: rgb(61 115 96 / 0.3);
     --input-border: #3a4842;
 
+    --ambient-a: rgb(47 106 83 / 0.26);
+    --ambient-b: rgb(220 197 150 / 0.06);
+    --glass-top: rgb(255 255 255 / 0.055);
+    --glass-bottom: rgb(255 255 255 / 0.02);
+    --glass-border: rgb(255 255 255 / 0.08);
+    --glass-highlight: rgb(255 255 255 / 0.07);
+    --glass-hover-border: rgb(140 196 169 / 0.35);
+
+    --blend-fill: linear-gradient(160deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.012) 55%, rgb(47 106 83 / 0.07));
+    --blend-edge: linear-gradient(150deg, rgb(255 255 255 / 0.17), rgb(255 255 255 / 0.03) 45%, rgb(140 196 169 / 0.14));
+    --blend-edge-hover: linear-gradient(150deg, rgb(255 255 255 / 0.3), rgb(140 196 169 / 0.14) 45%, rgb(140 196 169 / 0.5));
+    --blend-shadow: 0 24px 60px -36px rgb(0 0 0 / 0.75);
+    --blend-shadow-hover: 0 30px 70px -30px rgb(47 106 83 / 0.5);
+
+    --btn-primary-fill: linear-gradient(180deg, #377a60 0%, #2a5f4a 100%);
+    --btn-primary-glow: 0 10px 30px -12px rgb(55 122 96 / 0.55);
+    --btn-primary-glow-hover: 0 16px 40px -10px rgb(70 150 118 / 0.6);
+    --btn-glass-fill: linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.02));
+    --btn-glass-edge: linear-gradient(150deg, rgb(207 227 214 / 0.65), rgb(207 227 214 / 0.18) 50%, rgb(140 196 169 / 0.5));
+    --btn-glass-edge-hover: linear-gradient(150deg, rgb(220 240 228 / 0.9), rgb(140 196 169 / 0.4) 50%, rgb(140 196 169 / 0.9));
+
     --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px -4px rgb(0 0 0 / 0.35);
     --shadow-card-hover: 0 2px 4px rgb(0 0 0 / 0.35), 0 14px 32px -8px rgb(0 0 0 / 0.55);
     --shadow-drawer: -16px 0 48px -12px rgb(0 0 0 / 0.6);
@@ -215,6 +260,12 @@
   /* Bright photography is toned down slightly so it sits in a dark page. */
   main img {
     filter: brightness(0.88) saturate(0.95);
+  }
+
+  /* Hero photos with a very pale backdrop (opt-in via PageHero `imageDim`) are
+     toned down so they don't outshine the page. */
+  .page-hero img.hero-dim {
+    filter: brightness(0.66) contrast(1.06) saturate(0.85) sepia(0.12);
   }
 }
 
@@ -511,6 +562,7 @@
  * The hero extends up behind the announcement bar and header so the page reads
  * as one surface. Both are transparent at the top and the header turns solid
  * once content scrolls beneath it (data-scrolled, components/layout/scroll-state).
+ * Pages without a hero get the same transparent chrome over the plain page.
  * Light-mode dark (inverse) heroes keep solid chrome, since the dark header text
  * would not read on them.
  */
@@ -529,12 +581,12 @@
   padding-top: var(--site-chrome);
 }
 
-body:has(.page-hero[data-tone="warm"]) .site-announcement {
+body:not(:has(.page-hero[data-tone="inverse"])) .site-announcement {
   background-color: transparent;
   color: var(--text-brand);
 }
 
-html:not([data-scrolled]) body:has(.page-hero[data-tone="warm"]) .site-header {
+html:not([data-scrolled]) body:not(:has(.page-hero[data-tone="inverse"])) .site-header {
   background-color: transparent;
   border-bottom-color: transparent;
   backdrop-filter: none;
@@ -645,4 +697,252 @@ a:hover svg.lucide-arrow-right,
 a:focus-visible svg.lucide-arrow-right,
 button:hover svg.lucide-arrow-right {
   transform: translateX(3px);
+}
+
+/* Ambient surfaces -------------------------------------------------------------
+ * Pages wrapped in `.ambient` read as one continuous, softly lit surface: section
+ * tones fade into each other instead of meeting at hard edges, Section `glow`
+ * adds drifting light, and cards become frosted glass. Applied to <main> site-wide.
+ */
+.ambient [data-tone="page"],
+.ambient [data-tone="raised"] {
+  background: transparent;
+}
+
+.ambient [data-tone="warm"],
+.ambient [data-tone="tint"] {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--surface-warm) 22%,
+    var(--surface-warm) 78%,
+    transparent
+  );
+}
+
+.ambient [data-tone]:not(.page-hero) {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Every section gets ambient light, alternating sides down the page; a Section
+   `glow` prop places it explicitly instead. */
+.ambient-glow,
+.ambient [data-tone]:not(.page-hero):not(:has(> .ambient-glow))::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(42rem 30rem at var(--gx) var(--gy), var(--ambient-a), transparent 70%),
+    radial-gradient(34rem 26rem at var(--gx2) var(--gy2), var(--ambient-b), transparent 70%);
+  /* Feathered so the light never stops at a section's edge. */
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+}
+
+.ambient [data-tone]:not(.page-hero)::before {
+  --gx: 100%;
+  --gy: 25%;
+  --gx2: 0%;
+  --gy2: 85%;
+}
+
+.ambient [data-tone]:not(.page-hero):nth-of-type(odd)::before {
+  --gx: 0%;
+  --gy: 30%;
+  --gx2: 100%;
+  --gy2: 80%;
+}
+
+.ambient-glow[data-glow="left"] {
+  --gx: 0%;
+  --gy: 30%;
+  --gx2: 100%;
+  --gy2: 80%;
+}
+
+.ambient-glow[data-glow="right"] {
+  --gx: 100%;
+  --gy: 25%;
+  --gx2: 0%;
+  --gy2: 85%;
+}
+
+.ambient-glow[data-glow="center"] {
+  --gx: 50%;
+  --gy: 50%;
+  --gx2: 15%;
+  --gy2: 20%;
+}
+
+.ambient [data-card] {
+  background: linear-gradient(180deg, var(--glass-top), var(--glass-bottom));
+  border-color: var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    var(--shadow-card);
+  backdrop-filter: blur(14px) saturate(1.1);
+}
+
+.ambient [data-card][data-interactive]:is(:hover, :has(a:hover)) {
+  border-color: var(--glass-hover-border);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    var(--shadow-card-hover);
+}
+
+/* Dark panels inside ambient pages carry their own light. */
+.ambient-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow: 0 30px 80px -40px rgb(15 42 33 / 0.55);
+}
+
+.ambient-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(36rem 24rem at 0% 0%, rgb(61 115 96 / 0.55), transparent 70%),
+    radial-gradient(30rem 22rem at 100% 100%, rgb(220 197 150 / 0.14), transparent 70%);
+}
+
+.ambient-panel::after {
+  /* Hairline lit edge along the top of the panel. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), inset 0 0 0 1px rgb(255 255 255 / 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  .ambient-panel {
+    background-color: #12261e;
+    box-shadow: 0 30px 80px -40px rgb(0 0 0 / 0.8);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  /* The footer rises out of an ambient page instead of starting at a hard line. */
+  body:has(.ambient) > footer,
+  body:has(.ambient) footer:last-of-type {
+    background: linear-gradient(to bottom, var(--surface-page), var(--surface-inverse-deep) 9rem);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Dark green heroes settle into the page rather than ending at a hard line. */
+  .ambient .page-hero[data-tone="inverse"] {
+    background: linear-gradient(
+      to bottom,
+      var(--surface-inverse) 0%,
+      var(--surface-inverse) 55%,
+      var(--surface-page) 100%
+    );
+  }
+}
+
+/* Blended cards -----------------------------------------------------------------
+ * Site-wide (`.cards-blend` on <main>), cards lose their solid fill and hard outline: a faint
+ * glass fill, a hairline gradient edge that catches the light top-left and fades
+ * out, a soft shadow, and photos that dissolve into the card.
+ */
+.cards-blend [data-card] {
+  position: relative;
+  border-color: transparent;
+  border-radius: 1.25rem;
+  background: var(--blend-fill);
+  box-shadow: var(--blend-shadow);
+  backdrop-filter: blur(12px) saturate(1.15);
+  transition:
+    translate var(--duration-large) var(--ease-out-quint),
+    box-shadow var(--duration-large) var(--ease-out-quint);
+}
+
+.cards-blend [data-card]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--blend-edge);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.cards-blend [data-card][data-interactive]:is(:hover, :has(a:hover)) {
+  box-shadow: var(--blend-shadow-hover);
+}
+
+.cards-blend [data-card][data-interactive]:is(:hover, :has(a:hover))::before {
+  background: var(--blend-edge-hover);
+}
+
+.cards-blend [data-card-media] {
+  mask-image: linear-gradient(to bottom, #000 62%, transparent);
+}
+
+/* Ambient buttons ----------------------------------------------------------------
+ * Site-wide (`.cards-blend` on <main>): primary buttons are a lit gradient with a soft coloured
+ * glow and a highlight along the top; outline buttons are glass with a hairline
+ * gradient edge; cream buttons on dark panels carry a gentle luminous halo.
+ */
+.cards-blend .btn-primary {
+  background: var(--btn-primary-fill);
+  border-color: transparent;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.18),
+    var(--btn-primary-glow);
+}
+
+.cards-blend .btn-primary:hover {
+  background: var(--btn-primary-fill);
+  filter: brightness(1.08);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.22),
+    var(--btn-primary-glow-hover);
+}
+
+.cards-blend .btn-outline {
+  border: 1px solid transparent;
+  /* Solid base under the glass so the edge gradient only shows as a hairline. */
+  background:
+    var(--btn-glass-fill) padding-box,
+    linear-gradient(var(--surface-page), var(--surface-page)) padding-box,
+    var(--btn-glass-edge) border-box;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12);
+}
+
+.cards-blend .btn-outline:hover,
+.cards-blend .btn-outline[aria-expanded="true"] {
+  background:
+    var(--btn-glass-fill) padding-box,
+    linear-gradient(var(--surface-page), var(--surface-page)) padding-box,
+    var(--btn-glass-edge-hover) border-box;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.16),
+    0 10px 26px -14px rgb(43 92 73 / 0.55);
+}
+
+.cards-blend .btn-inverse {
+  background: linear-gradient(180deg, #fffdf8, #ece4d6);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 10px 30px -12px rgb(220 197 150 / 0.55);
+}
+
+.cards-blend .btn-inverse:hover {
+  background: linear-gradient(180deg, #fff, #f5f0e7);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 14px 36px -10px rgb(220 197 150 / 0.7);
 }

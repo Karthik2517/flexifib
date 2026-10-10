@@ -61,6 +61,7 @@ export default function HomePage() {
           ].map(([title, text]) => (
             <li
               key={title}
+              data-card=""
               className="rounded-lg border border-border bg-surface-raised/80 px-4 py-3"
             >
               <p className="eyebrow text-[0.6875rem] tracking-[0.06em] text-text-brand">{title}</p>
@@ -70,7 +71,7 @@ export default function HomePage() {
         </ul>
       </PageHero>
 
-      <Section aria-labelledby="what-we-do">
+      <Section glow="right" aria-labelledby="what-we-do">
         <SectionHeader
           eyebrow="What FlexiFib does"
           id="what-we-do"
@@ -83,9 +84,9 @@ export default function HomePage() {
               <StatusBadge>Available today</StatusBadge>
               <h3 className="mt-4 text-subheading">Launch Collection</h3>
               <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                Selected products manufactured by external production partners and retailed
-                by FlexiFib — a practical route to early revenue, real customer feedback and
-                market validation while our proprietary R&amp;D continues.
+                Selected products manufactured by external production partners and retailed by
+                FlexiFib — a practical route to early revenue, real customer feedback and market
+                validation while our proprietary R&amp;D continues.
               </p>
               <ButtonLink href="/shop" className="mt-6 w-fit">
                 Shop Launch Collection
@@ -107,9 +108,9 @@ export default function HomePage() {
               <StatusBadge>In development</StatusBadge>
               <h3 className="mt-4 text-subheading">FlexiFib Innovation</h3>
               <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                Our proprietary programmes focus on hemp-based oral care, household products
-                and packaging. Each one progresses through material research, design,
-                prototyping, testing and future scale-up.
+                Our proprietary programmes focus on hemp-based oral care, household products and
+                packaging. Each one progresses through material research, design, prototyping,
+                testing and future scale-up.
               </p>
               <ButtonLink href="/innovation" variant="outline" className="mt-6 w-fit">
                 Explore our innovation
@@ -129,7 +130,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Section tone="warm" aria-labelledby="platform">
+      <Section tone="warm" glow="left" aria-labelledby="platform">
         <SectionHeader
           eyebrow="Product platform"
           id="platform"
@@ -161,7 +162,7 @@ export default function HomePage() {
         <Pathway steps={developmentPathway} />
       </Section>
 
-      <Section tone="raised" aria-labelledby="why-hemp">
+      <Section tone="raised" glow="right" aria-labelledby="why-hemp">
         <MediaSplit
           image={fibreTwine}
           imageAlt="Natural fibre twine bound tightly around a bundle of raw plant stems"
@@ -171,14 +172,14 @@ export default function HomePage() {
             A material worth exploring.
           </h2>
           <p className="mt-4 text-lead text-text-muted">
-            Hemp is a fast-growing fibre crop with strong natural fibres and potential across
-            a wide range of material applications.
+            Hemp is a fast-growing fibre crop with strong natural fibres and potential across a wide
+            range of material applications.
           </p>
           <p className="mt-4 text-text-muted">
-            FlexiFib is researching where hemp can be technically and commercially useful —
-            from oral care to household products and packaging. We publish verified properties
-            separately from development targets, and we only make claims about a finished
-            product once there is evidence for that exact product.
+            FlexiFib is researching where hemp can be technically and commercially useful — from
+            oral care to household products and packaging. We publish verified properties separately
+            from development targets, and we only make claims about a finished product once there is
+            evidence for that exact product.
           </p>
           <ButtonLink href="/sustainability" variant="outline" className="mt-8">
             Learn about our approach
@@ -186,36 +187,41 @@ export default function HomePage() {
         </MediaSplit>
       </Section>
 
-      <Section tone="inverse" aria-labelledby="honesty">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-16">
+      <Section glow="center" aria-labelledby="honesty">
+        <div className="ambient-panel grid gap-10 rounded-3xl bg-surface-inverse p-7 text-text-inverse sm:p-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-16 lg:p-14 [&_h2]:text-text-inverse [&_h3]:text-text-inverse">
           <div data-reveal>
             <p className="eyebrow mb-3 text-text-accent-inverse">Sustainability</p>
             <h2 id="honesty" className="text-heading">
               Honesty is part of sustainability.
             </h2>
             <p className="mt-4 text-text-inverse-muted">
-              We clearly distinguish between the products we source today and the
-              technologies we are developing for tomorrow. Materials, origin, testing and
-              disposal information are published wherever they have been verified.
+              We clearly distinguish between the products we source today and the technologies we
+              are developing for tomorrow. Materials, origin, testing and disposal information are
+              published wherever they have been verified.
             </p>
             <ButtonLink href="/sustainability" variant="inverse" className="mt-8">
               Read Sustainability &amp; Materials
             </ButtonLink>
           </div>
           <div data-reveal="stagger" className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-xl bg-white/6 p-6 ring-1 ring-white/10">
+            <div className="rounded-2xl bg-white/6 p-6 ring-1 ring-white/10 backdrop-blur-sm">
               <h3 className="eyebrow text-text-inverse">What we can verify today</h3>
               <Checklist items={verifiedToday.slice(0, 4)} inverse className="mt-4" />
             </div>
-            <div className="rounded-xl bg-white/6 p-6 ring-1 ring-white/10">
+            <div className="rounded-2xl bg-white/6 p-6 ring-1 ring-white/10 backdrop-blur-sm">
               <h3 className="eyebrow text-text-inverse">What we are working towards</h3>
-              <Checklist items={workingTowards.slice(0, 4)} variant="open" inverse className="mt-4" />
+              <Checklist
+                items={workingTowards.slice(0, 4)}
+                variant="open"
+                inverse
+                className="mt-4"
+              />
             </div>
           </div>
         </div>
       </Section>
 
-      <Section aria-labelledby="business">
+      <Section glow="left" aria-labelledby="business">
         <SectionHeader
           eyebrow="For business"
           id="business"
@@ -242,7 +248,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Section tone="warm" aria-labelledby="insights">
+      <Section tone="warm" glow="right" aria-labelledby="insights">
         <SectionHeader
           eyebrow="Insights"
           id="insights"
@@ -274,21 +280,24 @@ export default function HomePage() {
         </CardGrid>
       </Section>
 
-      <section aria-labelledby="journey" className="bg-surface-sunken">
-        <Container
-          data-reveal
-          className="grid gap-6 py-12 sm:py-14 md:grid-cols-[1fr_minmax(0,28rem)] md:items-center md:gap-12"
-        >
-          <div>
-            <h2 id="journey" className="text-subheading">
-              Follow the FlexiFib journey.
-            </h2>
-            <p className="mt-2 text-sm text-text-muted">
-              Product-development updates, launch news and early-access invitations. No spam —
-              unsubscribe any time.
-            </p>
+      <section aria-labelledby="journey" className="pb-(--section-y)">
+        <Container>
+          <div
+            data-reveal
+            data-card=""
+            className="grid gap-6 rounded-3xl border border-border bg-surface-sunken p-7 sm:p-10 md:grid-cols-[1fr_minmax(0,28rem)] md:items-center md:gap-12"
+          >
+            <div>
+              <h2 id="journey" className="text-subheading">
+                Follow the FlexiFib journey.
+              </h2>
+              <p className="mt-2 text-sm text-text-muted">
+                Product-development updates, launch news and early-access invitations. No spam —
+                unsubscribe any time.
+              </p>
+            </div>
+            <NewsletterForm />
           </div>
-          <NewsletterForm />
         </Container>
       </section>
     </>

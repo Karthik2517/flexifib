@@ -34,6 +34,7 @@ export function Pathway({
       {steps.map((step, index) => (
         <li key={step.title} className="relative flex">
           <div
+            data-card=""
             className={cn(
               "flex w-full flex-col gap-3 rounded-xl border border-border bg-surface-raised p-5 shadow-(--shadow-card)",
               // Phones: number beside the text keeps each step compact.

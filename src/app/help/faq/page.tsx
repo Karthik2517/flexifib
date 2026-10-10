@@ -87,7 +87,7 @@ export default function FaqPage() {
         {groups.map((group) => (
           <section key={group.title} className="mb-12 last:mb-0">
             <h2 className="text-subheading">{group.title}</h2>
-            <Accordion className="mt-4 rounded-xl border border-border bg-surface-raised px-5 sm:px-6">
+            <Accordion data-card="" className="mt-4 rounded-xl border border-border bg-surface-raised px-5 sm:px-6">
               {group.items.map((item) => (
                 <AccordionItem key={item.q} value={item.q}>
                   <AccordionTrigger className="min-h-14 py-4 text-[0.9375rem] font-semibold hover:no-underline">

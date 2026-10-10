@@ -19,6 +19,7 @@ export function PageHero({
   imageAlt,
   imagePosition = "center",
   imageFit = "cover",
+  imageDim = false,
   tone = "warm",
   size = "default",
   aside,
@@ -38,6 +39,8 @@ export function PageHero({
    * subjects that fill the frame, such as a single product.
    */
   imageFit?: "cover" | "whole"
+  /** Dark mode only: tones down a photo with a very bright backdrop */
+  imageDim?: boolean
   tone?: "warm" | "inverse"
   size?: "default" | "large"
   /** Non-photographic right-hand panel (e.g. an illustration card) used instead of `image` */
@@ -170,12 +173,10 @@ export function PageHero({
                 fill
                 preload
                 placeholder="blur"
-                sizes={
-                  squareish
-                    ? "(min-width: 1024px) 64vw, (min-width: 768px) 50vw, (min-width: 640px) 34rem, 100vw"
-                    : "(min-width: 1024px) 64vw, (min-width: 768px) 50vw, 100vw"
-                }
-                className="hero-media object-cover"
+                // The photo covers a tall box (full hero height), so it renders wider
+                // than its column — request full viewport width to stay sharp.
+                sizes={squareish ? "(min-width: 640px) and (max-width: 767px) 34rem, 100vw" : "100vw"}
+                className={cn("hero-media object-cover", imageDim && "hero-dim")}
                 style={{ objectPosition: imagePosition }}
               />
             </div>

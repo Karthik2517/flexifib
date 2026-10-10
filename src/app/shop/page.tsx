@@ -57,6 +57,7 @@ export default function ShopPage() {
         }
         image={toothbrush}
         imageFit="whole"
+        imageDim
         imagePosition="50% 18%"
         imageAlt="A toothbrush standing in a stone holder beside hemp leaves"
       >
@@ -130,7 +131,7 @@ export default function ShopPage() {
 
       <Section className="pt-0!" aria-labelledby="shopping-info">
         <SectionHeader id="shopping-info" title="Shopping information" />
-        <Accordion className="rounded-xl border border-border bg-surface-raised px-5 sm:px-6">
+        <Accordion data-card="" className="rounded-xl border border-border bg-surface-raised px-5 sm:px-6">
           {shopFaq.map((item) => (
             <AccordionItem key={item.q} value={item.q}>
               <AccordionTrigger className="min-h-14 py-4 text-[0.9375rem] font-semibold hover:no-underline">

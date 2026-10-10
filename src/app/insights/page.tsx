@@ -53,9 +53,9 @@ export default function InsightsPage() {
           {insights.map((insight) => (
             <li
               key={insight.slug}
-              className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface-raised shadow-(--shadow-card)"
+              data-card="" className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface-raised shadow-(--shadow-card)"
             >
-              <div className="relative aspect-[16/9] bg-surface-sunken">
+              <div data-card-media="" className="relative aspect-[16/9] bg-surface-sunken">
                 <Image
                   src={insight.image}
                   alt=""
