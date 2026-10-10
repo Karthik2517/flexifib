@@ -24,6 +24,7 @@ export default defineConfig({
     { name: "webkit", use: { ...devices["Desktop Safari"] } },
     { name: "mobile-chrome", use: { ...devices["Pixel 7"] } },
     { name: "mobile-safari", use: { ...devices["iPhone 15"] } },
+    { name: "tablet-safari", use: { ...devices["iPad Mini"] } },
   ],
   webServer: {
     // Production build with Next's testing API exposed for instant() navigation tests.

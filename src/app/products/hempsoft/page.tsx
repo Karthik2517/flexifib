@@ -41,7 +41,7 @@ export default function HempSoftPage() {
 
       <Section aria-labelledby="applications">
         <SectionHeader id="applications" title="Potential applications" />
-        <CardGrid columns={5}>
+        <CardGrid columns={5} layout="compact">
           <InfoCard title="Toilet tissue">Household hygiene</InfoCard>
           <InfoCard title="Kitchen roll">Everyday cleaning</InfoCard>
           <InfoCard title="Facial tissue">Soft-use applications</InfoCard>

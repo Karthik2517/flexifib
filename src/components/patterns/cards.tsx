@@ -1,21 +1,35 @@
 import type { ReactNode } from "react"
 import { cn } from "@/lib/utils"
 
+/** Spans a lone last card across both columns while the grid is two-up. */
+const orphanSm = "sm:max-md:[&>*:last-child:nth-child(odd)]:col-span-2"
+
 const columnClasses = {
   2: "sm:grid-cols-2",
-  3: "sm:grid-cols-2 lg:grid-cols-3",
+  3: cn("sm:grid-cols-2 md:grid-cols-3", orphanSm),
   4: "sm:grid-cols-2 lg:grid-cols-4",
-  5: "sm:grid-cols-2 lg:grid-cols-5",
+  5: cn("sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5", orphanSm),
   6: "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6",
 } as const
 
+/** Phones: a swipeable row with the next card peeking in, instead of a long stack. */
+const carouselClasses =
+  "max-sm:-mx-(--gutter) max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:scroll-px-(--gutter) max-sm:overflow-x-auto max-sm:px-(--gutter) max-sm:pb-2 max-sm:[scrollbar-width:none] max-sm:[&>*]:w-[84%] max-sm:[&>*]:shrink-0 max-sm:[&>*]:snap-start"
+
+/** Phones (360px and up): short cards sit two-up rather than one per row. */
+const compactClasses =
+  "min-[360px]:grid-cols-2 min-[360px]:max-sm:[&>*:last-child:nth-child(odd)]:col-span-2"
+
 export function CardGrid({
   columns = 3,
+  layout = "stack",
   className,
   children,
   as: Tag = "ul",
 }: {
   columns?: keyof typeof columnClasses
+  /** How the grid behaves on phones: stacked, swipeable, or two-up for short cards */
+  layout?: "stack" | "carousel" | "compact"
   className?: string
   children: ReactNode
   as?: "ul" | "div"
@@ -24,7 +38,13 @@ export function CardGrid({
     <Tag
       data-reveal="stagger"
       role={Tag === "ul" ? "list" : undefined}
-      className={cn("grid gap-4 sm:gap-5", columnClasses[columns], className)}
+      className={cn(
+        "grid gap-4 sm:gap-5",
+        columnClasses[columns],
+        layout === "carousel" && carouselClasses,
+        layout === "compact" && compactClasses,
+        className
+      )}
     >
       {children}
     </Tag>
@@ -77,7 +97,7 @@ export function InfoCard({
         className={cn(
           size === "large"
             ? "text-subheading"
-            : "font-sans text-[0.9375rem] font-bold tracking-normal"
+            : "font-sans text-[0.9375rem] font-bold tracking-normal break-words hyphens-auto"
         )}
       >
         {title}

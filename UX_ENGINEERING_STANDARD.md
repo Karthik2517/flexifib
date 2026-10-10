@@ -175,7 +175,7 @@ Everything animates only opacity, transform or clip-path. `prefers-reduced-motio
 | Lint, strict types | ESLint, `tsc` | CI `quality` |
 | Unit/component | Vitest + Testing Library (`tests/unit`) | CI `quality` |
 | Component lab | Storybook (`npm run storybook`) — a11y addon set to error | CI builds it |
-| Journeys, keyboard, consent, forms, instant nav | Playwright on Chromium, Firefox, WebKit, Pixel 7, iPhone 15 | CI `e2e` |
+| Journeys, keyboard, consent, forms, instant nav | Playwright on Chromium, Firefox, WebKit, Pixel 7, iPhone 15, iPad Mini | CI `e2e` |
 | Accessibility | axe on every public route | CI `e2e` |
 | Visual regression | Playwright screenshots (desktop + mobile) | CI `visual` |
 | Performance budgets | Lighthouse CI (`npm run test:perf`) | Before release |

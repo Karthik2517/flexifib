@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import heroEdinburgh from "@/assets/images/hero-edinburgh.jpg"
+import lochAwe from "@/assets/images/loch-awe-castle.jpg"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { ButtonLink } from "@/components/patterns/button-link"
 import { CardGrid, InfoCard } from "@/components/patterns/cards"
@@ -27,9 +27,9 @@ export default function OurStoryPage() {
             household and packaging applications.
           </p>
         }
-        image={heroEdinburgh}
-        imageAlt="A windowsill in Edinburgh with hemp fibre and a toothbrush"
-        imagePosition="80% center"
+        image={lochAwe}
+        imageAlt="Kilchurn Castle reflected in the still water of Loch Awe in the Scottish Highlands"
+        imagePosition="62% center"
       />
 
       <Section aria-labelledby="why-started">

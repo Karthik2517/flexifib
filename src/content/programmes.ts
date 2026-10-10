@@ -1,5 +1,5 @@
 import type { StaticImageData } from "next/image"
-import toothbrush from "@/assets/images/toothbrush.jpg"
+import bambooToothbrushes from "@/assets/images/bamboo-toothbrushes.jpg"
 import tissue from "@/assets/images/tissue.jpg"
 import packaging from "@/assets/images/packaging.jpg"
 
@@ -28,6 +28,8 @@ export type Programme = {
   summary: string
   image: StaticImageData
   imageAlt: string
+  /** CSS object-position keeping the subject in frame when cropped to a wide card */
+  imagePosition?: string
   href: string
   cta: string
 }
@@ -41,8 +43,9 @@ export const programmes: Programme[] = [
     tagline: "Next-generation oral care",
     summary:
       "A toothbrush platform exploring hemp-based materials, product longevity and reduced material replacement.",
-    image: toothbrush,
-    imageAlt: "Concept image of a toothbrush in a stone holder",
+    image: bambooToothbrushes,
+    imageAlt: "Three bamboo toothbrushes standing in a ceramic cup",
+    imagePosition: "50% 25%",
     href: "/products/ecobrush",
     cta: "Explore EcoBrush",
   },

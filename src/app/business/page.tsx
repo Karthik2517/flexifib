@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { Suspense } from "react"
-import packaging from "@/assets/images/packaging.jpg"
+import textileLoom from "@/assets/images/textile-loom.jpg"
 import { BusinessForm } from "@/components/forms/business-form"
 import { BusinessFormFromUrl } from "@/components/forms/business-form-from-url"
 import { Section, SectionHeader } from "@/components/layout/section"
@@ -38,8 +38,8 @@ export default function BusinessPage() {
             manufacturers, packaging customers, researchers and universities.
           </p>
         }
-        image={packaging}
-        imageAlt="Moulded fibre packaging and a kraft pouch"
+        image={textileLoom}
+        imageAlt="An industrial loom weaving natural fibre cloth on a factory floor"
       />
 
       <Section aria-labelledby="who">

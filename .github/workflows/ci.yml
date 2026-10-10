@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: [chromium, firefox, webkit, mobile-chrome, mobile-safari]
+        project: [chromium, firefox, webkit, mobile-chrome, mobile-safari, tablet-safari]
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5

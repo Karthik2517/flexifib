@@ -3,6 +3,8 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import heroEdinburgh from "@/assets/images/hero-edinburgh.jpg"
 import toothbrush from "@/assets/images/toothbrush.jpg"
+import labBench from "@/assets/images/lab-bench.jpg"
+import fibreTwine from "@/assets/images/fibre-twine.jpg"
 import { NewsletterForm } from "@/components/forms/email-capture"
 import { Container, Section, SectionHeader } from "@/components/layout/section"
 import { ButtonLink } from "@/components/patterns/button-link"
@@ -86,7 +88,7 @@ export default function HomePage() {
                 Shop Launch Collection
               </ButtonLink>
             </div>
-            <div className="relative hidden aspect-square w-40 overflow-hidden rounded-lg bg-sand-200 sm:block lg:w-44">
+            <div className="relative hidden aspect-square w-40 overflow-hidden rounded-lg bg-sand-200 sm:block lg:w-28 xl:w-44">
               <Image
                 src={toothbrush}
                 alt=""
@@ -110,14 +112,14 @@ export default function HomePage() {
                 Explore our innovation
               </ButtonLink>
             </div>
-            <div className="relative hidden aspect-square w-40 overflow-hidden rounded-lg bg-sand-200 sm:block lg:w-44">
+            <div className="relative hidden aspect-square w-40 overflow-hidden rounded-lg bg-sand-200 sm:block lg:w-28 xl:w-44">
               <Image
-                src={heroEdinburgh}
+                src={labBench}
                 alt=""
                 fill
                 placeholder="blur"
                 sizes="176px"
-                className="object-cover object-[85%_center] transition-transform duration-400 ease-out-quint group-hover/card:scale-[1.04]"
+                className="object-cover object-[70%_center] transition-transform duration-400 ease-out-quint group-hover/card:scale-[1.04]"
               />
             </div>
           </Card>
@@ -139,7 +141,7 @@ export default function HomePage() {
             </Link>
           }
         />
-        <CardGrid columns={3}>
+        <CardGrid columns={3} layout="carousel">
           {programmes.map((programme) => (
             <ProgrammeCard key={programme.slug} programme={programme} />
           ))}
@@ -158,8 +160,8 @@ export default function HomePage() {
 
       <Section tone="raised" aria-labelledby="why-hemp">
         <MediaSplit
-          image={heroEdinburgh}
-          imageAlt="Hemp fibre, a glass flask and natural materials arranged on a sunlit windowsill"
+          image={fibreTwine}
+          imageAlt="Natural fibre twine bound tightly around a bundle of raw plant stems"
         >
           <p className="eyebrow mb-3 text-text-brand">Why hemp?</p>
           <h2 id="why-hemp" className="text-heading">
@@ -217,7 +219,7 @@ export default function HomePage() {
           title="Build better products with us."
           description="Retailers, hospitality businesses, manufacturers, researchers and future packaging customers — start a conversation with the right team."
         />
-        <CardGrid columns={5}>
+        <CardGrid columns={5} layout="compact">
           {[
             ["Retail & wholesale", "Stock selected products."],
             ["Hotels & hospitality", "Explore supply opportunities."],
@@ -252,7 +254,7 @@ export default function HomePage() {
             </Link>
           }
         />
-        <CardGrid columns={3}>
+        <CardGrid columns={3} layout="carousel">
           {insights.map((insight) => (
             <InfoCard
               key={insight.slug}

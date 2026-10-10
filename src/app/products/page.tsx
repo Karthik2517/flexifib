@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import heroEdinburgh from "@/assets/images/hero-edinburgh.jpg"
+import fibreMacro from "@/assets/images/fibre-macro.jpg"
 import toothbrush from "@/assets/images/toothbrush.jpg"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { ButtonLink } from "@/components/patterns/button-link"
@@ -31,9 +31,8 @@ export default function ProductsPage() {
             current status.
           </p>
         }
-        image={heroEdinburgh}
-        imageAlt="Raw hemp fibre and a toothbrush on a windowsill overlooking Edinburgh"
-        imagePosition="75% center"
+        image={fibreMacro}
+        imageAlt="Close-up of raw natural hemp fibres"
       />
 
       <Section aria-labelledby="available">
@@ -70,7 +69,7 @@ export default function ProductsPage() {
           title="Proprietary programmes in development"
           description="None of these products are available to buy yet. Each page explains what the programme is exploring and what still has to be proven."
         />
-        <CardGrid columns={3}>
+        <CardGrid columns={3} layout="carousel">
           {programmes.map((programme) => (
             <ProgrammeCard key={programme.slug} programme={programme} showSummary={false} />
           ))}

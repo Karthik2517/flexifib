@@ -50,7 +50,7 @@ export default function FlexiPackPage() {
 
       <Section aria-labelledby="applications">
         <SectionHeader id="applications" title="Potential applications" />
-        <CardGrid columns={5}>
+        <CardGrid columns={5} layout="compact">
           <InfoCard title="Protective packaging">Moulded protective forms</InfoCard>
           <InfoCard title="E-commerce">Mailing and fulfilment formats</InfoCard>
           <InfoCard title="Consumer products">Trays, inserts and containers</InfoCard>

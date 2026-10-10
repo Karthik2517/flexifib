@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import heroEdinburgh from "@/assets/images/hero-edinburgh.jpg"
+import hempField from "@/assets/images/hemp-field.jpg"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { CardGrid, InfoCard } from "@/components/patterns/cards"
 import { CtaBand, NotePanel } from "@/components/patterns/callouts"
@@ -33,9 +33,8 @@ export default function SustainabilityPage() {
             page separates what we can verify today from what we are still working towards.
           </p>
         }
-        image={heroEdinburgh}
-        imageAlt="Hemp fibre and natural materials on a windowsill overlooking Edinburgh"
-        imagePosition="80% center"
+        image={hempField}
+        imageAlt="A field of tall hemp plants growing under an open sky"
       />
 
       <Section aria-label="Verified today and working towards">

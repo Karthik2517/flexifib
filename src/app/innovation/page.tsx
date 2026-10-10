@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
-import heroEdinburgh from "@/assets/images/hero-edinburgh.jpg"
+import labBench from "@/assets/images/lab-bench.jpg"
+import twineInHand from "@/assets/images/twine-in-hand.jpg"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { ButtonLink } from "@/components/patterns/button-link"
 import { CardGrid, InfoCard } from "@/components/patterns/cards"
@@ -30,9 +31,9 @@ export default function InnovationPage() {
             pathway — shown honestly, without presenting future work as already complete.
           </p>
         }
-        image={heroEdinburgh}
-        imageAlt="Hemp fibre, laboratory glassware and natural materials on a sunlit windowsill"
-        imagePosition="80% center"
+        image={labBench}
+        imageAlt="A bright materials laboratory with a microscope and analytical equipment"
+        imagePosition="70% center"
       >
         <ButtonLink href="/products/ecobrush" size="lg">
           Explore EcoBrush
@@ -72,7 +73,7 @@ export default function InnovationPage() {
       </Section>
 
       <Section tone="raised" aria-labelledby="why-hemp">
-        <MediaSplit image={heroEdinburgh} imageAlt="Raw hemp fibre beside a glass flask">
+        <MediaSplit image={twineInHand} imageAlt="A ball of natural fibre twine held in an open hand">
           <p className="eyebrow mb-3 text-text-brand">Why hemp?</p>
           <h2 id="why-hemp" className="text-heading">
             A promising fibre platform — not a magic material.

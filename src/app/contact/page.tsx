@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import toothbrush from "@/assets/images/toothbrush.jpg"
+import edinburghSkyline from "@/assets/images/edinburgh-skyline.jpg"
 import { ContactForm } from "@/components/forms/contact-form"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { Card, CardGrid, InfoCard } from "@/components/patterns/cards"
@@ -34,8 +34,9 @@ export default function ContactPage() {
             journalist, here’s how to reach the right part of FlexiFib.
           </p>
         }
-        image={toothbrush}
-        imageAlt="A toothbrush in a stone holder"
+        image={edinburghSkyline}
+        imageAlt="Edinburgh’s Old Town skyline rising above the trees of Princes Street Gardens"
+        imagePosition="70% center"
       />
 
       <Section aria-labelledby="teams">

@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image"
-import heroEdinburgh from "@/assets/images/hero-edinburgh.jpg"
+import ropeMacro from "@/assets/images/rope-macro.jpg"
+import labGlassware from "@/assets/images/lab-glassware.jpg"
 import packaging from "@/assets/images/packaging.jpg"
-import toothbrush from "@/assets/images/toothbrush.jpg"
 
 export type InsightPillar =
   | "Materials"
@@ -50,8 +50,8 @@ export const insights: Insight[] = [
     summary:
       "The material opportunity behind hemp — and why fibre properties alone don’t make a finished product.",
     pillar: "Materials",
-    image: heroEdinburgh,
-    imageAlt: "Raw hemp fibre and laboratory glassware on a windowsill in Edinburgh",
+    image: ropeMacro,
+    imageAlt: "Close-up of coarse natural fibre cord",
     published: false,
   },
   {
@@ -70,8 +70,8 @@ export const insights: Insight[] = [
     summary:
       "Why prototypes, testing and real-world evidence have to come before a launch date.",
     pillar: "Product Development",
-    image: toothbrush,
-    imageAlt: "A toothbrush standing in a stone holder",
+    image: labGlassware,
+    imageAlt: "Laboratory shelves lined with glassware and testing equipment",
     published: false,
   },
 ]

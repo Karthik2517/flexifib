@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import heroEdinburgh from "@/assets/images/hero-edinburgh.jpg"
+import researchNotebook from "@/assets/images/research-notebook.jpg"
 import { NewsletterForm } from "@/components/forms/email-capture"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { CardGrid, InfoCard, RowList } from "@/components/patterns/cards"
@@ -27,9 +27,8 @@ export default function InsightsPage() {
             better pieces — with real technical value and clearly sourced claims.
           </p>
         }
-        image={heroEdinburgh}
-        imageAlt="Natural fibres and glassware on a sunlit windowsill"
-        imagePosition="85% center"
+        image={researchNotebook}
+        imageAlt="An open notebook and pen on a wooden desk beside trailing leaves"
       />
 
       <Section aria-labelledby="pillars">

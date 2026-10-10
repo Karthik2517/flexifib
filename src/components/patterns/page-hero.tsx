@@ -38,6 +38,9 @@ export function PageHero({
   children?: ReactNode
 }) {
   const inverse = tone === "inverse"
+  // Square or portrait photos keep their shape so the subject is never cropped;
+  // wide photos stretch across the hero.
+  const squareish = image ? image.width / image.height < 1.3 : false
 
   return (
     <section
@@ -56,15 +59,19 @@ export function PageHero({
       />
       <div
         className={cn(
-          "relative grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.82fr)]",
-          !image && !aside && "lg:grid-cols-1"
+          // Copy and visual sit side by side from tablet width up; the copy column
+          // gets a larger share on narrower screens so headlines don't over-wrap.
+          "relative grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] xl:grid-cols-[minmax(0,1fr)_minmax(0,0.82fr)]",
+          !image && !aside && "md:grid-cols-1! lg:grid-cols-1! xl:grid-cols-1!"
         )}
       >
         <div
           className={cn(
             "relative z-10 flex flex-col justify-center py-12 sm:py-16",
-            size === "large" ? "lg:min-h-[34rem] lg:py-20" : "lg:min-h-[26rem] lg:py-16",
-            "pr-(--gutter) pl-(--gutter) lg:pl-[max(var(--gutter),calc((100vw-var(--container-page))/2))] lg:pr-12"
+            size === "large"
+              ? "md:min-h-[30rem] lg:min-h-[34rem] lg:py-20"
+              : "md:min-h-[24rem] lg:min-h-[26rem] lg:py-16",
+            "pr-(--gutter) pl-(--gutter) md:pr-8 md:pl-[max(var(--gutter),calc((100vw-var(--container-page))/2))] lg:pr-12"
           )}
         >
           <div className="max-w-2xl">
@@ -126,7 +133,7 @@ export function PageHero({
         {aside && !image && (
           <div
             style={step(3)}
-            className="hero-in flex items-center px-(--gutter) pb-12 lg:py-12 lg:pr-[max(var(--gutter),calc((100vw-var(--container-page))/2))] lg:pl-0"
+            className="hero-in flex items-center px-(--gutter) pb-12 md:py-12 md:pr-[max(var(--gutter),calc((100vw-var(--container-page))/2))] md:pl-0"
           >
             {aside}
           </div>
@@ -134,11 +141,14 @@ export function PageHero({
 
         {image && (
           // The photo dissolves into the hero background instead of sitting in its own
-          // panel: faded in from the top on small screens (below the copy) and from the
-          // left on large screens, where it runs behind the copy column.
+          // panel: faded in from the top on phones (below the copy) and from the left
+          // from tablet width up, where it runs behind the copy column.
           <div
             className={cn(
-              "hero-blend relative -mt-12 aspect-[4/3] overflow-hidden sm:-mt-20 sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:aspect-auto lg:w-[64%]",
+              "hero-blend relative -mt-12 overflow-hidden sm:-mt-20 md:absolute md:inset-y-0 md:right-0 md:mt-0",
+              squareish
+                ? "hero-blend-square aspect-square sm:mx-auto sm:max-w-[34rem] md:mx-0 md:aspect-auto md:w-[44%] lg:aspect-square lg:w-auto lg:max-w-[58%]"
+                : "aspect-[4/3] sm:aspect-[16/9] md:aspect-auto md:w-[50%] lg:w-[64%]",
               inverse && "hero-blend-inverse"
             )}
           >
@@ -150,7 +160,11 @@ export function PageHero({
                 fill
                 preload
                 placeholder="blur"
-                sizes="(min-width: 1024px) 64vw, 100vw"
+                sizes={
+                  squareish
+                    ? "(min-width: 768px) 50vw, (min-width: 640px) 34rem, 100vw"
+                    : "(min-width: 1024px) 64vw, (min-width: 768px) 50vw, 100vw"
+                }
                 className="hero-media object-cover"
                 style={{ objectPosition: imagePosition }}
               />
@@ -159,7 +173,7 @@ export function PageHero({
               // Tints pale areas of the photo so they fade into the dark hero, not grey.
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-linear-to-b from-surface-inverse/80 via-surface-inverse/25 to-transparent lg:bg-linear-to-r lg:from-surface-inverse lg:via-surface-inverse/45"
+                className="absolute inset-0 bg-linear-to-b from-surface-inverse/80 via-surface-inverse/25 to-transparent md:bg-linear-to-r md:from-surface-inverse md:via-surface-inverse/45"
               />
             )}
           </div>

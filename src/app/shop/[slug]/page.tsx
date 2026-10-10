@@ -142,8 +142,8 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
         </Breadcrumb>
       </Container>
 
-      <Container className="grid gap-8 py-6 sm:py-8 lg:grid-cols-2 lg:gap-14 lg:py-10">
-        <div className="relative aspect-square overflow-hidden rounded-xl bg-sand-200">
+      <Container className="grid gap-8 py-6 sm:py-8 md:grid-cols-2 md:gap-10 lg:gap-14 lg:py-10">
+        <div className="relative aspect-square overflow-hidden rounded-xl bg-sand-200 md:sticky md:top-24 md:self-start">
           <Image
             src={product.image}
             alt={product.imageAlt}
@@ -186,7 +186,8 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
       <Section className="pt-6! sm:pt-10!" aria-label="Product details">
         <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-14">
           <Tabs defaultValue="description" className="min-w-0 gap-6">
-            <div className="-mx-(--gutter) overflow-x-auto px-(--gutter) [scrollbar-width:none]">
+            {/* Scrolls sideways on narrow screens; the edge fade hints there is more. */}
+            <div className="-mx-(--gutter) overflow-x-auto px-(--gutter) [scrollbar-width:none] max-sm:[mask-image:linear-gradient(to_right,#000_85%,transparent)]">
               <TabsList
                 variant="line"
                 className="h-auto! w-full min-w-max justify-start gap-0 border-b border-border p-0"
@@ -195,7 +196,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
                   <TabsTrigger
                     key={tab.value}
                     value={tab.value}
-                    className="h-12 flex-none px-4 text-sm font-semibold after:bottom-[-1px]! data-active:text-text-brand"
+                    className="h-12 flex-none px-3 text-sm font-semibold sm:px-4 after:bottom-[-1px]! data-active:text-text-brand"
                   >
                     {tab.label}
                   </TabsTrigger>
