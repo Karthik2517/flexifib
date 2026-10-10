@@ -14,6 +14,7 @@
     "test:e2e": "playwright test --grep-invert \"visual regression\"",
     "test:visual": "playwright test tests/e2e/visual.spec.ts --project=chromium --project=mobile-chrome",
     "test:visual:update": "playwright test tests/e2e/visual.spec.ts --project=chromium --project=mobile-chrome --update-snapshots",
+    "test:perf": "npm run build && npx -y @lhci/cli@0.15 autorun",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -o storybook-static"
   },

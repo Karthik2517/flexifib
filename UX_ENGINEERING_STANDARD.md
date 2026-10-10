@@ -50,7 +50,7 @@ Field targets (75th percentile, real mobile users):
 | CLS | ≤ 0.10 | **< 0.05** |
 | TTFB (cached) | — | **< 500 ms** |
 
-CI (Lighthouse, mobile, applied throttling — `lighthouserc.json`) **fails** a PR when:
+The Lighthouse budget check (`npm run test:perf`, mobile, applied throttling — `lighthouserc.json`) is run before release rather than in CI, because shared CI runners measure too noisily to gate merges. It fails when:
 
 - LCP > 2.5 s, CLS > 0.05 or TBT > 200 ms (median of 3 runs)
 - script transfer > 340 KB on any audited page
@@ -167,7 +167,7 @@ Easing: `ease-out-quart` for entrances. Motion is for feedback and continuity (b
 | Journeys, keyboard, consent, forms, instant nav | Playwright on Chromium, Firefox, WebKit, Pixel 7, iPhone 15 | CI `e2e` |
 | Accessibility | axe on every public route | CI `e2e` |
 | Visual regression | Playwright screenshots (desktop + mobile) | CI `visual` |
-| Performance budgets | Lighthouse CI | CI `performance` |
+| Performance budgets | Lighthouse CI (`npm run test:perf`) | Before release |
 | Real users | Web Vitals RUM → GA4 `web_vital` events (with consent) | Production |
 
 ### Final acceptance rule
