@@ -87,22 +87,22 @@ async function Confirmation({
       <h1 className="mt-3 text-heading">Thank you for your order</h1>
       <p className="mt-4 text-text-muted">
         We’ve received your payment of{" "}
-        <strong className="text-ink-900 tabular-nums">{formatPrice(total)}</strong>
+        <strong className="text-foreground tabular-nums">{formatPrice(total)}</strong>
         {session.customer_details?.email && (
           <>
             {" "}
-            and will send updates to <strong className="text-ink-900">{session.customer_details.email}</strong>
+            and will send updates to <strong className="text-foreground">{session.customer_details.email}</strong>
           </>
         )}
         .
       </p>
       <dl className="mt-6 rounded-lg bg-surface-warm px-5 py-3 text-sm">
         <dt className="inline text-text-muted">Order reference: </dt>
-        <dd className="inline font-mono font-semibold text-ink-900">{reference}</dd>
+        <dd className="inline font-mono font-semibold text-foreground">{reference}</dd>
       </dl>
       <div className="mt-8 flex w-full gap-3 rounded-xl bg-surface-tint p-5 text-left">
         <Leaf aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-text-brand" />
-        <p className="text-sm text-ink-700">
+        <p className="text-sm text-text-body">
           Your order supports FlexiFib’s work on better everyday materials. Questions about
           your order? Email{" "}
           <a href={`mailto:${inboxes.orders}`} className="font-semibold underline underline-offset-3">

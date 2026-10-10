@@ -61,7 +61,7 @@ export default function SustainabilityPage() {
             {guardedClaims.map((claim) => (
               <li
                 key={claim}
-                className="rounded-full border border-sage-200 bg-surface-raised px-3 py-1 text-sm text-ink-700"
+                className="rounded-full border border-surface-tint-strong bg-surface-raised px-3 py-1 text-sm text-text-body"
               >
                 {claim}
               </li>

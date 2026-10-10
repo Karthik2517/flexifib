@@ -68,7 +68,7 @@ export default function FlexiPackPage() {
           <dl className="mt-6 divide-y divide-border">
             {toProve.map(([title, text]) => (
               <div key={title} className="grid gap-1 py-3 sm:grid-cols-[11rem_1fr] sm:gap-4">
-                <dt className="text-sm font-bold text-ink-900">{title}</dt>
+                <dt className="text-sm font-bold text-foreground">{title}</dt>
                 <dd className="text-sm text-text-muted">{text}</dd>
               </div>
             ))}

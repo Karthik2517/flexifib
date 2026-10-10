@@ -38,7 +38,7 @@ export default function ProductsPage() {
       <Section aria-labelledby="available">
         <SectionHeader id="available" title="Available today" />
         <div className="grid overflow-hidden rounded-xl border border-border bg-surface-raised shadow-(--shadow-card) md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.6fr)]">
-          <div className="relative aspect-[4/3] bg-sand-200 md:aspect-auto">
+          <div className="relative aspect-[4/3] bg-surface-sunken md:aspect-auto">
             <Image
               src={toothbrush}
               alt="A Launch Collection toothbrush in a stone holder"

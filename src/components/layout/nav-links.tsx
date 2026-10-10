@@ -32,7 +32,7 @@ export function NavLinks() {
               href={item.href}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "relative inline-flex h-11 items-center px-2.5 text-[0.8125rem] font-semibold text-ink-700 transition-colors duration-(--duration-micro) hover:text-text-brand xl:px-3",
+                "relative inline-flex h-11 items-center px-2.5 text-[0.8125rem] font-semibold text-text-body transition-colors duration-(--duration-micro) hover:text-text-brand xl:px-3",
                 "after:absolute after:inset-x-2.5 after:bottom-2 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-primary after:transition-transform after:duration-(--duration-popover) after:ease-out-quart xl:after:inset-x-3",
                 "hover:after:scale-x-100",
                 active && "text-text-brand after:scale-x-100"
@@ -88,7 +88,7 @@ export function MobileNav() {
                       onNavigate={() => setOpen(false)}
                       aria-current={active ? "page" : undefined}
                       className={cn(
-                        "flex min-h-12 items-center rounded-md px-3 font-heading text-lg font-semibold text-ink-900 transition-colors hover:bg-surface-tint",
+                        "flex min-h-12 items-center rounded-md px-3 font-heading text-lg font-semibold text-foreground transition-colors hover:bg-surface-tint",
                         active && "bg-surface-tint text-text-brand"
                       )}
                     >

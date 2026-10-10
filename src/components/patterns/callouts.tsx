@@ -54,7 +54,7 @@ export function NotePanel({
       {eyebrow && <p className="eyebrow mb-2 text-text-brand">{eyebrow}</p>}
       {title && <h3 className="text-subheading">{title}</h3>}
       {children && (
-        <div className={cn("text-sm leading-relaxed text-ink-700", title && "mt-3")}>
+        <div className={cn("text-sm leading-relaxed text-text-body", title && "mt-3")}>
           {children}
         </div>
       )}

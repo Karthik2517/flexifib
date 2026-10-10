@@ -88,7 +88,7 @@ export default function CartDrawer() {
 
         {priced.length > 0 && (
           <div className="border-b border-border bg-surface-tint px-5 py-3 sm:px-6">
-            <p className="text-sm text-ink-700" aria-live="polite">
+            <p className="text-sm text-text-body" aria-live="polite">
               {remaining > 0 ? (
                 <>
                   Add <strong className="tabular-nums">{formatPrice(remaining)}</strong> more
@@ -99,7 +99,7 @@ export default function CartDrawer() {
               )}
             </p>
             <div
-              className="mt-2 h-1.5 overflow-hidden rounded-full bg-sage-200"
+              className="mt-2 h-1.5 overflow-hidden rounded-full bg-surface-tint-strong"
               role="progressbar"
               aria-label="Progress to free delivery"
               aria-valuemin={0}
@@ -117,7 +117,7 @@ export default function CartDrawer() {
         <div className="flex-1 overflow-y-auto overscroll-contain px-5 sm:px-6">
           {priced.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center py-16 text-center">
-              <ShoppingBag aria-hidden="true" className="size-12 text-sand-300" strokeWidth={1.5} />
+              <ShoppingBag aria-hidden="true" className="size-12 text-text-muted/40" strokeWidth={1.5} />
               <h3 className="mt-4 text-subheading">Your basket is empty</h3>
               <p className="mt-2 max-w-xs text-sm text-text-muted">
                 Browse the Launch Collection — carefully selected products available today.
@@ -145,7 +145,7 @@ export default function CartDrawer() {
                       className="overflow-hidden"
                     >
                       <div className="flex gap-4 py-5">
-                        <div className="relative size-20 shrink-0 overflow-hidden rounded-lg bg-sand-200">
+                        <div className="relative size-20 shrink-0 overflow-hidden rounded-lg bg-surface-sunken">
                           <Image
                             src={product.image}
                             alt=""
@@ -159,7 +159,7 @@ export default function CartDrawer() {
                             <Link
                               href={`/shop/${product.slug}`}
                               onNavigate={() => setOpen(false)}
-                              className="font-semibold leading-snug text-ink-900 hover:underline"
+                              className="font-semibold leading-snug text-foreground hover:underline"
                             >
                               {title}
                             </Link>

@@ -12,9 +12,9 @@ const buttonVariants = cva(
         outline:
           "border-(--border-strong) bg-surface-raised text-text-brand hover:bg-surface-tint aria-expanded:bg-surface-tint",
         inverse:
-          "bg-surface-raised text-text-brand hover:bg-sand-100",
+          "bg-surface-raised text-text-brand hover:bg-surface-warm",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-sage-200 aria-expanded:bg-sage-200",
+          "bg-secondary text-secondary-foreground hover:bg-surface-tint-strong aria-expanded:bg-surface-tint-strong",
         ghost:
           "text-text-brand hover:bg-surface-tint aria-expanded:bg-surface-tint",
         destructive:

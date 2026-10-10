@@ -9,7 +9,7 @@ export function ProductCard({ product }: { product: Product }) {
   const title = productTitle(product)
   return (
     <li className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface-raised shadow-(--shadow-card) transition-[box-shadow,translate] duration-200 ease-out-quint has-[a:hover]:-translate-y-1 has-[a:hover]:shadow-(--shadow-card-hover)">
-      <div className="relative aspect-[4/3] overflow-hidden bg-sand-200">
+      <div className="relative aspect-[4/3] overflow-hidden bg-surface-sunken">
         <Image
           src={product.image}
           alt={product.imageAlt}
@@ -22,7 +22,7 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <StatusBadge>Launch Collection</StatusBadge>
         <h3 className="mt-3 text-subheading">{title}</h3>
-        <p className="mt-1 font-semibold text-ink-900 tabular-nums">
+        <p className="mt-1 font-semibold text-foreground tabular-nums">
           {formatPrice(product.price)}
         </p>
         <p className="mt-2 text-sm leading-relaxed text-text-muted">{product.summary}</p>

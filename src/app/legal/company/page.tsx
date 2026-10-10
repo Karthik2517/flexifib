@@ -28,7 +28,7 @@ export default function CompanyPage() {
                 ["Contact", inboxes.general],
               ].map(([label, value]) => (
                 <div key={label} className="contents">
-                  <dt className="font-semibold text-ink-900">{label}</dt>
+                  <dt className="font-semibold text-foreground">{label}</dt>
                   <dd>{value}</dd>
                 </div>
               ))}

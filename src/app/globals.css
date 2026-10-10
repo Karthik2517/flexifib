@@ -71,14 +71,19 @@
 
 /* 2 & 3. Semantic + component tokens ---------------------------------------- */
 :root {
+  color-scheme: light dark;
+
   --surface-page: var(--color-cream-50);
   --surface-raised: #ffffff;
   --surface-warm: var(--color-sand-100);
   --surface-tint: var(--color-sage-100);
+  --surface-tint-strong: var(--color-sage-200);
+  --surface-sunken: var(--color-sand-200);
   --surface-inverse: var(--color-forest-900);
   --surface-inverse-deep: var(--color-forest-950);
 
   --text-primary: var(--color-ink-900);
+  --text-body: var(--color-ink-700);
   --text-brand: var(--color-forest-900);
   --text-muted: var(--color-ink-600);
   --text-inverse: #f4f1ea;
@@ -94,6 +99,11 @@
   --action-primary-text: #ffffff;
 
   --focus-ring: var(--color-forest-600);
+
+  --overlay: rgb(15 42 33 / 0.12);
+  --hero-glow: rgb(211 225 213 / 0.6);
+  --hero-glow-inverse: rgb(61 115 96 / 0.35);
+  --input-border: var(--color-sand-300);
 
   /* Spacing primitives used by layout components */
   --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
@@ -123,9 +133,82 @@
   --accent-foreground: var(--text-brand);
   --destructive: var(--color-clay-600);
   --border: var(--border-subtle);
-  --input: var(--color-sand-300);
+  --input: var(--input-border);
   --ring: var(--focus-ring);
   --radius: 0.625rem;
+}
+
+/*
+ * Dark theme — follows the visitor's system setting. Declaring it (with
+ * `color-scheme`) also stops browsers such as Brave and Chrome on Android from
+ * auto-darkening the light theme, which mangles brand colours. Surfaces are a
+ * warm forest-black rather than pure black; brand green becomes a soft sage so
+ * headings stay on-brand without neon.
+ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-page: #0e1412;
+    --surface-raised: #161e1b;
+    --surface-warm: #121a17;
+    --surface-tint: #1b2923;
+    --surface-tint-strong: #24372f;
+    --surface-sunken: #1c2622;
+    --surface-inverse: #143126;
+    --surface-inverse-deep: #0a1e17;
+
+    --text-primary: #ece8df;
+    --text-body: #c8cec9;
+    --text-brand: #cfe3d6;
+    --text-muted: #a2aca6;
+    --text-inverse: #f4f1ea;
+    --text-inverse-muted: #c3cfc7;
+    --text-accent: var(--color-brass-300);
+    --text-accent-inverse: var(--color-brass-300);
+
+    --border-subtle: #29342f;
+    --border-strong: #9cc4ae;
+
+    --action-primary: #2f6a53;
+    --action-primary-hover: #377a60;
+    --action-primary-text: #ffffff;
+
+    --focus-ring: #8cc4a9;
+
+    --overlay: rgb(0 0 0 / 0.55);
+    --hero-glow: rgb(47 106 83 / 0.28);
+    --hero-glow-inverse: rgb(61 115 96 / 0.3);
+    --input-border: #3a4842;
+
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px -4px rgb(0 0 0 / 0.35);
+    --shadow-card-hover: 0 2px 4px rgb(0 0 0 / 0.35), 0 14px 32px -8px rgb(0 0 0 / 0.55);
+    --shadow-drawer: -16px 0 48px -12px rgb(0 0 0 / 0.6);
+  }
+
+  ::selection {
+    background: #2f6a53;
+    color: #ffffff;
+  }
+
+  .hero-tint-dark {
+    display: block;
+    background: linear-gradient(to top, var(--surface-warm) 0%, transparent 55%);
+  }
+
+  @media (min-width: 48rem) {
+    .hero-tint-dark {
+      background: linear-gradient(
+        to right,
+        var(--surface-warm) 0%,
+        color-mix(in oklab, var(--surface-warm) 55%, transparent) 35%,
+        transparent 70%
+      );
+    }
+  }
+
+  /* Bright photography is toned down slightly so it sits in a dark page. */
+  main img {
+    filter: brightness(0.88) saturate(0.95);
+  }
 }
 
 @theme inline {
@@ -152,8 +235,11 @@
   --color-surface-raised: var(--surface-raised);
   --color-surface-warm: var(--surface-warm);
   --color-surface-tint: var(--surface-tint);
+  --color-surface-tint-strong: var(--surface-tint-strong);
+  --color-surface-sunken: var(--surface-sunken);
   --color-surface-inverse: var(--surface-inverse);
   --color-surface-inverse-deep: var(--surface-inverse-deep);
+  --color-text-body: var(--text-body);
   --color-text-brand: var(--text-brand);
   --color-text-muted: var(--text-muted);
   --color-text-inverse: var(--text-inverse);
@@ -363,13 +449,24 @@
 }
 
 /* Hero photo fades into the surrounding hero colour rather than meeting it at a hard edge. */
+/* Phones: the photo leads the hero and fades out at the bottom into the copy. */
 .hero-blend {
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 38%);
+  mask-image: linear-gradient(to top, transparent 0%, rgb(0 0 0 / 0.25) 18%, #000 55%);
 }
 
-/* Square photos keep their top in view on small screens, so fade in more quickly. */
 .hero-blend-square {
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 14%);
+  mask-image: linear-gradient(to top, transparent 0%, rgb(0 0 0 / 0.25) 14%, #000 45%);
+}
+
+/* Large phones / small tablets: the square photo is narrower than the screen,
+   so its side edges fade too. */
+@media (min-width: 40rem) and (max-width: 47.99rem) {
+  .hero-blend-square {
+    mask-image:
+      linear-gradient(to top, transparent 0%, rgb(0 0 0 / 0.25) 14%, #000 45%),
+      linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    mask-composite: intersect;
+  }
 }
 
 @media (min-width: 48rem) {

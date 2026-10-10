@@ -143,7 +143,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
       </Container>
 
       <Container className="grid gap-8 py-6 sm:py-8 md:grid-cols-2 md:gap-10 lg:gap-14 lg:py-10">
-        <div className="relative aspect-square overflow-hidden rounded-xl bg-sand-200 md:sticky md:top-24 md:self-start">
+        <div className="relative aspect-square overflow-hidden rounded-xl bg-surface-sunken md:sticky md:top-24 md:self-start">
           <Image
             src={product.image}
             alt={product.imageAlt}
@@ -159,9 +159,9 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
           <StatusBadge>Launch Collection · Externally manufactured</StatusBadge>
           <h1 className="mt-4 text-title">
             {product.name}
-            <span className="block text-subheading text-ink-700">{product.variant}</span>
+            <span className="block text-subheading text-text-body">{product.variant}</span>
           </h1>
-          <p className="mt-4 text-2xl font-semibold text-ink-900 tabular-nums">
+          <p className="mt-4 text-2xl font-semibold text-foreground tabular-nums">
             {formatPrice(product.price)}
           </p>
           <p className="mt-4 text-lead text-text-muted">{product.description[0]}</p>
@@ -208,7 +208,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
                 key={tab.value}
                 value={tab.value}
                 keepMounted
-                className="max-w-prose space-y-4 text-[0.9375rem] leading-relaxed text-ink-700 data-hidden:hidden"
+                className="max-w-prose space-y-4 text-[0.9375rem] leading-relaxed text-text-body data-hidden:hidden"
               >
                 <h2 className="sr-only">{tab.label}</h2>
                 {tab.body}
@@ -226,8 +226,8 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             <dl className="mt-4 divide-y divide-border text-sm">
               {product.attributes.map((attribute) => (
                 <div key={attribute.label} className="grid grid-cols-2 gap-4 py-3">
-                  <dt className="font-semibold text-ink-900">{attribute.label}</dt>
-                  <dd className={attribute.value ? "text-ink-700" : "text-text-muted italic"}>
+                  <dt className="font-semibold text-foreground">{attribute.label}</dt>
+                  <dd className={attribute.value ? "text-text-body" : "text-text-muted italic"}>
                     {attribute.value ?? "Awaiting supplier confirmation"}
                   </dd>
                 </div>

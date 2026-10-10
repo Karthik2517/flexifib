@@ -28,7 +28,7 @@ function FieldShell({
 }: Omit<BaseProps, "registration"> & { id: string; children: React.ReactNode }) {
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
-      <label htmlFor={id} className="text-sm font-semibold text-ink-900">
+      <label htmlFor={id} className="text-sm font-semibold text-foreground">
         {label}
         {optional && <span className="ml-1 font-normal text-text-muted">(optional)</span>}
       </label>
@@ -108,7 +108,7 @@ export function SelectField({
           aria-invalid={props.error ? true : undefined}
           aria-describedby={describedBy(id, props.error, props.hint)}
           defaultValue=""
-          className="h-11 w-full appearance-none rounded-md border border-input bg-surface-raised pr-10 pl-3.5 text-base text-ink-900 transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/25 focus-visible:outline-none aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm"
+          className="h-11 w-full appearance-none rounded-md border border-input bg-surface-raised pr-10 pl-3.5 text-base text-foreground transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/25 focus-visible:outline-none aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm"
           {...props.registration}
         >
           <option value="" disabled>
@@ -139,7 +139,7 @@ export function CheckboxField({
   const id = useId()
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
-      <label htmlFor={id} className="flex min-h-11 cursor-pointer items-start gap-3 py-1 text-sm text-ink-700">
+      <label htmlFor={id} className="flex min-h-11 cursor-pointer items-start gap-3 py-1 text-sm text-text-body">
         <input
           id={id}
           type="checkbox"
@@ -173,7 +173,7 @@ export function FileField({
         accept={accept}
         aria-invalid={props.error ? true : undefined}
         aria-describedby={describedBy(id, props.error, props.hint)}
-        className="w-full cursor-pointer rounded-md border border-input bg-surface-raised text-sm text-ink-700 file:mr-3 file:h-11 file:cursor-pointer file:border-0 file:border-r file:border-input file:bg-surface-tint file:px-4 file:font-semibold file:text-text-brand hover:file:bg-sage-200 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/25 focus-visible:outline-none aria-invalid:border-destructive"
+        className="w-full cursor-pointer rounded-md border border-input bg-surface-raised text-sm text-text-body file:mr-3 file:h-11 file:cursor-pointer file:border-0 file:border-r file:border-input file:bg-surface-tint file:px-4 file:font-semibold file:text-text-brand hover:file:bg-surface-tint-strong focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/25 focus-visible:outline-none aria-invalid:border-destructive"
         {...props.registration}
       />
     </FieldShell>
@@ -258,7 +258,7 @@ export function FormSuccess({
       role="status"
       className={cn(
         "flex flex-col items-start gap-3 rounded-xl p-6 outline-none animate-in fade-in-0 duration-(--duration-popover)",
-        inverse ? "bg-white/10 text-text-inverse" : "bg-surface-tint text-ink-900"
+        inverse ? "bg-white/10 text-text-inverse" : "bg-surface-tint text-foreground"
       )}
     >
       <CheckCircle2

@@ -54,7 +54,7 @@ export function PageHero({
         aria-hidden="true"
         className={cn(
           "hero-glow pointer-events-none absolute -top-1/3 -left-1/4 size-[42rem] max-w-none rounded-full blur-3xl",
-          inverse ? "bg-forest-600/35" : "bg-sage-200/60"
+          inverse ? "bg-(--hero-glow-inverse)" : "bg-(--hero-glow)"
         )}
       />
       <div
@@ -68,6 +68,8 @@ export function PageHero({
         <div
           className={cn(
             "relative z-10 flex flex-col justify-center py-12 sm:py-16",
+            // Phones: the copy tucks up into the photo's faded lower edge.
+            image && "max-md:-mt-8 max-md:pt-0 sm:max-md:-mt-12",
             size === "large"
               ? "md:min-h-[30rem] lg:min-h-[34rem] lg:py-20"
               : "md:min-h-[24rem] lg:min-h-[26rem] lg:py-16",
@@ -141,13 +143,13 @@ export function PageHero({
 
         {image && (
           // The photo dissolves into the hero background instead of sitting in its own
-          // panel: faded in from the top on phones (below the copy) and from the left
-          // from tablet width up, where it runs behind the copy column.
+          // panel. Phones: it leads the hero, full width, fading out at the bottom into
+          // the copy. Tablet up: it runs behind the copy column, fading in from the left.
           <div
             className={cn(
-              "hero-blend relative -mt-12 overflow-hidden sm:-mt-20 md:absolute md:inset-y-0 md:right-0 md:mt-0",
+              "hero-blend relative overflow-hidden max-md:order-first md:absolute md:inset-y-0 md:right-0",
               squareish
-                ? "hero-blend-square aspect-square sm:mx-auto sm:max-w-[34rem] md:mx-0 md:aspect-auto md:w-[44%] lg:aspect-square lg:w-auto lg:max-w-[58%]"
+                ? "hero-blend-square aspect-square sm:mx-auto sm:w-full sm:max-w-[32rem] md:mx-0 md:aspect-auto md:w-[44%] lg:aspect-square lg:w-auto lg:max-w-[58%]"
                 : "aspect-[4/3] sm:aspect-[16/9] md:aspect-auto md:w-[50%] lg:w-[64%]",
               inverse && "hero-blend-inverse"
             )}
@@ -169,11 +171,14 @@ export function PageHero({
                 style={{ objectPosition: imagePosition }}
               />
             </div>
+            {/* Dark theme: tints pale areas of the photo so its fade reads as the page
+                colour rather than a grey band. */}
+            {!inverse && <div aria-hidden="true" className="hero-tint-dark absolute inset-0 hidden" />}
             {inverse && (
               // Tints pale areas of the photo so they fade into the dark hero, not grey.
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-linear-to-b from-surface-inverse/80 via-surface-inverse/25 to-transparent md:bg-linear-to-r md:from-surface-inverse md:via-surface-inverse/45"
+                className="absolute inset-0 bg-linear-to-t from-surface-inverse/80 via-surface-inverse/25 to-transparent md:bg-linear-to-r md:from-surface-inverse md:via-surface-inverse/45"
               />
             )}
           </div>

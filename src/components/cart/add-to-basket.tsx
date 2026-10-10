@@ -35,7 +35,7 @@ export function AddToBasket({ product }: { product: Props }) {
 
   if (!product.inStock) {
     return (
-      <p className="rounded-md bg-surface-warm p-4 text-sm font-semibold text-ink-700">
+      <p className="rounded-md bg-surface-warm p-4 text-sm font-semibold text-text-body">
         Currently out of stock.
       </p>
     )

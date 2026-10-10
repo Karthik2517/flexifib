@@ -54,7 +54,7 @@ export default function InsightsPage() {
               key={insight.slug}
               className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface-raised shadow-(--shadow-card)"
             >
-              <div className="relative aspect-[16/9] bg-sand-200">
+              <div className="relative aspect-[16/9] bg-surface-sunken">
                 <Image
                   src={insight.image}
                   alt=""

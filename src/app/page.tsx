@@ -50,7 +50,10 @@ export default function HomePage() {
             Discover our innovation
           </ButtonLink>
         </div>
-        <ul className="mt-10 grid gap-3 sm:grid-cols-3">
+        <ul
+          // Phones: one swipeable row instead of three stacked boxes.
+          className="mt-8 grid gap-3 max-sm:-mx-(--gutter) max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:scroll-px-(--gutter) max-sm:overflow-x-auto max-sm:px-(--gutter) max-sm:[scrollbar-width:none] max-sm:[&>li]:w-[72%] max-sm:[&>li]:shrink-0 max-sm:[&>li]:snap-start sm:mt-10 sm:grid-cols-3"
+        >
           {[
             ["Clear product status", "Available or in development — always labelled"],
             ["Transparent origin", "Sourced products clearly disclosed"],
@@ -88,7 +91,7 @@ export default function HomePage() {
                 Shop Launch Collection
               </ButtonLink>
             </div>
-            <div className="relative hidden aspect-square w-40 overflow-hidden rounded-lg bg-sand-200 sm:block lg:w-28 xl:w-44">
+            <div className="relative hidden aspect-square w-40 overflow-hidden rounded-lg bg-surface-sunken sm:block lg:w-28 xl:w-44">
               <Image
                 src={toothbrush}
                 alt=""
@@ -112,7 +115,7 @@ export default function HomePage() {
                 Explore our innovation
               </ButtonLink>
             </div>
-            <div className="relative hidden aspect-square w-40 overflow-hidden rounded-lg bg-sand-200 sm:block lg:w-28 xl:w-44">
+            <div className="relative hidden aspect-square w-40 overflow-hidden rounded-lg bg-surface-sunken sm:block lg:w-28 xl:w-44">
               <Image
                 src={labBench}
                 alt=""
@@ -271,7 +274,7 @@ export default function HomePage() {
         </CardGrid>
       </Section>
 
-      <section aria-labelledby="journey" className="bg-sand-200">
+      <section aria-labelledby="journey" className="bg-surface-sunken">
         <Container
           data-reveal
           className="grid gap-6 py-12 sm:py-14 md:grid-cols-[1fr_minmax(0,28rem)] md:items-center md:gap-12"

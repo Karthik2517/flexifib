@@ -60,7 +60,7 @@ export function ProsePage({
               <h2 id={slug(section.heading)} className="scroll-mt-28 text-subheading">
                 {section.heading}
               </h2>
-              <div className="mt-4 space-y-4 text-[0.9375rem] leading-relaxed text-ink-700 [&_a]:font-semibold [&_a]:text-text-brand [&_a]:underline [&_a]:underline-offset-3 [&_li]:pl-1 [&_strong]:text-ink-900 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5">
+              <div className="mt-4 space-y-4 text-[0.9375rem] leading-relaxed text-text-body [&_a]:font-semibold [&_a]:text-text-brand [&_a]:underline [&_a]:underline-offset-3 [&_li]:pl-1 [&_strong]:text-foreground [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5">
                 {section.body}
               </div>
             </section>

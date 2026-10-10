@@ -92,7 +92,7 @@ export default function CareersPage() {
             <div className="max-w-2xl">
               <p className="eyebrow mb-2 text-text-brand">Current status</p>
               <h3 className="text-subheading">No live vacancies at present.</h3>
-              <p className="mt-2 text-sm text-ink-700">
+              <p className="mt-2 text-sm text-text-body">
                 We only advertise genuine roles, so there’s nothing listed right now. We still
                 welcome expressions of interest from people whose experience fits our future
                 needs.
@@ -108,7 +108,7 @@ export default function CareersPage() {
               <Card as="li" key={vacancy.slug} className="p-6 sm:p-8">
                 <StatusBadge>{vacancy.area}</StatusBadge>
                 <h3 className="mt-3 text-subheading">{vacancy.title}</h3>
-                <p className="mt-1 text-sm font-semibold text-ink-900">
+                <p className="mt-1 text-sm font-semibold text-foreground">
                   {[vacancy.type, vacancy.location, vacancy.salary].filter(Boolean).join(" · ")}
                 </p>
                 <p className="mt-3 text-sm text-text-muted">{vacancy.summary}</p>
@@ -161,7 +161,7 @@ export default function CareersPage() {
           {recruitmentPrinciples.map((principle) => (
             <Card as="li" key={principle} className="flex items-center gap-3 px-5 py-4">
               <Check aria-hidden="true" className="size-4 shrink-0 text-text-brand" strokeWidth={2.5} />
-              <span className="text-sm font-semibold text-ink-900">{principle}</span>
+              <span className="text-sm font-semibold text-foreground">{principle}</span>
             </Card>
           ))}
         </ul>

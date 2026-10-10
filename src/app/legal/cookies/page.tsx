@@ -47,7 +47,7 @@ export default function CookiesPage() {
                 <thead>
                   <tr className="border-b border-border">
                     {["Name", "Provider", "Type", "Purpose", "Duration"].map((heading) => (
-                      <th key={heading} scope="col" className="px-1 py-2 font-semibold text-ink-900">
+                      <th key={heading} scope="col" className="px-1 py-2 font-semibold text-foreground">
                         {heading}
                       </th>
                     ))}

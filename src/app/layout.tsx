@@ -51,7 +51,12 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#17382c",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#17382c" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a1e17" },
+  ],
+  // Tells browsers the site ships its own dark theme, so they don't auto-darken it.
+  colorScheme: "light dark",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

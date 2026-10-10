@@ -93,7 +93,7 @@ export function CheckoutCancelledNotice() {
   return (
     <div
       role="status"
-      className="mb-6 flex gap-3 rounded-lg bg-surface-tint p-4 text-sm text-ink-700"
+      className="mb-6 flex gap-3 rounded-lg bg-surface-tint p-4 text-sm text-text-body"
     >
       <Info aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-text-brand" />
       <p>Checkout was cancelled and you haven’t been charged. Your basket has been saved.</p>

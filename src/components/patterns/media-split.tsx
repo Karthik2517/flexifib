@@ -26,7 +26,7 @@ export function MediaSplit({
       <div
         data-reveal="image"
         className={cn(
-          "relative aspect-[4/3] overflow-hidden rounded-xl bg-sand-200",
+          "relative aspect-[4/3] overflow-hidden rounded-xl bg-surface-sunken",
           imageSide === "right" && "md:order-2"
         )}
       >

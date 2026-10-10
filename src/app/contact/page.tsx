@@ -79,8 +79,8 @@ export default function ContactPage() {
               ["Website", site.url.replace("https://", "")],
             ].map(([label, value]) => (
               <div key={label} className="contents">
-                <dt className="font-bold text-ink-900">{label}</dt>
-                <dd className="text-ink-700">{value}</dd>
+                <dt className="font-bold text-foreground">{label}</dt>
+                <dd className="text-text-body">{value}</dd>
               </div>
             ))}
           </dl>

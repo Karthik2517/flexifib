@@ -34,6 +34,19 @@ test.describe("every public route", () => {
     })
   }
 
+  test("dark theme keeps every route accessible", async ({ consented: page }, testInfo) => {
+    test.skip(testInfo.project.name !== "chromium", "Checked once on desktop Chromium")
+    test.setTimeout(120_000)
+    await page.emulateMedia({ colorScheme: "dark" })
+    for (const route of routes) {
+      await page.goto(route)
+      const results = await new AxeBuilder({ page }).withTags(["wcag2aa", "wcag21aa"]).analyze()
+      expect(
+        results.violations.map((v) => `${route} ${v.id}: ${v.help} (${v.nodes.length})`)
+      ).toEqual([])
+    }
+  })
+
   test("unknown pages return a helpful 404", async ({ consented: page }) => {
     const response = await page.goto("/this-page-does-not-exist")
     expect(response?.status()).toBe(404)

@@ -19,7 +19,7 @@ export function ProgrammeCard({
   const Heading = headingLevel
   return (
     <li className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface-raised shadow-(--shadow-card) transition-[box-shadow,translate] duration-200 ease-out-quint has-[a:hover]:-translate-y-1 has-[a:hover]:shadow-(--shadow-card-hover)">
-      <div className="relative aspect-[16/9] overflow-hidden bg-sand-200">
+      <div className="relative aspect-[16/9] overflow-hidden bg-surface-sunken">
         <Image
           src={programme.image}
           alt={programme.imageAlt}
@@ -33,7 +33,7 @@ export function ProgrammeCard({
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <StatusBadge>{programme.statusDetail}</StatusBadge>
         <Heading className="mt-3 text-subheading">{programme.name}</Heading>
-        <p className="mt-1 text-sm font-semibold text-ink-900">{programme.tagline}</p>
+        <p className="mt-1 text-sm font-semibold text-foreground">{programme.tagline}</p>
         {showSummary && (
           <p className="mt-2 text-sm leading-relaxed text-text-muted">{programme.summary}</p>
         )}

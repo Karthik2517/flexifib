@@ -61,7 +61,7 @@ function InlineEmailForm({
         <SubmitButton
           pending={pending}
           pendingLabel="Joining…"
-          className={cn(inverse && "bg-surface-raised text-text-brand hover:bg-sand-100")}
+          className={cn(inverse && "bg-surface-raised text-text-brand hover:bg-surface-warm")}
         >
           {submitLabel}
         </SubmitButton>
