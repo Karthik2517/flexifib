@@ -2,6 +2,8 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /*
  * FlexiFib design tokens
  * ---------------------------------------------------------------------------
@@ -170,107 +172,104 @@
 }
 
 /*
- * Dark theme — follows the visitor's system setting. Declaring it (with
- * `color-scheme`) also stops browsers such as Brave and Chrome on Android from
- * auto-darkening the light theme, which mangles brand colours. Surfaces are a
- * warm forest-black rather than pure black; brand green becomes a soft sage so
- * headings stay on-brand without neon.
+ * Dark theme — the shared header control sets `data-theme` and persists the
+ * visitor's choice. On a first visit, the pre-paint script uses the system
+ * setting. Surfaces are a warm forest-black rather than pure black; brand green
+ * becomes a soft sage so headings stay on-brand without neon.
  */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --surface-page: #0e1412;
-    --surface-raised: #161e1b;
-    --surface-warm: #121a17;
-    --surface-tint: #1b2923;
-    --surface-tint-strong: #24372f;
-    --surface-sunken: #1c2622;
-    --surface-inverse: #143126;
-    --surface-inverse-deep: #0a1e17;
+:root[data-theme="dark"] {
+  --surface-page: #0e1412;
+  --surface-raised: #161e1b;
+  --surface-warm: #121a17;
+  --surface-tint: #1b2923;
+  --surface-tint-strong: #24372f;
+  --surface-sunken: #1c2622;
+  --surface-inverse: #143126;
+  --surface-inverse-deep: #0a1e17;
 
-    --text-primary: #ece8df;
-    --text-body: #c8cec9;
-    --text-brand: #cfe3d6;
-    --text-muted: #a2aca6;
-    --text-inverse: #f4f1ea;
-    --text-inverse-muted: #c3cfc7;
-    --text-accent: var(--color-brass-300);
-    --text-accent-inverse: var(--color-brass-300);
+  --text-primary: #ece8df;
+  --text-body: #c8cec9;
+  --text-brand: #cfe3d6;
+  --text-muted: #a2aca6;
+  --text-inverse: #f4f1ea;
+  --text-inverse-muted: #c3cfc7;
+  --text-accent: var(--color-brass-300);
+  --text-accent-inverse: var(--color-brass-300);
 
-    --border-subtle: #29342f;
-    --border-strong: #9cc4ae;
+  --border-subtle: #29342f;
+  --border-strong: #9cc4ae;
 
-    --action-primary: #2f6a53;
-    --action-primary-hover: #377a60;
-    --action-primary-text: #ffffff;
+  --action-primary: #2f6a53;
+  --action-primary-hover: #377a60;
+  --action-primary-text: #ffffff;
 
-    --focus-ring: #8cc4a9;
+  --focus-ring: #8cc4a9;
 
-    /* Header shares the hero's base colour and only gains a divider on scroll. */
-    --surface-header: var(--surface-warm);
-    --header-border: transparent;
+  /* Header shares the hero's base colour and only gains a divider on scroll. */
+  --surface-header: var(--surface-warm);
+  --header-border: transparent;
 
-    --overlay: rgb(0 0 0 / 0.55);
-    --hero-glow: rgb(47 106 83 / 0.28);
-    --hero-glow-inverse: rgb(61 115 96 / 0.3);
-    --input-border: #3a4842;
+  --overlay: rgb(0 0 0 / 0.55);
+  --hero-glow: rgb(47 106 83 / 0.28);
+  --hero-glow-inverse: rgb(61 115 96 / 0.3);
+  --input-border: #3a4842;
 
-    --ambient-a: rgb(47 106 83 / 0.26);
-    --ambient-b: rgb(220 197 150 / 0.06);
-    --glass-top: rgb(255 255 255 / 0.055);
-    --glass-bottom: rgb(255 255 255 / 0.02);
-    --glass-border: rgb(255 255 255 / 0.08);
-    --glass-highlight: rgb(255 255 255 / 0.07);
-    --glass-hover-border: rgb(140 196 169 / 0.35);
+  --ambient-a: rgb(47 106 83 / 0.26);
+  --ambient-b: rgb(220 197 150 / 0.06);
+  --glass-top: rgb(255 255 255 / 0.055);
+  --glass-bottom: rgb(255 255 255 / 0.02);
+  --glass-border: rgb(255 255 255 / 0.08);
+  --glass-highlight: rgb(255 255 255 / 0.07);
+  --glass-hover-border: rgb(140 196 169 / 0.35);
 
-    --blend-fill: linear-gradient(160deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.012) 55%, rgb(47 106 83 / 0.07));
-    --blend-edge: linear-gradient(150deg, rgb(255 255 255 / 0.17), rgb(255 255 255 / 0.03) 45%, rgb(140 196 169 / 0.14));
-    --blend-edge-hover: linear-gradient(150deg, rgb(255 255 255 / 0.3), rgb(140 196 169 / 0.14) 45%, rgb(140 196 169 / 0.5));
-    --blend-shadow: 0 24px 60px -36px rgb(0 0 0 / 0.75);
-    --blend-shadow-hover: 0 30px 70px -30px rgb(47 106 83 / 0.5);
+  --blend-fill: linear-gradient(160deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.012) 55%, rgb(47 106 83 / 0.07));
+  --blend-edge: linear-gradient(150deg, rgb(255 255 255 / 0.17), rgb(255 255 255 / 0.03) 45%, rgb(140 196 169 / 0.14));
+  --blend-edge-hover: linear-gradient(150deg, rgb(255 255 255 / 0.3), rgb(140 196 169 / 0.14) 45%, rgb(140 196 169 / 0.5));
+  --blend-shadow: 0 24px 60px -36px rgb(0 0 0 / 0.75);
+  --blend-shadow-hover: 0 30px 70px -30px rgb(47 106 83 / 0.5);
 
-    --btn-primary-fill: linear-gradient(180deg, #377a60 0%, #2a5f4a 100%);
-    --btn-primary-glow: 0 10px 30px -12px rgb(55 122 96 / 0.55);
-    --btn-primary-glow-hover: 0 16px 40px -10px rgb(70 150 118 / 0.6);
-    --btn-glass-fill: linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.02));
-    --btn-glass-edge: linear-gradient(150deg, rgb(207 227 214 / 0.65), rgb(207 227 214 / 0.18) 50%, rgb(140 196 169 / 0.5));
-    --btn-glass-edge-hover: linear-gradient(150deg, rgb(220 240 228 / 0.9), rgb(140 196 169 / 0.4) 50%, rgb(140 196 169 / 0.9));
+  --btn-primary-fill: linear-gradient(180deg, #377a60 0%, #2a5f4a 100%);
+  --btn-primary-glow: 0 10px 30px -12px rgb(55 122 96 / 0.55);
+  --btn-primary-glow-hover: 0 16px 40px -10px rgb(70 150 118 / 0.6);
+  --btn-glass-fill: linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.02));
+  --btn-glass-edge: linear-gradient(150deg, rgb(207 227 214 / 0.65), rgb(207 227 214 / 0.18) 50%, rgb(140 196 169 / 0.5));
+  --btn-glass-edge-hover: linear-gradient(150deg, rgb(220 240 228 / 0.9), rgb(140 196 169 / 0.4) 50%, rgb(140 196 169 / 0.9));
 
-    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px -4px rgb(0 0 0 / 0.35);
-    --shadow-card-hover: 0 2px 4px rgb(0 0 0 / 0.35), 0 14px 32px -8px rgb(0 0 0 / 0.55);
-    --shadow-drawer: -16px 0 48px -12px rgb(0 0 0 / 0.6);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px -4px rgb(0 0 0 / 0.35);
+  --shadow-card-hover: 0 2px 4px rgb(0 0 0 / 0.35), 0 14px 32px -8px rgb(0 0 0 / 0.55);
+  --shadow-drawer: -16px 0 48px -12px rgb(0 0 0 / 0.6);
+}
+
+:root[data-theme="dark"] ::selection {
+  background: #2f6a53;
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .hero-tint-dark {
+  display: block;
+  background: linear-gradient(to top, var(--surface-warm) 0%, transparent 55%);
+}
+
+@media (min-width: 48rem) {
+  :root[data-theme="dark"] .hero-tint-dark {
+    background: linear-gradient(
+      to right,
+      var(--surface-warm) 0%,
+      color-mix(in oklab, var(--surface-warm) 55%, transparent) 35%,
+      transparent 70%
+    );
   }
+}
 
-  ::selection {
-    background: #2f6a53;
-    color: #ffffff;
-  }
+/* Bright photography is toned down slightly so it sits in a dark page. */
+:root[data-theme="dark"] main img {
+  filter: brightness(0.88) saturate(0.95);
+}
 
-  .hero-tint-dark {
-    display: block;
-    background: linear-gradient(to top, var(--surface-warm) 0%, transparent 55%);
-  }
-
-  @media (min-width: 48rem) {
-    .hero-tint-dark {
-      background: linear-gradient(
-        to right,
-        var(--surface-warm) 0%,
-        color-mix(in oklab, var(--surface-warm) 55%, transparent) 35%,
-        transparent 70%
-      );
-    }
-  }
-
-  /* Bright photography is toned down slightly so it sits in a dark page. */
-  main img {
-    filter: brightness(0.88) saturate(0.95);
-  }
-
-  /* Hero photos with a very pale backdrop (opt-in via PageHero `imageDim`) are
-     toned down so they don't outshine the page. */
-  .page-hero img.hero-dim {
-    filter: brightness(0.66) contrast(1.06) saturate(0.85) sepia(0.12);
-  }
+/* Hero photos with a very pale backdrop (opt-in via PageHero `imageDim`) are
+   toned down so they don't outshine the page. */
+:root[data-theme="dark"] .page-hero img.hero-dim {
+  filter: brightness(0.66) contrast(1.06) saturate(0.85) sepia(0.12);
 }
 
 @theme inline {
@@ -601,20 +600,18 @@ html[data-scrolled] .site-header {
   border-bottom-color: var(--border-subtle);
 }
 
-@media (prefers-color-scheme: dark) {
-  body:has(.page-hero[data-tone="inverse"]) .site-announcement {
-    background-color: transparent;
-  }
+:root[data-theme="dark"] body:has(.page-hero[data-tone="inverse"]) .site-announcement {
+  background-color: transparent;
+}
 
-  html:not([data-scrolled]) body:has(.page-hero[data-tone="inverse"]) .site-header {
-    background-color: transparent;
-    border-bottom-color: transparent;
-    backdrop-filter: none;
-  }
+:root[data-theme="dark"]:not([data-scrolled]) body:has(.page-hero[data-tone="inverse"]) .site-header {
+  background-color: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
 
-  html[data-scrolled] .site-header {
-    box-shadow: 0 10px 30px -16px rgb(0 0 0 / 0.6);
-  }
+:root[data-theme="dark"][data-scrolled] .site-header {
+  box-shadow: 0 10px 30px -16px rgb(0 0 0 / 0.6);
 }
 
 /* Gentle parallax on hero media where scroll-driven animations exist. */
@@ -824,31 +821,42 @@ button:hover svg.lucide-arrow-right {
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), inset 0 0 0 1px rgb(255 255 255 / 0.06);
 }
 
-@media (prefers-color-scheme: dark) {
-  .ambient-panel {
-    background-color: #12261e;
-    box-shadow: 0 30px 80px -40px rgb(0 0 0 / 0.8);
-  }
+:root[data-theme="dark"] .ambient-panel {
+  background-color: #12261e;
+  box-shadow: 0 30px 80px -40px rgb(0 0 0 / 0.8);
 }
 
-@media (prefers-color-scheme: dark) {
-  /* The footer rises out of an ambient page instead of starting at a hard line. */
-  body:has(.ambient) > footer,
-  body:has(.ambient) footer:last-of-type {
-    background: linear-gradient(to bottom, var(--surface-page), var(--surface-inverse-deep) 9rem);
-  }
+/* The footer rises out of an ambient page instead of starting at a hard line. */
+:root[data-theme="dark"] body:has(.ambient) > footer,
+:root[data-theme="dark"] body:has(.ambient) footer:last-of-type {
+  background: linear-gradient(to bottom, var(--surface-page), var(--surface-inverse-deep) 9rem);
 }
 
-@media (prefers-color-scheme: dark) {
-  /* Dark green heroes settle into the page rather than ending at a hard line. */
-  .ambient .page-hero[data-tone="inverse"] {
-    background: linear-gradient(
-      to bottom,
-      var(--surface-inverse) 0%,
-      var(--surface-inverse) 55%,
-      var(--surface-page) 100%
-    );
-  }
+/* Dark green heroes settle into the page rather than ending at a hard line. */
+:root[data-theme="dark"] .ambient .page-hero[data-tone="inverse"] {
+  background: linear-gradient(
+    to bottom,
+    var(--surface-inverse) 0%,
+    var(--surface-inverse) 55%,
+    var(--surface-page) 100%
+  );
+}
+
+/* Theme control labels and icons stay server-stable; the root attribute owns
+   which action is visible, avoiding a hydration-only label change. */
+.theme-toggle-sun,
+.theme-toggle-label-light {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle-moon,
+:root[data-theme="dark"] .theme-toggle-label-dark {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle-sun,
+:root[data-theme="dark"] .theme-toggle-label-light {
+  display: inline;
 }
 
 /* Blended cards -----------------------------------------------------------------

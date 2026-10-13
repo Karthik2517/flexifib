@@ -5,12 +5,12 @@ import { CookieConsent } from "@/components/consent/cookie-consent"
 import { CartRoot } from "@/components/cart/cart-root"
 import { AuthProvider } from "@/components/auth/auth-provider"
 import { MotionProvider } from "@/components/cart/motion-provider"
-import { RevealObserver } from "@/components/motion/reveal-observer"
 import { ScrollState } from "@/components/layout/scroll-state"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { AnnouncementBar, SiteHeader } from "@/components/layout/site-header"
 import { site } from "@/content/site"
 import { CONSENT_BANNER_SCRIPT } from "@/lib/consent-constants"
+import { THEME_COLORS, THEME_INIT_SCRIPT } from "@/lib/theme"
 import "./globals.css"
 
 // Two variable fonts, self-hosted at build time — no layout shift, no third-party request.
@@ -53,10 +53,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#17382c" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a1e17" },
-  ],
+  themeColor: THEME_COLORS.light,
   // Tells browsers the site ships its own dark theme, so they don't auto-darken it.
   colorScheme: "light dark",
   width: "device-width",
@@ -78,7 +75,15 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-GB" className={`${inter.variable} ${display.variable}`}>
+    <html
+      lang="en-GB"
+      data-theme="light"
+      suppressHydrationWarning
+      className={`${inter.variable} ${display.variable}`}
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body className="flex min-h-dvh flex-col">
         <a
           href="#main"
@@ -98,7 +103,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <script dangerouslySetInnerHTML={{ __html: CONSENT_BANNER_SCRIPT }} />
         </MotionProvider></AuthProvider>
         <Analytics />
-        <RevealObserver />
         <ScrollState />
         <script
           type="application/ld+json"

@@ -2,6 +2,48 @@ import AxeBuilder from "@axe-core/playwright"
 import { expect, routes, test } from "./fixtures"
 
 test.describe("every public route", () => {
+  test("scroll reveals initialise after hydration without console errors", async ({ consented: page }, testInfo) => {
+    test.skip(testInfo.project.name !== "chromium", "Checked once in desktop Chromium")
+    await page.emulateMedia({ reducedMotion: "no-preference" })
+    const errors: string[] = []
+    page.on("pageerror", (error) => errors.push(error.message))
+    page.on("console", (message) => {
+      if (message.type() === "error") errors.push(message.text())
+    })
+
+    await page.goto("/")
+    const pending = page.locator('[data-reveal-state="pending"]').first()
+    await expect(pending).toBeAttached()
+    await pending.evaluate((element) => element.setAttribute("data-test-reveal-target", ""))
+    const target = page.locator("[data-test-reveal-target]")
+    await target.scrollIntoViewIfNeeded()
+    await expect(target).toHaveAttribute("data-reveal-state", "in")
+    expect(errors).toEqual([])
+  })
+
+  test("theme choice applies site-wide and persists", async ({ consented: page }, testInfo) => {
+    test.skip(
+      !["chromium", "mobile-chrome"].includes(testInfo.project.name),
+      "Checked once on desktop and mobile Chromium",
+    )
+    await page.emulateMedia({ colorScheme: "light" })
+    await page.goto("/")
+
+    await page.getByRole("button", { name: "Switch to dark theme" }).click()
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark")
+    expect(await page.evaluate(() => localStorage.getItem("ff_theme"))).toBe("dark")
+
+    await page.goto("/shop")
+    await expect(page.getByRole("button", { name: "Switch to light theme" })).toBeVisible()
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark")
+
+    await page.reload()
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark")
+    await page.getByRole("button", { name: "Switch to light theme" }).click()
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light")
+    expect(await page.evaluate(() => localStorage.getItem("ff_theme"))).toBe("light")
+  })
+
   for (const route of routes) {
     test(`${route} renders, is accessible and error-free`, async ({ consented: page }, testInfo) => {
       const errors: string[] = []

@@ -1,4 +1,5 @@
 import { ViewTransition } from "react"
+import { RevealObserver } from "@/components/motion/reveal-observer"
 
 /**
  * Templates remount per route, so every navigation crossfades the outgoing page
@@ -8,8 +9,10 @@ import { ViewTransition } from "react"
  */
 export default function Template({ children }: { children: React.ReactNode }) {
   return (
-    <ViewTransition enter="page-enter" exit="page-exit" default="none">
-      <div>{children}</div>
-    </ViewTransition>
+    <RevealObserver>
+      <ViewTransition enter="page-enter" exit="page-exit" default="none">
+        <div>{children}</div>
+      </ViewTransition>
+    </RevealObserver>
   )
 }

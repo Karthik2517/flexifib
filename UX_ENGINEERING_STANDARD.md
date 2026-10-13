@@ -128,12 +128,15 @@ Strong typography, large photography, generous space, fine borders, subtle eleva
 | Account entry | `components/auth/auth-form.tsx` | README customer accounts; this section | login / signup | auth unit tests and browser navigation |
 | Provider control | shared `Button` plus `ff-auth-provider-button` | DESIGN.md; `components/auth/auth.css` | Google / Apple | light/dark contrast including disabled states |
 | Account feedback | shared `FormAlert`; inline status | this section | pending / error / unavailable | auth component tests and browser accessibility |
+| Theme preference | `components/layout/theme-toggle.tsx` + root pre-paint script | DESIGN.md; global semantic tokens | light / dark | persistence, no-flash reload, accessibility |
 
 The shared `components/auth/auth-form.tsx` owns both login and signup presentation and uses the existing Base UI-backed Button and FormAlert primitives. English (UK), the existing Inter/Manrope font roles, and `globals.css` semantic theme tokens remain canonical. The account page pairs material photography with a focused sign-in panel on desktop; on phones, the sign-in panel takes priority and photography is hidden. It uses document scrolling, never a fixed-height application shell.
 
 `components/auth/auth.css` contains namespaced `ff-auth-*` presentation rules shared by both routes. This project’s custom Turbopack CSS loader treats CSS as global; do not rely on CSS-module exports without validating the loader configuration. Layout/body colours consume `--surface-*`, `--text-*`, `--border-subtle` and `--shadow-card` directly. Provider buttons use named Google/Apple variants: opaque white/dark text for Google, opaque black/white text for Apple, in both themes. They must bypass the site’s glass outline background. Disabled labels retain full contrast, with the unavailable reason associated through `aria-describedby`; disabled controls do not act.
 
 Provider button geometry stays fixed while busy. The selected provider shows “Connecting…” and both buttons disable to prevent duplicate sign-ins. Failure uses the existing inline alert; success returns to the validated local destination. The implementation must not invent a working provider when credentials are absent. Contrast checks must explicitly include disabled buttons (axe excludes them). Browser verification covers light/dark themes, narrow phones, navigation, and screenshot inspection.
+
+The theme control is available in the shared header on every route. A saved light or dark choice overrides the operating-system setting; without a saved choice, the first render follows the system. The root layout applies the choice before paint, and the control exposes the action it will take (“Switch to dark theme” or “Switch to light theme”) without relying on icon colour alone.
 
 Every interactive component defines: default, hover, `:focus-visible`, pressed (`active:scale-[0.98]`), selected/current (`aria-current`), disabled, loading (`data-loading`, spinner + label), success, error, empty. Storybook stories exist for each state.
 

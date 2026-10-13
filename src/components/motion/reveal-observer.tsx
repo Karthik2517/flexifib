@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, type ReactNode } from "react"
 
 const SELECTOR = "[data-reveal]"
 /** Stagger delay is capped so long grids never leave late items waiting. */
@@ -11,10 +11,11 @@ const MAX_STAGGER_INDEX = 5
  * to cascade its children). Content is visible by default — only elements still
  * below the fold when this runs are hidden, so server HTML, no-JS visitors and
  * reduced-motion users always see everything and nothing above the fold flashes.
- * A MutationObserver picks up content added by client-side navigation; its
- * callback runs before paint, so new below-the-fold content never flickers.
+ * The route template remounts this observer on navigation. DOM writes are
+ * delayed until the route has committed, preventing changes to server markup
+ * while React is still hydrating it.
  */
-export function RevealObserver() {
+export function RevealObserver({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (
       !("IntersectionObserver" in window) ||
@@ -54,25 +55,22 @@ export function RevealObserver() {
       io.observe(element)
     }
 
-    const scan = (root: ParentNode) => root.querySelectorAll(SELECTOR).forEach(prepare)
-    scan(document)
-
-    const mo = new MutationObserver((records) => {
-      for (const record of records) {
-        record.addedNodes.forEach((node) => {
-          if (!(node instanceof Element)) return
-          if (node.matches(SELECTOR)) prepare(node)
-          scan(node)
-        })
-      }
+    // This component wraps the route, so its effect runs after the route commit.
+    // Two animation frames also keep the DOM untouched through selective
+    // hydration before preparing below-the-fold elements for reveal.
+    let secondFrame = 0
+    const firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => {
+        document.querySelectorAll(SELECTOR).forEach(prepare)
+      })
     })
-    mo.observe(document.body, { childList: true, subtree: true })
 
     return () => {
-      mo.disconnect()
+      cancelAnimationFrame(firstFrame)
+      cancelAnimationFrame(secondFrame)
       io.disconnect()
     }
   }, [])
 
-  return null
+  return children
 }

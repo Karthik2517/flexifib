@@ -32,7 +32,7 @@ This is a hybrid brand/product site: editorial product and programme pages expre
 
 ## Colors
 
-Runtime tokens remain canonical (ownership model B): `src/app/globals.css` primitive palette → semantic `--surface-*`, `--text-*`, `--border-*` → Tailwind aliases and shared components. The values above mirror the existing light palette; dark mode remaps semantic roles through the existing media query. No tokens are generated from this document.
+Runtime tokens remain canonical (ownership model B): `src/app/globals.css` primitive palette → semantic `--surface-*`, `--text-*`, `--border-*` → Tailwind aliases and shared components. The values above mirror the existing light palette; dark mode remaps the same semantic roles under `data-theme="dark"`. The visitor can switch themes from the shared header, with the choice persisted locally; first visits follow the operating-system preference. No tokens are generated from this document.
 
 Provider colours are deliberate component exceptions, owned by `.ff-auth-google` and `.ff-auth-apple` in `src/components/auth/auth.css`. Their opaque white/black surfaces and contrasting labels do not inherit glass button backgrounds or dim when disabled. The unavailable explanation communicates why they cannot act. Test disabled contrast explicitly in both themes.
 
@@ -56,7 +56,7 @@ Follow existing rounded card and control geometry. Account provider controls are
 
 The shared AuthForm owns login/signup; Button remains the Base UI-backed semantic control and FormAlert owns inline error feedback. Provider names and icons are always visible. Login uses “Log in with …”; signup uses “Sign up with …”. Busy states disable both controls; errors allow retry. The existing Supabase callback and verified server checkout checks own authentication behaviour.
 
-Lucide remains the interface icon family; provider brand marks identify Google/Apple. Existing duration and reduced-motion rules apply. The namespaced account stylesheet accommodates the project's global CSS loader; do not assume CSS-module exports without validating the loader.
+Lucide remains the interface icon family; provider brand marks identify Google/Apple. `ThemeToggle` is the single site-wide theme control and the pre-paint script in the root layout applies its persisted choice without flashing the wrong palette. Existing duration and reduced-motion rules apply. The namespaced account stylesheet accommodates the project's global CSS loader; do not assume CSS-module exports without validating the loader.
 
 ## Do's and Don'ts
 
