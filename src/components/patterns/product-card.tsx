@@ -37,7 +37,9 @@ export function ProductCard({ product }: { product: Product }) {
             aria-label={`View product: ${title}`}
             className={cn(
               buttonVariants({ variant: "outline", size: "sm" }),
-              "after:absolute after:inset-0 after:content-['']"
+              "after:absolute after:inset-0 after:content-['']",
+              // No press scale: it would make the button the ::after's containing block mid-click
+              "active:scale-none!"
             )}
           >
             View product

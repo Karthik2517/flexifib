@@ -32,8 +32,8 @@ export function NavLinks() {
               href={item.href}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "relative inline-flex h-11 items-center px-2.5 text-[0.8125rem] font-semibold text-text-body transition-colors duration-(--duration-micro) hover:text-text-brand xl:px-3",
-                "after:absolute after:inset-x-2.5 after:bottom-2 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-primary after:transition-transform after:duration-(--duration-popover) after:ease-out-quart xl:after:inset-x-3",
+                "relative inline-flex h-11 items-center px-2.5 text-[0.8125rem] font-semibold text-text-body transition-colors duration-[var(--duration-micro)] hover:text-text-brand xl:px-3",
+                "after:absolute after:inset-x-2.5 after:bottom-2 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-primary after:transition-transform after:duration-[var(--duration-popover)] after:ease-out-quart xl:after:inset-x-3",
                 "hover:after:scale-x-100",
                 active && "text-text-brand after:scale-x-100"
               )}
@@ -62,7 +62,7 @@ export function MobileNav() {
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="data-[side=left]:w-[min(22rem,88vw)] gap-0 border-r-0 bg-surface-page p-0 duration-(--duration-drawer)"
+        className="data-[side=left]:w-[min(22rem,88vw)] gap-0 border-r-0 bg-surface-page p-0 duration-[var(--duration-drawer)]"
       >
         <SheetHeader className="border-b border-border px-5 py-4">
           <SheetTitle className="font-heading text-2xl font-extrabold tracking-[-0.05em] text-text-brand">

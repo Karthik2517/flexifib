@@ -22,7 +22,7 @@ export function QuantityStepper({
 }) {
   const max = shipping.maxQuantityPerLine
   const buttonClass = cn(
-    "flex items-center justify-center text-text-brand transition-colors duration-(--duration-micro) hover:bg-surface-tint disabled:pointer-events-none disabled:opacity-35",
+    "flex items-center justify-center text-text-brand transition-colors duration-[var(--duration-micro)] hover:bg-surface-tint disabled:pointer-events-none disabled:opacity-35",
     size === "sm" ? "size-9" : "size-11"
   )
 

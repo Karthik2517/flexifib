@@ -10,7 +10,7 @@ const loadFeatures = () => import("./motion-features").then((mod) => mod.default
 export function MotionProvider({ children }: { children: React.ReactNode }) {
   return (
     <LazyMotion features={loadFeatures} strict>
-      <MotionConfig reducedMotion="user" transition={{ duration: 0.22, ease: [0.25, 1, 0.5, 1] }}>
+      <MotionConfig reducedMotion="user" transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}>
         {children}
       </MotionConfig>
     </LazyMotion>

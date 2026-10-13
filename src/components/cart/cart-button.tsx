@@ -34,7 +34,7 @@ export function CartButton() {
         <span
           key={visibleCount}
           aria-hidden="true"
-          className="absolute top-1.5 right-1 flex h-[1.125rem] min-w-[1.125rem] items-center justify-center rounded-full bg-primary px-1 text-[0.6875rem] font-bold text-primary-foreground tabular-nums animate-in fade-in-0 zoom-in-75 duration-(--duration-popover)"
+          className="absolute top-1.5 right-1 flex h-[1.125rem] min-w-[1.125rem] items-center justify-center rounded-full bg-primary px-1 text-[0.6875rem] font-bold text-primary-foreground tabular-nums animate-in fade-in-0 zoom-in-75 duration-[var(--duration-popover)]"
         >
           {visibleCount}
         </span>

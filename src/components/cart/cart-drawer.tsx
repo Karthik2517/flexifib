@@ -75,7 +75,7 @@ export default function CartDrawer() {
     <Sheet open={isOpen} onOpenChange={(open) => setOpen(open)}>
       <SheetContent
         side="right"
-        className="gap-0 border-l-0 bg-surface-page p-0 shadow-(--shadow-drawer) duration-(--duration-drawer) data-[side=right]:w-full data-[side=right]:sm:max-w-md"
+        className="gap-0 border-l-0 bg-surface-page p-0 shadow-(--shadow-drawer) duration-[var(--duration-drawer)] data-[side=right]:w-full data-[side=right]:sm:max-w-md"
       >
         <SheetHeader className="flex-row items-baseline gap-3 border-b border-border px-5 py-4 pr-14 sm:px-6">
           <SheetTitle className="font-heading text-2xl font-semibold text-text-brand">
@@ -107,7 +107,7 @@ export default function CartDrawer() {
               aria-valuenow={progress}
             >
               <div
-                className="h-full rounded-full bg-primary transition-[width] duration-(--duration-large) ease-out-quart"
+                className="h-full rounded-full bg-primary transition-[width] duration-[var(--duration-large)] ease-out-quart"
                 style={{ width: `${progress}%` }}
               />
             </div>

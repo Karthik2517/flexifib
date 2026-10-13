@@ -257,7 +257,7 @@ export function FormSuccess({
       tabIndex={-1}
       role="status"
       className={cn(
-        "flex flex-col items-start gap-3 rounded-xl p-6 outline-none animate-in fade-in-0 duration-(--duration-popover)",
+        "flex flex-col items-start gap-3 rounded-xl p-6 outline-none animate-in fade-in-0 duration-[var(--duration-popover)]",
         inverse ? "bg-white/10 text-text-inverse" : "bg-surface-tint text-foreground"
       )}
     >

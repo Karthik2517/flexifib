@@ -47,7 +47,9 @@ export function ProgrammeCard({
               className={cn(
                 buttonVariants({ variant: "outline", size: "sm" }),
                 // Stretch the link over the whole card for a generous hit area
-                "after:absolute after:inset-0 after:content-['']"
+                "after:absolute after:inset-0 after:content-['']",
+                // No press scale: it would make the button the ::after's containing block mid-click
+                "active:scale-none!"
               )}
             >
               {programme.cta}

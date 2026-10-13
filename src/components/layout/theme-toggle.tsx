@@ -2,12 +2,17 @@
 
 import { Moon, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { THEME_COLORS, THEME_STORAGE_KEY, type Theme } from "@/lib/theme"
+import {
+  THEME_COLORS,
+  THEME_COLOR_SCHEMES,
+  THEME_STORAGE_KEY,
+  type Theme,
+} from "@/lib/theme"
 
 function applyTheme(theme: Theme) {
   const root = document.documentElement
   root.dataset.theme = theme
-  root.style.colorScheme = theme
+  root.style.colorScheme = THEME_COLOR_SCHEMES[theme]
 
   document
     .querySelector('meta[name="theme-color"]')

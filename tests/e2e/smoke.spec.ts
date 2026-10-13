@@ -32,6 +32,7 @@ test.describe("every public route", () => {
     await page.getByRole("button", { name: "Switch to dark theme" }).click()
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark")
     expect(await page.evaluate(() => localStorage.getItem("ff_theme"))).toBe("dark")
+    expect(await page.evaluate(() => getComputedStyle(document.documentElement).colorScheme)).toBe("dark")
 
     await page.goto("/shop")
     await expect(page.getByRole("button", { name: "Switch to light theme" })).toBeVisible()
@@ -42,6 +43,9 @@ test.describe("every public route", () => {
     await page.getByRole("button", { name: "Switch to light theme" }).click()
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light")
     expect(await page.evaluate(() => localStorage.getItem("ff_theme"))).toBe("light")
+    // Chromium normalizes the authored `only light` value to `light only` in CSSOM.
+    expect(await page.evaluate(() => getComputedStyle(document.documentElement).colorScheme)).toBe("light only")
+    await expect(page.locator('meta[name="color-scheme"]')).toHaveAttribute("content", "only light")
   })
 
   for (const route of routes) {

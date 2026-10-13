@@ -54,8 +54,9 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: THEME_COLORS.light,
-  // Tells browsers the site ships its own dark theme, so they don't auto-darken it.
-  colorScheme: "light dark",
+  // Opts out of browser-forced darkening; the pre-paint script enables the
+  // site's intentional dark scheme when that theme is active.
+  colorScheme: "only light",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
