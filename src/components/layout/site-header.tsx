@@ -42,7 +42,7 @@ export function SiteHeader() {
       style={{ viewTransitionName: "site-header" }}
       className="site-header sticky top-0 z-30 border-b border-(--header-border) bg-(--surface-header)/92 backdrop-blur-md transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-out-quart supports-[not(backdrop-filter:blur(0))]:bg-(--surface-header)"
     >
-      <div className="container-page flex h-16 items-center gap-4 lg:h-[4.5rem]">
+      <div className="container-page flex h-16 items-center gap-2 sm:gap-4 lg:h-[4.5rem]">
         <MobileNav />
         <Link
           href="/"
