@@ -45,14 +45,13 @@ export function ProgrammeCard({
             <Link
               href={programme.href}
               className={cn(
-                buttonVariants({ variant: "outline", size: "sm" }),
-                // Stretch the link over the whole card for a generous hit area
-                "after:absolute after:inset-0 after:content-['']",
-                // No press scale: it would make the button the ::after's containing block mid-click
-                "active:scale-none!"
+                "inline-flex rounded-[0.875rem] outline-none focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ring",
+                // Stretch the link over the whole card for a generous hit area; the glass is the
+                // inner span so it can lift and tilt without taking the stretched ::after with it.
+                "after:absolute after:inset-0 after:content-['']"
               )}
             >
-              {programme.cta}
+              <span className={buttonVariants({ variant: "outline", size: "sm" })}>{programme.cta}</span>
             </Link>
           </div>
         )}

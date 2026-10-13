@@ -139,7 +139,6 @@
   --sea-primary-rim: #183a2e;
   --sea-primary-edge: rgb(255 255 255 / 0.06);
   --sea-primary-pool: rgb(120 196 160 / 0.55);
-  --sea-primary-shadow: rgb(23 56 44 / 0.42);
   --sea-primary-hover-core: #3f7d65;
   --sea-primary-hover-body: #2b5c49;
   --sea-primary-hover-rim: #1d4335;
@@ -149,7 +148,6 @@
   --sea-clear-rim: rgb(226 236 229 / 0.9);
   --sea-clear-edge: rgb(23 56 44 / 0.14);
   --sea-clear-pool: rgb(186 222 203 / 0.6);
-  --sea-clear-shadow: rgb(23 56 44 / 0.2);
   --sea-clear-hover-core: #eef6f0;
   --sea-clear-hover-body: #deece3;
   --sea-clear-hover-rim: #c6dccd;
@@ -159,11 +157,20 @@
   --sea-cream-rim: #e7ddcc;
   --sea-cream-edge: rgb(255 255 255 / 0.5);
   --sea-cream-pool: rgb(255 232 190 / 0.7);
-  --sea-cream-shadow: rgb(0 0 0 / 0.4);
   --sea-cream-hover-core: #ffffff;
   --sea-cream-hover-body: #fbefd6;
   --sea-cream-hover-rim: #ebd3a2;
   --sea-cream-hover-edge: rgb(255 246 222 / 0.95);
+  /* Depth: translucent glass edge and colour-tinted cast shadow, never black */
+  --sea-primary-side: rgb(52 118 90 / 0.72);
+  --sea-primary-cast: rgb(43 92 73 / 0.36);
+  --sea-primary-emboss: rgb(0 0 0 / 0.2);
+  --sea-clear-side: rgb(176 204 188 / 0.9);
+  --sea-clear-cast: rgb(64 104 84 / 0.26);
+  --sea-clear-emboss: rgb(255 255 255 / 0.7);
+  --sea-cream-side: rgb(222 204 166 / 0.85);
+  --sea-cream-cast: rgb(8 24 18 / 0.45);
+  --sea-cream-emboss: rgb(255 255 255 / 0.75);
 
   /* Spacing primitives used by layout components */
   --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
@@ -264,7 +271,6 @@
   --sea-primary-rim: #24533f;
   --sea-primary-edge: rgb(255 255 255 / 0.08);
   --sea-primary-pool: rgb(140 214 178 / 0.5);
-  --sea-primary-shadow: rgb(0 0 0 / 0.6);
   --sea-primary-hover-core: #3d7f65;
   --sea-primary-hover-body: #337259;
   --sea-primary-hover-rim: #285c46;
@@ -274,11 +280,16 @@
   --sea-clear-rim: rgb(207 227 214 / 0.14);
   --sea-clear-edge: rgb(207 227 214 / 0.18);
   --sea-clear-pool: rgb(140 196 169 / 0.32);
-  --sea-clear-shadow: rgb(0 0 0 / 0.55);
   --sea-clear-hover-core: rgb(140 196 169 / 0.38);
   --sea-clear-hover-body: rgb(140 196 169 / 0.24);
   --sea-clear-hover-rim: rgb(140 196 169 / 0.32);
   --sea-clear-hover-edge: rgb(176 220 196 / 0.75);
+  --sea-primary-side: rgb(80 170 132 / 0.5);
+  --sea-primary-cast: rgb(0 0 0 / 0.55);
+  --sea-primary-emboss: rgb(0 0 0 / 0.35);
+  --sea-clear-side: rgb(207 227 214 / 0.12);
+  --sea-clear-cast: rgb(0 0 0 / 0.5);
+  --sea-clear-emboss: rgb(0 0 0 / 0.45);
 
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px -4px rgb(0 0 0 / 0.35);
   --shadow-card-hover: 0 2px 4px rgb(0 0 0 / 0.35), 0 14px 32px -8px rgb(0 0 0 / 0.55);
@@ -949,14 +960,19 @@ button:hover svg.lucide-arrow-right {
 }
 
 /* Sea-glass buttons -----------------------------------------------------------------
- * Primary, outline and inverse buttons (`sea-glass` in the Button recipe) are frosted,
- * tumbled glass in the forest, clear and cream hues: light gathers in the middle and
- * pools along the lower edge, the surface is flecked, and each casts a soft shadow in
- * its own colour. Hover brightens the glass and lights its edge.
+ * Primary, outline and inverse buttons (`sea-glass` in the Button recipe) are thick,
+ * frosted, tumbled glass in the forest, clear and cream hues: light gathers in the
+ * middle and pools along the lower edge, the surface is flecked, and each stands on a
+ * translucent edge in a deeper shade of its own colour, casting a soft, colour-tinted
+ * shadow. Light falls from the top left; with a mouse or pen, SeaGlassLight moves it
+ * with the pointer (--sg-sx / --sg-sy, the shadow direction), so edges and shadows swing
+ * away from it. Hover brightens the glass and springs it up, tilting it towards the
+ * pointer while a glint sweeps across; pressing sinks it onto its edge. Touch and
+ * reduced motion keep the light fixed and the glass still.
  *
- * Deliberately no transform, filter or positioning on the button: card CTAs stretch
- * their link over the whole card with an absolutely positioned ::after, and any of
- * those would make the button its containing block and shrink the hit area.
+ * Card CTAs stretch their link over the whole card with an absolutely positioned
+ * ::after, so the glass there is an inner <span>: a transform on the link itself would
+ * make it the ::after's containing block and shrink the hit area to the button.
  */
 @property --sg-core {
   syntax: "<color>";
@@ -982,29 +998,15 @@ button:hover svg.lucide-arrow-right {
   initial-value: transparent;
 }
 
-.sea-glass {
-  border-color: transparent;
-  border-radius: var(--sg-radius, 1.125rem);
-  transition-property: --sg-core, --sg-body, --sg-rim, --sg-edge, box-shadow, color, scale;
-  background:
-    var(--sea-fleck-light),
-    var(--sea-fleck-dark) 37px 53px,
-    radial-gradient(130% 150% at 50% 80%, var(--sg-core) 0%, var(--sg-body) 55%, var(--sg-rim) 100%);
-  box-shadow:
-    inset 0 0 0 1px var(--sg-edge),
-    inset 0 1px 1px rgb(255 255 255 / 0.22),
-    inset 0 -10px 14px -8px var(--sg-pool),
-    0 10px 14px -9px var(--sg-shadow),
-    0 20px 32px -20px var(--sg-shadow);
-}
-
 .btn-primary.sea-glass {
   --sg-core: var(--sea-primary-core);
   --sg-body: var(--sea-primary-body);
   --sg-rim: var(--sea-primary-rim);
   --sg-edge: var(--sea-primary-edge);
   --sg-pool: var(--sea-primary-pool);
-  --sg-shadow: var(--sea-primary-shadow);
+  --sg-side: var(--sea-primary-side);
+  --sg-cast: var(--sea-primary-cast);
+  --sg-emboss: var(--sea-primary-emboss);
 }
 
 .btn-outline.sea-glass {
@@ -1013,7 +1015,9 @@ button:hover svg.lucide-arrow-right {
   --sg-rim: var(--sea-clear-rim);
   --sg-edge: var(--sea-clear-edge);
   --sg-pool: var(--sea-clear-pool);
-  --sg-shadow: var(--sea-clear-shadow);
+  --sg-side: var(--sea-clear-side);
+  --sg-cast: var(--sea-clear-cast);
+  --sg-emboss: var(--sea-clear-emboss);
 }
 
 /* After primary: the newsletter's inverse submit carries both classes. */
@@ -1023,42 +1027,159 @@ button:hover svg.lucide-arrow-right {
   --sg-rim: var(--sea-cream-rim);
   --sg-edge: var(--sea-cream-edge);
   --sg-pool: var(--sea-cream-pool);
-  --sg-shadow: var(--sea-cream-shadow);
+  --sg-side: var(--sea-cream-side);
+  --sg-cast: var(--sea-cream-cast);
+  --sg-emboss: var(--sea-cream-emboss);
 }
 
-.sea-glass:is(:hover, [aria-expanded="true"]) {
-  box-shadow:
-    inset 0 0 0 1px var(--sg-edge),
-    inset 0 1px 1px rgb(255 255 255 / 0.3),
-    inset 0 -12px 18px -8px var(--sg-pool),
-    0 14px 18px -9px var(--sg-shadow),
-    0 26px 40px -18px var(--sg-shadow);
-}
-
-.btn-primary.sea-glass:is(:hover, [aria-expanded="true"]) {
+.btn-primary.sea-glass:is(:hover, [aria-expanded="true"], a:hover > *) {
   --sg-core: var(--sea-primary-hover-core);
   --sg-body: var(--sea-primary-hover-body);
   --sg-rim: var(--sea-primary-hover-rim);
   --sg-edge: var(--sea-primary-hover-edge);
 }
 
-.btn-outline.sea-glass:is(:hover, [aria-expanded="true"]) {
+.btn-outline.sea-glass:is(:hover, [aria-expanded="true"], a:hover > *) {
   --sg-core: var(--sea-clear-hover-core);
   --sg-body: var(--sea-clear-hover-body);
   --sg-rim: var(--sea-clear-hover-rim);
   --sg-edge: var(--sea-clear-hover-edge);
 }
 
-.btn-inverse.sea-glass:is(:hover, [aria-expanded="true"]) {
+.btn-inverse.sea-glass:is(:hover, [aria-expanded="true"], a:hover > *) {
   --sg-core: var(--sea-cream-hover-core);
   --sg-body: var(--sea-cream-hover-body);
   --sg-rim: var(--sea-cream-hover-rim);
   --sg-edge: var(--sea-cream-hover-edge);
 }
 
+@property --sg-sx {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.6;
+}
+
+@property --sg-sy {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --sg-depth {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 8px;
+}
+
+@property --sg-lift {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --sg-tilt-x {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --sg-tilt-y {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --sg-x {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 30%;
+}
+
+@property --sg-glint {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --sg-sweep {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: -40%;
+}
+
+.sea-glass {
+  /* Gentle overshoot for the lift and settle. */
+  --sg-depth: var(--sg-rest, 8px);
+  border-color: transparent;
+  border-radius: var(--sg-radius, 1.125rem);
+  --sg-spring: linear(0, 0.034, 0.128 4.5%, 0.483 13%, 0.716 19.5%, 0.86 26%, 0.95 33%, 1.013 42%, 1.035 50%, 1.03 60%, 1.008 76%, 1);
+  --sg-sweep-duration: 0s;
+  --sg-ox: calc(var(--sg-sx) * var(--sg-depth));
+  --sg-oy: calc(var(--sg-sy) * var(--sg-depth));
+  transform: perspective(36rem) translateY(var(--sg-lift)) rotateX(var(--sg-tilt-x)) rotateY(var(--sg-tilt-y));
+  transition:
+    --sg-core 0.3s var(--ease-out-quart),
+    --sg-body 0.3s var(--ease-out-quart),
+    --sg-rim 0.3s var(--ease-out-quart),
+    --sg-edge 0.3s var(--ease-out-quart),
+    --sg-glint 0.35s var(--ease-out-quart),
+    --sg-x 0.25s var(--ease-out-quart),
+    --sg-sx 0.6s var(--ease-out-quart),
+    --sg-sy 0.6s var(--ease-out-quart),
+    --sg-tilt-x 0.5s var(--sg-spring),
+    --sg-tilt-y 0.5s var(--sg-spring),
+    --sg-lift 0.55s var(--sg-spring),
+    --sg-depth 0.55s var(--sg-spring),
+    --sg-sweep var(--sg-sweep-duration) var(--ease-in-out-soft),
+    color 0.2s var(--ease-out-quart),
+    scale 0.14s var(--ease-out-quart);
+  background:
+    radial-gradient(45% 55% at var(--sg-x) 0%, rgb(255 255 255 / calc(0.08 + var(--sg-glint) * 0.22)), transparent),
+    linear-gradient(105deg, transparent calc(var(--sg-sweep) - 14%), rgb(255 255 255 / 0.2) var(--sg-sweep), transparent calc(var(--sg-sweep) + 14%)),
+    var(--sea-fleck-light),
+    var(--sea-fleck-dark) 37px 53px,
+    radial-gradient(130% 150% at 50% 80%, var(--sg-core) 0%, var(--sg-body) 55%, var(--sg-rim) 100%);
+  text-shadow: 0 1px 1px var(--sg-emboss);
+  box-shadow:
+    inset 0 0 0 1px var(--sg-edge),
+    inset 0 1.5px 1px rgb(255 255 255 / calc(0.26 + var(--sg-glint) * 0.14)),
+    inset 0 -10px 14px -8px var(--sg-pool),
+    /* the glass edge, built up so it reads as one solid side */
+    calc(var(--sg-ox) * 0.5) calc(var(--sg-oy) * 0.5) 1px var(--sg-side),
+    var(--sg-ox) var(--sg-oy) 3px var(--sg-side),
+    /* contact shadow, then the long soft cast */
+    calc(var(--sg-ox) * 2) calc(var(--sg-oy) * 2.4) calc(var(--sg-depth) * 3) calc(var(--sg-depth) * -0.6) var(--sg-cast),
+    calc(var(--sg-ox) * 3.6) calc(var(--sg-oy) * 4.4) calc(var(--sg-depth) * 6) calc(var(--sg-depth) * -2.4) var(--sg-cast);
+}
+
+.sea-glass:is(:hover, [aria-expanded="true"], :focus-visible, a:hover > *, a:focus-visible > *) {
+  --sg-depth: var(--sg-raised, 11px);
+  --sg-lift: -2px;
+  --sg-glint: 1;
+  --sg-sweep: 140%;
+  --sg-sweep-duration: 0.9s;
+}
+
+/* Pressed: sinks down onto its edge. */
+.sea-glass:is(:active, a:active > *) {
+  --sg-depth: 2px;
+  --sg-lift: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sea-glass {
+    transform: none;
+  }
+
+  .sea-glass:is(:hover, [aria-expanded="true"], :focus-visible, a:hover > *, a:focus-visible > *) {
+    --sg-sweep: -40%;
+  }
+}
+
 @media (forced-colors: active) {
   .sea-glass {
     border-color: ButtonText;
+    text-shadow: none;
   }
 }
 

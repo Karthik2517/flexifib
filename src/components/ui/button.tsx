@@ -22,10 +22,10 @@ const buttonVariants = cva(
       size: {
         default:
           "h-11 gap-2 px-5 has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4",
-        sm: "h-9 gap-1.5 [--sg-radius:0.875rem] px-3.5 text-[0.8125rem] has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
+        sm: "h-9 gap-1.5 [--sg-radius:0.875rem] [--sg-rest:6px] [--sg-raised:8px] px-3.5 text-[0.8125rem] has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
         lg: "h-12 gap-2 px-6 text-[0.9375rem] has-data-[icon=inline-end]:pr-5 has-data-[icon=inline-start]:pl-5",
         icon: "size-11",
-        "icon-sm": "size-9 [--sg-radius:0.875rem]",
+        "icon-sm": "size-9 [--sg-radius:0.875rem] [--sg-rest:6px] [--sg-raised:8px]",
       },
     },
     defaultVariants: {

@@ -46,7 +46,7 @@ Maintain the established four-pixel spacing rhythm, document scrolling, and shar
 
 ## Elevation & Depth
 
-Use semantic surfaces, fine borders and the existing `--shadow-card` token. Primary, outline and inverse buttons are sea glass: frosted, flecked glass in the forest, clear and cream hues, with a tinted shadow and a hover state that brightens the glass and lights its edge (`--sea-*` tokens and "Sea-glass buttons" in globals.css). Ghost, link and provider buttons stay plain. Keep account controls opaque and immediately recognisable. Avoid adding glass layers or decorative motion to authentication.
+Use semantic surfaces, fine borders and the existing `--shadow-card` token. Primary, outline and inverse buttons are sea glass: thick, frosted, flecked glass in the forest, clear and cream hues, standing on a translucent edge of their own colour with a colour-tinted shadow (never black). Light comes from the top left, or from the pointer on mouse/pen devices (`SeaGlassLight`); hover brightens and springs the glass up, press sinks it (`--sea-*` tokens and "Sea-glass buttons" in globals.css). Card CTAs keep the glass on an inner span so their stretched link is never transformed. Ghost, link and provider buttons stay plain. Keep account controls opaque and immediately recognisable. Avoid adding glass layers or decorative motion to authentication.
 
 ## Shapes
 

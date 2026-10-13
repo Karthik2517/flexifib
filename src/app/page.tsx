@@ -42,7 +42,7 @@ export default function HomePage() {
         imageAlt="Raw hemp fibre, glassware and a toothbrush on a windowsill overlooking Edinburgh"
         imagePosition="70% center"
       >
-        <div className="flex flex-col gap-3 sm:flex-row">
+        <div className="flex flex-col gap-4 sm:flex-row">
           <ButtonLink href="/shop" size="lg">
             Shop Launch Collection
           </ButtonLink>

@@ -6,6 +6,7 @@ import { CartRoot } from "@/components/cart/cart-root"
 import { AuthProvider } from "@/components/auth/auth-provider"
 import { MotionProvider } from "@/components/cart/motion-provider"
 import { ScrollState } from "@/components/layout/scroll-state"
+import { SeaGlassLight } from "@/components/motion/sea-glass-light"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { AnnouncementBar, SiteHeader } from "@/components/layout/site-header"
 import { site } from "@/content/site"
@@ -105,6 +106,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </MotionProvider></AuthProvider>
         <Analytics />
         <ScrollState />
+        <SeaGlassLight />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
