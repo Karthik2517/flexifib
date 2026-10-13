@@ -1,6 +1,7 @@
-import { expect, test } from "./fixtures"
+import { expect, test, loginTestCustomer } from "./fixtures"
 
 test.describe("basket", () => {
+  test.beforeEach(async ({ consented: page }) => { await loginTestCustomer(page) })
   test("add, adjust, persist and price a basket", async ({ consented: page }) => {
     await page.goto("/shop")
     await page.getByRole("link", { name: /View product: Launch Toothbrush — Soft/ }).click()

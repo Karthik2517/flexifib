@@ -5,6 +5,8 @@ import { createJSONStorage, persist } from "zustand/middleware"
 import { clampQuantity, type CartLine } from "./pricing"
 
 type CartState = {
+  ownerId: string | null
+  setOwner: (ownerId: string | null) => void
   lines: CartLine[]
   isOpen: boolean
   hydrated: boolean
@@ -37,11 +39,16 @@ const safeStorage = createJSONStorage(() => {
 export const useCart = create<CartState>()(
   persist(
     (set) => ({
+      ownerId: null,
+      setOwner: (ownerId) => set((state) => state.ownerId === ownerId
+        ? {}
+        : { ownerId, lines: [], isOpen: false }),
       lines: [],
       isOpen: false,
       hydrated: false,
       add: (slug, quantity = 1) =>
         set((state) => {
+          if (!state.ownerId) return {}
           const existing = state.lines.find((line) => line.slug === slug)
           const lines = existing
             ? state.lines.map((line) =>
@@ -64,17 +71,19 @@ export const useCart = create<CartState>()(
       remove: (slug) =>
         set((state) => ({ lines: state.lines.filter((line) => line.slug !== slug) })),
       clear: () => set({ lines: [] }),
-      open: () => set({ isOpen: true }),
+      open: () => set((state) => ({ isOpen: !!state.ownerId })),
       close: () => set({ isOpen: false }),
-      setOpen: (isOpen) => set({ isOpen }),
+      setOpen: (isOpen) => set((state) => ({ isOpen: isOpen && !!state.ownerId })),
     }),
     {
       name: "flexifib-basket",
-      version: 1,
+      version: 2,
+      // Anonymous baskets from before account access are intentionally discarded.
+      migrate: () => ({ ownerId: null, lines: [] }),
       storage: safeStorage,
       // Rehydrated manually after mount so server and client HTML match.
       skipHydration: true,
-      partialize: (state) => ({ lines: state.lines }),
+      partialize: (state) => ({ ownerId: state.ownerId, lines: state.lines }),
       onRehydrateStorage: () => () => {
         useCart.setState({ hydrated: true })
       },

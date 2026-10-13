@@ -1,4 +1,5 @@
 import { test as base, expect, type Page } from "@playwright/test"
+import { readFile } from "node:fs/promises"
 
 export const routes = [
   "/",
@@ -37,6 +38,15 @@ export async function setConsent(page: Page, analytics = false) {
       url: "http://localhost:3100",
     },
   ])
+}
+
+export async function loginTestCustomer(page: Page) {
+  const statePath = process.env.E2E_AUTH_STORAGE_STATE
+  base.skip(!statePath, "Requires saved Google/Apple test-customer session cookies")
+  const state = JSON.parse(await readFile(statePath!, "utf8"))
+  await page.context().addCookies(state.cookies)
+  await page.goto("/account")
+  await expect(page.getByRole("heading", { name: "Your account" })).toBeVisible()
 }
 
 export const test = base.extend<{ consented: Page }>({

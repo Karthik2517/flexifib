@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { site } from "@/content/site"
 import { CartButton } from "@/components/cart/cart-button"
+import { AccountLink } from "@/components/auth/account-link"
 import { MobileNav, NavLinks } from "./nav-links"
 
 function AnnouncementItems({ hidden = false }: { hidden?: boolean }) {
@@ -53,6 +54,7 @@ export function SiteHeader() {
           <NavLinks />
         </nav>
         <div className="ml-auto flex items-center lg:ml-6">
+          <AccountLink />
           <CartButton />
         </div>
       </div>

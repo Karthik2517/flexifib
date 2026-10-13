@@ -4,6 +4,7 @@ import { headers } from "next/headers"
 import { site } from "@/content/site"
 import { buildCheckoutSession, checkoutRequestSchema } from "@/lib/checkout"
 import { getStripe } from "@/lib/stripe"
+import { getAuthenticatedUser } from "@/lib/auth/server"
 
 export type CheckoutResult = { ok: true; url: string } | { ok: false; error: string }
 
@@ -18,6 +19,10 @@ async function resolveOrigin() {
 }
 
 export async function startCheckout(input: unknown): Promise<CheckoutResult> {
+  const user = await getAuthenticatedUser()
+  if (!user) {
+    return { ok: false, error: "Please log in with a verified account before checking out." }
+  }
   const parsed = checkoutRequestSchema.safeParse(input)
   if (!parsed.success) {
     return { ok: false, error: "Your basket couldn’t be read. Please refresh and try again." }
@@ -41,7 +46,12 @@ export async function startCheckout(input: unknown): Promise<CheckoutResult> {
   }
 
   try {
-    const created = await stripe.checkout.sessions.create(session.params)
+    const created = await stripe.checkout.sessions.create({
+      ...session.params,
+      client_reference_id: user.id,
+      customer_email: user.email,
+      metadata: { ...session.params.metadata, user_id: user.id },
+    })
     if (!created.url) throw new Error("Stripe returned no session URL")
     return { ok: true, url: created.url }
   } catch (error) {

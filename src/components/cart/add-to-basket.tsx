@@ -1,9 +1,13 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useAuth } from "@/components/auth/auth-provider"
+import { loginHref } from "@/lib/auth/config"
 import { Check, ShoppingBag } from "lucide-react"
 import { AnimatePresence, m } from "motion/react"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { productTitle, type Product } from "@/content/products"
 import { trackAddToCart } from "@/lib/analytics"
 import { useCart } from "@/lib/cart-store"
@@ -12,12 +16,15 @@ import { QuantityStepper } from "./quantity-stepper"
 type Props = Pick<Product, "slug" | "name" | "variant" | "price" | "inStock">
 
 export function AddToBasket({ product }: { product: Props }) {
+  const { user, loading } = useAuth()
+  const pathname = usePathname()
   const [quantity, setQuantity] = useState(1)
   const [justAdded, setJustAdded] = useState(false)
   const add = useCart((state) => state.add)
   const open = useCart((state) => state.open)
 
   function handleAdd() {
+    if (!user || loading) return
     add(product.slug, quantity)
     trackAddToCart({
       item_id: product.slug,
@@ -40,6 +47,14 @@ export function AddToBasket({ product }: { product: Props }) {
       </p>
     )
   }
+
+  if (loading) return <Button size="lg" className="w-full" disabled>Checking account…</Button>
+  if (!user) return (
+    <div className="flex flex-col gap-3">
+      <Link href={loginHref(pathname)} className={buttonVariants({ size: "lg" })}>Log in to add to basket</Link>
+      <p className="text-sm text-text-muted">New to FlexiFib? <Link href={`/signup?next=${encodeURIComponent(pathname)}`} className="font-semibold text-text-brand underline underline-offset-3">Create an account</Link> to start shopping.</p>
+    </div>
+  )
 
   return (
     <div className="flex flex-col gap-2">

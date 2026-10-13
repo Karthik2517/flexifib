@@ -15,7 +15,7 @@ export default function PrivacyPage() {
       eyebrow="Legal"
       title="Privacy notice"
       intro="How FLEXIFIB ECO LTD collects and uses personal data when you use this website or buy from us."
-      updated="9 October 2026"
+      updated="12 October 2026"
       sections={[
         {
           heading: "Who we are",
@@ -31,6 +31,7 @@ export default function PrivacyPage() {
           heading: "What we collect",
           body: (
             <ul>
+              <li><strong>Accounts:</strong> your email address (including an Apple relay address if you choose Hide My Email), account identifier and basic profile details shared by Google or Apple, managed by Supabase to let you sign in and shop. We do not receive your Google or Apple password.</li>
               <li><strong>Orders:</strong> name, email, delivery address and order details. Card details are collected and processed by Stripe; we never see or store them.</li>
               <li><strong>Enquiries:</strong> the details you enter in our contact, business or interest forms.</li>
               <li><strong>Updates list:</strong> your email address if you join our journey updates.</li>
@@ -54,6 +55,7 @@ export default function PrivacyPage() {
           heading: "Who we share it with",
           body: (
             <ul>
+              <li>Supabase — account authentication; Google or Apple — your chosen sign-in provider.</li>
               <li>Stripe — payment processing.</li>
               <li>Resend — delivering form submissions and update emails.</li>
               <li>Vercel — website hosting.</li>

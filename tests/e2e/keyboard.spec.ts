@@ -1,4 +1,4 @@
-import { expect, test } from "./fixtures"
+import { expect, test, loginTestCustomer } from "./fixtures"
 
 test.describe("keyboard", () => {
   test("skip link moves focus to main content", async ({ consented: page, browserName }) => {
@@ -12,6 +12,7 @@ test.describe("keyboard", () => {
   })
 
   test("basket drawer traps focus, closes on Escape and restores focus", async ({ consented: page }) => {
+    await loginTestCustomer(page)
     await page.goto("/shop/launch-toothbrush-soft")
     const add = page.getByRole("button", { name: /Add to basket/ })
     await add.click()

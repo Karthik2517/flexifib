@@ -8,6 +8,9 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { formatPrice } from "@/content/products"
 import { inboxes } from "@/content/site"
 import { getStripe } from "@/lib/stripe"
+import { getAuthenticatedUser } from "@/lib/auth/server"
+import { loginHref } from "@/lib/auth/config"
+import { redirect } from "next/navigation"
 
 export const metadata: Metadata = {
   title: "Order confirmation",
@@ -45,6 +48,8 @@ async function Confirmation({
 }) {
   const params = await searchParams
   const sessionId = typeof params.session_id === "string" ? params.session_id : null
+  const user = await getAuthenticatedUser({ readOnly: true })
+  if (!user) redirect(loginHref(`/checkout/success${sessionId ? `?session_id=${encodeURIComponent(sessionId)}` : ""}`))
   const stripe = getStripe()
 
   let session: Awaited<ReturnType<NonNullable<typeof stripe>["checkout"]["sessions"]["retrieve"]>> | null = null
@@ -56,7 +61,7 @@ async function Confirmation({
     }
   }
 
-  if (!session || session.payment_status !== "paid") {
+  if (!session || session.payment_status !== "paid" || session.client_reference_id !== user.id) {
     return (
       <div className="flex flex-col items-center">
         <CircleAlert aria-hidden="true" className="size-14 text-text-accent" strokeWidth={1.5} />

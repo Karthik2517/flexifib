@@ -3,6 +3,7 @@ import { Inter, Manrope } from "next/font/google"
 import { Analytics } from "@/components/consent/analytics"
 import { CookieConsent } from "@/components/consent/cookie-consent"
 import { CartRoot } from "@/components/cart/cart-root"
+import { AuthProvider } from "@/components/auth/auth-provider"
 import { MotionProvider } from "@/components/cart/motion-provider"
 import { RevealObserver } from "@/components/motion/reveal-observer"
 import { ScrollState } from "@/components/layout/scroll-state"
@@ -85,7 +86,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <MotionProvider>
+        <AuthProvider><MotionProvider>
           <AnnouncementBar />
           <SiteHeader />
           <main id="main" className="ambient cards-blend flex-1" tabIndex={-1}>
@@ -95,7 +96,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <CartRoot />
           <CookieConsent />
           <script dangerouslySetInnerHTML={{ __html: CONSENT_BANNER_SCRIPT }} />
-        </MotionProvider>
+        </MotionProvider></AuthProvider>
         <Analytics />
         <RevealObserver />
         <ScrollState />

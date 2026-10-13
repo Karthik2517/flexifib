@@ -11,7 +11,8 @@ export const metadata: Metadata = {
 
 const rows = [
   ["ff_consent", "FlexiFib", "Essential", "Remembers your cookie choices", "6 months"],
-  ["flexifib-basket (local storage)", "FlexiFib", "Essential", "Keeps the contents of your basket", "Until cleared"],
+  ["flexifib-basket (local storage)", "FlexiFib", "Essential", "Keeps your signed-in basket on this device", "Until sign out, account switch or cleared"],
+  ["sb-*-auth-token and sb-*-auth-token-code-verifier", "Supabase", "Essential", "Keeps you signed in and verifies your Google or Apple sign-in", "Until sign out or cookie expiry"],
   ["Stripe cookies", "Stripe", "Essential", "Secure payment and fraud prevention on checkout pages", "Set by Stripe"],
   ["_ga, _ga_*", "Google Analytics", "Analytics (optional)", "Distinguishes visitors and measures site use and performance", "Up to 2 years"],
 ]
@@ -22,7 +23,7 @@ export default function CookiesPage() {
       eyebrow="Legal"
       title="Cookie policy"
       intro="We use a small number of cookies. Optional ones are only set if you agree."
-      updated="9 October 2026"
+      updated="12 October 2026"
       sections={[
         {
           heading: "Your choices",
