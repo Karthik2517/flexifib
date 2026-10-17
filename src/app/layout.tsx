@@ -4,7 +4,6 @@ import { Analytics } from "@/components/consent/analytics"
 import { CookieConsent } from "@/components/consent/cookie-consent"
 import { CartRoot } from "@/components/cart/cart-root"
 import { AuthProvider } from "@/components/auth/auth-provider"
-import { MotionProvider } from "@/components/cart/motion-provider"
 import { ScrollState } from "@/components/layout/scroll-state"
 import { SeaGlassLight } from "@/components/motion/sea-glass-light"
 import { SiteFooter } from "@/components/layout/site-footer"
@@ -93,7 +92,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <AuthProvider><MotionProvider>
+        <AuthProvider>
           <AnnouncementBar />
           <SiteHeader />
           <main id="main" className="ambient cards-blend flex-1" tabIndex={-1}>
@@ -103,7 +102,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <CartRoot />
           <CookieConsent />
           <script dangerouslySetInnerHTML={{ __html: CONSENT_BANNER_SCRIPT }} />
-        </MotionProvider></AuthProvider>
+        </AuthProvider>
         <Analytics />
         <ScrollState />
         <SeaGlassLight />

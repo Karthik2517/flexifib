@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import lochAwe from "@/assets/images/loch-awe-castle.jpg"
+import lochAwe from "@/assets/images/loch-awe-castle.webp"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { ButtonLink } from "@/components/patterns/button-link"
 import { CardGrid, InfoCard } from "@/components/patterns/cards"

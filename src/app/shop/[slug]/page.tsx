@@ -8,6 +8,7 @@ import { Container, Section, SectionHeader } from "@/components/layout/section"
 import { ButtonLink } from "@/components/patterns/button-link"
 import { CardGrid, InfoCard } from "@/components/patterns/cards"
 import { NotePanel } from "@/components/patterns/callouts"
+import { DeferredProductDetails } from "@/components/patterns/deferred-product-details"
 import { StatusBadge } from "@/components/patterns/status-badge"
 import {
   Breadcrumb,
@@ -17,7 +18,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { formatPrice, getProduct, productTitle, products, shipping } from "@/content/products"
 import { site } from "@/content/site"
 
@@ -44,54 +44,6 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
   if (!product) notFound()
 
   const title = productTitle(product)
-  const tabs = [
-    {
-      value: "description",
-      label: "Description",
-      body: product.description.map((paragraph) => <p key={paragraph}>{paragraph}</p>),
-    },
-    { value: "materials", label: "Materials", body: <p>{product.materials}</p> },
-    { value: "origin", label: "Origin", body: <p>{product.origin}</p> },
-    { value: "care", label: "Care", body: <p>{product.care}</p> },
-    {
-      value: "delivery",
-      label: "Delivery",
-      body: (
-        <>
-          <p>
-            We currently deliver to UK addresses. Standard delivery is{" "}
-            {formatPrice(shipping.standardRate)}, and free on orders of{" "}
-            {formatPrice(shipping.freeThreshold)} or more. Orders usually arrive within{" "}
-            {shipping.minDays}–{shipping.maxDays} working days.
-          </p>
-          <p>
-            <Link href="/help/shipping" className="font-semibold text-text-brand underline underline-offset-3">
-              Shipping &amp; delivery details
-            </Link>
-          </p>
-        </>
-      ),
-    },
-    {
-      value: "returns",
-      label: "Returns",
-      body: (
-        <>
-          <p>
-            You can cancel your order or return unused items in their original packaging
-            within 14 days of delivery. For hygiene reasons, opened toothbrushes can only be
-            returned if they are faulty.
-          </p>
-          <p>
-            <Link href="/help/returns" className="font-semibold text-text-brand underline underline-offset-3">
-              Returns &amp; refunds policy
-            </Link>
-          </p>
-        </>
-      ),
-    },
-  ]
-
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -150,7 +102,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             fill
             preload
             placeholder="blur"
-            sizes="(min-width: 1024px) 50vw, 100vw"
+            sizes="(max-width: 767px) 100vw, min(50vw, 608px)"
             className="object-cover"
           />
         </div>
@@ -185,36 +137,16 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
 
       <Section className="pt-6! sm:pt-10!" aria-label="Product details">
         <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-14">
-          <Tabs defaultValue="description" className="min-w-0 gap-6">
-            {/* Scrolls sideways on narrow screens; the edge fade hints there is more. */}
-            <div className="-mx-(--gutter) overflow-x-auto px-(--gutter) [scrollbar-width:none] max-sm:[mask-image:linear-gradient(to_right,#000_85%,transparent)]">
-              <TabsList
-                variant="line"
-                className="h-auto! w-full min-w-max justify-start gap-0 border-b border-border p-0"
-              >
-                {tabs.map((tab) => (
-                  <TabsTrigger
-                    key={tab.value}
-                    value={tab.value}
-                    className="h-12 flex-none px-3 text-sm font-semibold sm:px-4 after:bottom-[-1px]! data-active:text-text-brand"
-                  >
-                    {tab.label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </div>
-            {tabs.map((tab) => (
-              <TabsContent
-                key={tab.value}
-                value={tab.value}
-                keepMounted
-                className="max-w-prose space-y-4 text-[0.9375rem] leading-relaxed text-text-body data-hidden:hidden"
-              >
-                <h2 className="sr-only">{tab.label}</h2>
-                {tab.body}
-              </TabsContent>
-            ))}
-          </Tabs>
+          <DeferredProductDetails details={{
+            description: product.description,
+            materials: product.materials,
+            origin: product.origin,
+            care: product.care,
+            standardRate: formatPrice(shipping.standardRate),
+            freeThreshold: formatPrice(shipping.freeThreshold),
+            minDays: shipping.minDays,
+            maxDays: shipping.maxDays,
+          }} />
 
           <aside
             aria-labelledby="key-info"

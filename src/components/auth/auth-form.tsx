@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import hempField from "@/assets/images/hemp-field.jpg"
+import hempField from "@/assets/images/hemp-field.webp"
 import { useSearchParams } from "next/navigation"
 import { useId, useState } from "react"
 import { ArrowLeft, ArrowUpRight, Info, Leaf, Loader2, LockKeyhole } from "lucide-react"
@@ -72,7 +72,7 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
         </Link>
         <div className="ff-auth-card">
           <aside className="ff-auth-story" aria-label="The FlexiFib story">
-            <Image src={hempField} alt="" fill sizes="(max-width: 767px) 1px, (max-width: 1100px) 50vw, 544px" className="ff-auth-photo" preload />
+            <Image src={hempField} alt="" fill sizes="(max-width: 767px) 1px, (max-width: 1100px) 50vw, 544px" className="ff-auth-photo" />
             <div className="font-heading ff-auth-wordmark"><Leaf aria-hidden="true" className="size-6" /> FlexiFib</div>
             <div>
               <h2 className="font-heading ff-auth-story-title">Better materials.<br />Everyday living.</h2>

@@ -32,13 +32,13 @@ export function CartRoot() {
 
     const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1500))
     const cancelIdle = window.cancelIdleCallback ?? window.clearTimeout
-    const handle = idle(() => void loadDrawer())
+    const handle = user && !loading ? idle(() => void loadDrawer()) : undefined
 
     return () => {
       window.removeEventListener("storage", onStorage)
-      cancelIdle(handle)
+      if (handle !== undefined) cancelIdle(handle)
     }
-  }, [user?.id])
+  }, [loading, user, user?.id])
 
   // Mount once, then keep mounted so close animations and state persist.
   if (isOpen && !mounted) setMounted(true)

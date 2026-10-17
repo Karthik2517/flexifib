@@ -3,7 +3,8 @@ import { site } from "@/content/site"
 import { CartButton } from "@/components/cart/cart-button"
 import { AccountLink } from "@/components/auth/account-link"
 import { ThemeToggle } from "./theme-toggle"
-import { MobileNav, NavLinks } from "./nav-links"
+import { MobileNav } from "./mobile-nav"
+import { NavLinks } from "./nav-links"
 
 function AnnouncementItems({ hidden = false }: { hidden?: boolean }) {
   return (

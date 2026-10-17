@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useEffect, useState } from "react"
 import type { User } from "@supabase/supabase-js"
-import { getAuthClient } from "@/lib/auth/client"
 import { getAuthConfig } from "@/lib/auth/config"
 import { useCart } from "@/lib/cart-store"
 
@@ -24,6 +23,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     async function initialize() {
       await useCart.persist.rehydrate()
+      if (!active) return
+      const configured = !!getAuthConfig()
+      const hasSessionCookie = document.cookie
+        .split("; ")
+        .some((cookie) => cookie.startsWith("sb-") && cookie.includes("-auth-token"))
+      if (!configured || !hasSessionCookie) return applyUser(null)
+      const { getAuthClient } = await import("@/lib/auth/client")
       if (!active) return
       const client = getAuthClient()
       if (!client) return applyUser(null)

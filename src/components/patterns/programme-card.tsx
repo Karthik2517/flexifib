@@ -29,7 +29,7 @@ export function ProgrammeCard({
           style={{ objectPosition: programme.imagePosition }}
           fill
           placeholder="blur"
-          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          sizes="(max-width: 639px) 100vw, (max-width: 1023px) min(50vw, 608px), min(33vw, 400px)"
           className="object-cover transition-transform duration-400 ease-out-quint group-has-[a:hover]:scale-[1.04]"
         />
       </div>

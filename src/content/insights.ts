@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image"
-import ropeMacro from "@/assets/images/rope-macro.jpg"
-import labGlassware from "@/assets/images/lab-glassware.jpg"
-import packaging from "@/assets/images/packaging.jpg"
+import ropeMacro from "@/assets/images/rope-macro.webp"
+import labGlassware from "@/assets/images/lab-glassware.webp"
+import packaging from "@/assets/images/packaging.webp"
 
 export type InsightPillar =
   | "Materials"

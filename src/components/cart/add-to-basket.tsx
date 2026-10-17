@@ -11,6 +11,7 @@ import { Button, buttonVariants } from "@/components/ui/button"
 import { productTitle, type Product } from "@/content/products"
 import { trackAddToCart } from "@/lib/analytics"
 import { useCart } from "@/lib/cart-store"
+import { MotionProvider } from "./motion-provider"
 import { QuantityStepper } from "./quantity-stepper"
 
 type Props = Pick<Product, "slug" | "name" | "variant" | "price" | "inStock">
@@ -57,7 +58,7 @@ export function AddToBasket({ product }: { product: Props }) {
   )
 
   return (
-    <div className="flex flex-col gap-2">
+    <MotionProvider><div className="flex flex-col gap-2">
       <span className="text-sm font-semibold" aria-hidden="true">
         Quantity
       </span>
@@ -98,6 +99,6 @@ export function AddToBasket({ product }: { product: Props }) {
       <p className="sr-only" aria-live="polite">
         {justAdded ? `${productTitle(product)} added to basket` : ""}
       </p>
-    </div>
+    </div></MotionProvider>
   )
 }

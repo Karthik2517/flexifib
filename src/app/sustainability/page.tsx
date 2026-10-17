@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import hempField from "@/assets/images/hemp-field.jpg"
+import hempField from "@/assets/images/hemp-field.webp"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { CardGrid, InfoCard } from "@/components/patterns/cards"
 import { CtaBand, NotePanel } from "@/components/patterns/callouts"

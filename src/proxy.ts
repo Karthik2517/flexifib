@@ -6,6 +6,10 @@ export async function proxy(request: NextRequest) {
   const auth = getAuthConfig()
   let response = NextResponse.next({ request })
   if (!auth) return response
+  const hasSessionCookie = request.cookies
+    .getAll()
+    .some(({ name }) => name.startsWith("sb-") && name.includes("-auth-token"))
+  if (!hasSessionCookie) return response
 
   const client = createServerClient(auth.url, auth.key, {
     cookies: {

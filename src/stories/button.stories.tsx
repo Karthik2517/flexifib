@@ -34,9 +34,9 @@ export const LongText: Story = {
 export const AllSizes: Story = {
   render: (args) => (
     <div className="flex flex-wrap items-center gap-3">
-      <Button {...args} size="sm">Small</Button>
-      <Button {...args}>Default</Button>
-      <Button {...args} size="lg">Large</Button>
+      <Button {...args} size="sm" onClick={args.onClick}>Small</Button>
+      <Button {...args} onClick={args.onClick}>Default</Button>
+      <Button {...args} size="lg" onClick={args.onClick}>Large</Button>
     </div>
   ),
 }

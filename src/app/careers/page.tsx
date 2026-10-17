@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { ApplicationForm } from "@/components/forms/application-form"
+import { DeferredApplicationForm } from "@/components/forms/deferred-application-form"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { ButtonLink } from "@/components/patterns/button-link"
 import { Card, CardGrid, InfoCard } from "@/components/patterns/cards"
@@ -146,7 +146,7 @@ export default function CareersPage() {
           description={`Your application goes directly to ${inboxes.careers}. We reply to every relevant application.`}
         />
         <Card className="p-6 sm:p-8 lg:p-10">
-          <ApplicationForm />
+          <DeferredApplicationForm />
         </Card>
       </Section>
 

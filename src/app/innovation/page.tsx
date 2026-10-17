@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import labBench from "@/assets/images/lab-bench.jpg"
-import twineInHand from "@/assets/images/twine-in-hand.jpg"
+import labBench from "@/assets/images/lab-bench.webp"
+import twineInHand from "@/assets/images/twine-in-hand.webp"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { ButtonLink } from "@/components/patterns/button-link"
 import { CardGrid, InfoCard } from "@/components/patterns/cards"

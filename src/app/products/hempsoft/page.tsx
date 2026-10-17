@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { InterestForm } from "@/components/forms/email-capture"
+import { DeferredInterestForm } from "@/components/forms/deferred-interest-form"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { ButtonLink } from "@/components/patterns/button-link"
 import { CardGrid, InfoCard, RowList } from "@/components/patterns/cards"
@@ -85,7 +85,7 @@ export default function HempSoftPage() {
           description="We’ll only email when there is genuine research progress to share."
           action={
             <div className="w-full md:w-[24rem]">
-              <InterestForm programme="hempsoft" inverse />
+              <DeferredInterestForm programme="hempsoft" inverse />
             </div>
           }
         />

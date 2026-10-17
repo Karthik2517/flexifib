@@ -7,6 +7,7 @@ import { Button, buttonVariants } from "@/components/ui/button"
 import { FormAlert } from "@/components/forms/fields"
 import { getAuthClient } from "@/lib/auth/client"
 import { useAuth } from "./auth-provider"
+import { AccountPanelSkeleton } from "./auth-skeleton"
 
 export function AccountPanel() {
   const { user, loading } = useAuth()
@@ -32,7 +33,7 @@ export function AccountPanel() {
     } finally { setPending(false) }
   }
 
-  if (loading || !user) return <p role="status" className="container-page py-20">Loading your account…</p>
+  if (loading || !user) return <AccountPanelSkeleton />
   return (
     <section className="container-page py-12 sm:py-20">
       <div className="mx-auto max-w-md space-y-6 rounded-2xl border border-border bg-surface-raised p-6 sm:p-9">

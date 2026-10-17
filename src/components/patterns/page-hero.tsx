@@ -173,9 +173,9 @@ export function PageHero({
                 fill
                 preload
                 placeholder="blur"
-                // The photo covers a tall box (full hero height), so it renders wider
-                // than its column — request full viewport width to stay sharp.
-                sizes={squareish ? "(min-width: 640px) and (max-width: 767px) 34rem, 100vw" : "100vw"}
+                sizes={squareish
+                  ? "(max-width: 639px) 100vw, (max-width: 767px) 32rem, (max-width: 1023px) 50vw, min(64vw, 1024px)"
+                  : "(max-width: 767px) 100vw, (max-width: 1023px) 50vw, min(64vw, 1024px)"}
                 className={cn("hero-media object-cover", imageDim && "hero-dim")}
                 style={{ objectPosition: imagePosition }}
               />

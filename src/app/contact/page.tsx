@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import edinburghSkyline from "@/assets/images/edinburgh-skyline.jpg"
-import { ContactForm } from "@/components/forms/contact-form"
+import edinburghSkyline from "@/assets/images/edinburgh-skyline.webp"
+import { DeferredContactForm } from "@/components/forms/deferred-contact-form"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { Card, CardGrid, InfoCard } from "@/components/patterns/cards"
 import { PageHero } from "@/components/patterns/page-hero"
@@ -59,7 +59,7 @@ export default function ContactPage() {
           description="We aim to reply within two working days."
         />
         <Card className="p-6 sm:p-8 lg:p-10">
-          <ContactForm />
+          <DeferredContactForm />
         </Card>
       </Section>
 

@@ -79,6 +79,7 @@ export function TextAreaField(props: BaseProps & { rows?: number }) {
       <Textarea
         id={id}
         rows={props.rows ?? 5}
+        className="resize-none"
         aria-invalid={props.error ? true : undefined}
         aria-describedby={describedBy(id, props.error, props.hint)}
         {...props.registration}

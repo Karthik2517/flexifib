@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import researchNotebook from "@/assets/images/research-notebook.jpg"
-import { NewsletterForm } from "@/components/forms/email-capture"
+import researchNotebook from "@/assets/images/research-notebook.webp"
+import { DeferredNewsletterForm } from "@/components/forms/deferred-newsletter-form"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { CardGrid, InfoCard, RowList } from "@/components/patterns/cards"
 import { PageHero } from "@/components/patterns/page-hero"
@@ -61,7 +61,7 @@ export default function InsightsPage() {
                   alt=""
                   fill
                   placeholder="blur"
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  sizes="(max-width: 639px) 100vw, (max-width: 1023px) min(50vw, 608px), min(33vw, 400px)"
                   className="object-cover"
                 />
               </div>
@@ -78,7 +78,7 @@ export default function InsightsPage() {
         </ul>
         <div className="mt-10 max-w-xl">
           <p className="mb-3 text-sm font-semibold">Get new articles by email</p>
-          <NewsletterForm />
+          <DeferredNewsletterForm />
         </div>
       </Section>
 

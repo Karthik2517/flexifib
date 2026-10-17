@@ -7,6 +7,10 @@ let client: Stripe | null = null
 export function getStripe(): Stripe | null {
   const key = process.env.STRIPE_SECRET_KEY?.trim()
   if (!key) return null
-  client ??= new Stripe(key, { appInfo: { name: "FlexiFib storefront" } })
+  client ??= new Stripe(key, {
+    appInfo: { name: "FlexiFib storefront" },
+    timeout: 10_000,
+    maxNetworkRetries: 1,
+  })
   return client
 }

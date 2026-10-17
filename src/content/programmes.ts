@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image"
-import bambooToothbrushes from "@/assets/images/bamboo-toothbrushes.jpg"
-import tissue from "@/assets/images/tissue.jpg"
-import packaging from "@/assets/images/packaging.jpg"
+import bambooToothbrushes from "@/assets/images/bamboo-toothbrushes.webp"
+import tissue from "@/assets/images/tissue.webp"
+import packaging from "@/assets/images/packaging.webp"
 
 export type Status =
   | "available"

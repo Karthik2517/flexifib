@@ -25,13 +25,14 @@ import {
   subtotalOf,
 } from "@/lib/pricing"
 import { cn } from "@/lib/utils"
+import { MotionProvider } from "./motion-provider"
 import { QuantityStepper } from "./quantity-stepper"
 
 /**
  * The basket panel. Loaded on demand by <CartRoot /> so its dependencies
  * (dialog, motion, checkout action) stay out of every page's initial bundle.
  */
-export default function CartDrawer() {
+function CartDrawerContent() {
   const lines = useCart((state) => state.lines)
   const isOpen = useCart((state) => state.isOpen)
   const setOpen = useCart((state) => state.setOpen)
@@ -263,4 +264,8 @@ export default function CartDrawer() {
       </SheetContent>
     </Sheet>
   )
+}
+
+export default function CartDrawer() {
+  return <MotionProvider><CartDrawerContent /></MotionProvider>
 }

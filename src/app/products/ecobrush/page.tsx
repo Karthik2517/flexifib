@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { InterestForm } from "@/components/forms/email-capture"
+import { DeferredInterestForm } from "@/components/forms/deferred-interest-form"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { ButtonLink } from "@/components/patterns/button-link"
 import { CardGrid, InfoCard } from "@/components/patterns/cards"
@@ -111,7 +111,7 @@ export default function EcoBrushPage() {
           description="Register for development updates and launch information. For manufacturing or research collaboration, use our business enquiry form."
           action={
             <div className="w-full md:w-[24rem]">
-              <InterestForm programme="ecobrush" inverse />
+              <DeferredInterestForm programme="ecobrush" inverse />
             </div>
           }
         />

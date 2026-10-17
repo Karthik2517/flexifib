@@ -1,8 +1,6 @@
 import type { Metadata } from "next"
-import { Suspense } from "react"
-import textileLoom from "@/assets/images/textile-loom.jpg"
-import { BusinessForm } from "@/components/forms/business-form"
-import { BusinessFormFromUrl } from "@/components/forms/business-form-from-url"
+import textileLoom from "@/assets/images/textile-loom.webp"
+import { DeferredBusinessForm } from "@/components/forms/deferred-business-form"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { Card, CardGrid, InfoCard } from "@/components/patterns/cards"
 import { PageHero } from "@/components/patterns/page-hero"
@@ -60,9 +58,7 @@ export default function BusinessPage() {
           description="Tell us a little about your organisation and requirement and we’ll route it to the right person."
         />
         <Card className="p-6 sm:p-8 lg:p-10">
-          <Suspense fallback={<BusinessForm />}>
-            <BusinessFormFromUrl />
-          </Suspense>
+          <DeferredBusinessForm />
         </Card>
       </Section>
 

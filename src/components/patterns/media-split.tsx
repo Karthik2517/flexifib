@@ -35,7 +35,7 @@ export function MediaSplit({
           alt={imageAlt}
           fill
           placeholder="blur"
-          sizes="(min-width: 768px) 50vw, 100vw"
+          sizes="(max-width: 767px) 100vw, min(50vw, 608px)"
           className="object-cover"
         />
       </div>

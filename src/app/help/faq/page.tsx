@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Container } from "@/components/layout/section"
 import { PageHero } from "@/components/patterns/page-hero"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { DeferredAccordion } from "@/components/patterns/deferred-accordion"
 import { formatPrice, shipping } from "@/content/products"
 import { inboxes } from "@/content/site"
 
@@ -87,16 +87,9 @@ export default function FaqPage() {
         {groups.map((group) => (
           <section key={group.title} className="mb-12 last:mb-0">
             <h2 className="text-subheading">{group.title}</h2>
-            <Accordion data-card="" className="mt-4 rounded-xl border border-border bg-surface-raised px-5 sm:px-6">
-              {group.items.map((item) => (
-                <AccordionItem key={item.q} value={item.q}>
-                  <AccordionTrigger className="min-h-14 py-4 text-[0.9375rem] font-semibold hover:no-underline">
-                    {item.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-5 text-text-muted">{item.a}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            <div data-card="" className="mt-4 rounded-xl border border-border bg-surface-raised px-5 sm:px-6">
+              <DeferredAccordion items={group.items} />
+            </div>
           </section>
         ))}
         <p className="mt-12 text-sm text-text-muted">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import fibreMacro from "@/assets/images/fibre-macro.jpg"
-import toothbrush from "@/assets/images/toothbrush.jpg"
+import fibreMacro from "@/assets/images/fibre-macro.webp"
+import toothbrush from "@/assets/images/toothbrush.webp"
 import { Section, SectionHeader } from "@/components/layout/section"
 import { ButtonLink } from "@/components/patterns/button-link"
 import { CardGrid } from "@/components/patterns/cards"
@@ -44,7 +44,7 @@ export default function ProductsPage() {
               alt="A Launch Collection toothbrush in a stone holder"
               fill
               placeholder="blur"
-              sizes="(min-width: 768px) 36vw, 100vw"
+              sizes="(max-width: 767px) 100vw, min(36vw, 438px)"
               className="object-cover"
             />
           </div>

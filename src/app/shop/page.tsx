@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import { Suspense } from "react"
 import { RotateCcw, ShieldCheck, Truck, FileCheck2 } from "lucide-react"
-import toothbrush from "@/assets/images/toothbrush.jpg"
+import toothbrush from "@/assets/images/toothbrush.webp"
 import { Section, SectionHeader } from "@/components/layout/section"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { DeferredAccordion } from "@/components/patterns/deferred-accordion"
 import { RowList } from "@/components/patterns/cards"
 import { NotePanel } from "@/components/patterns/callouts"
 import { PageHero } from "@/components/patterns/page-hero"
@@ -131,16 +131,9 @@ export default function ShopPage() {
 
       <Section className="pt-0!" aria-labelledby="shopping-info">
         <SectionHeader id="shopping-info" title="Shopping information" />
-        <Accordion data-card="" className="rounded-xl border border-border bg-surface-raised px-5 sm:px-6">
-          {shopFaq.map((item) => (
-            <AccordionItem key={item.q} value={item.q}>
-              <AccordionTrigger className="min-h-14 py-4 text-[0.9375rem] font-semibold hover:no-underline">
-                {item.q}
-              </AccordionTrigger>
-              <AccordionContent className="pb-5 text-text-muted">{item.a}</AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <div data-card="" className="rounded-xl border border-border bg-surface-raised px-5 sm:px-6">
+          <DeferredAccordion items={shopFaq} />
+        </div>
       </Section>
     </>
   )

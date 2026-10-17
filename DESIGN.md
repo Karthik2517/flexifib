@@ -56,6 +56,8 @@ Follow existing rounded card and control geometry. Account provider controls are
 
 The shared AuthForm owns login/signup; Button remains the Base UI-backed semantic control and FormAlert owns inline error feedback. Provider names and icons are always visible. Login uses “Log in with …”; signup uses “Sign up with …”. Busy states disable both controls; errors allow retry. The existing Supabase callback and verified server checkout checks own authentication behaviour.
 
+Form and catalogue selects intentionally remain native controls. FlexiFib accepts the platform-owned picker geometry in exchange for robust mobile interaction, familiar keyboard behaviour and no extra client runtime; shared field styling owns only the closed control.
+
 Lucide remains the interface icon family; provider brand marks identify Google/Apple. `ThemeToggle` is the single site-wide theme control and the pre-paint script in the root layout applies its persisted choice without flashing the wrong palette. Existing duration and reduced-motion rules apply. The namespaced account stylesheet accommodates the project's global CSS loader; do not assume CSS-module exports without validating the loader.
 
 ## Do's and Don'ts

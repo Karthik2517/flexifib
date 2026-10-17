@@ -1,5 +1,5 @@
 import type { StaticImageData } from "next/image"
-import toothbrush from "@/assets/images/toothbrush.jpg"
+import toothbrush from "@/assets/images/toothbrush.webp"
 
 /**
  * Launch Collection catalogue — the single source of truth for what can be

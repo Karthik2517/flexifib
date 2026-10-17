@@ -1,11 +1,11 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import heroEdinburgh from "@/assets/images/hero-edinburgh.jpg"
-import toothbrush from "@/assets/images/toothbrush.jpg"
-import labBench from "@/assets/images/lab-bench.jpg"
-import fibreTwine from "@/assets/images/fibre-twine.jpg"
-import { NewsletterForm } from "@/components/forms/email-capture"
+import heroEdinburgh from "@/assets/images/hero-edinburgh.webp"
+import toothbrush from "@/assets/images/toothbrush.webp"
+import labBench from "@/assets/images/lab-bench.webp"
+import fibreTwine from "@/assets/images/fibre-twine.webp"
+import { DeferredNewsletterForm } from "@/components/forms/deferred-newsletter-form"
 import { Container, Section, SectionHeader } from "@/components/layout/section"
 import { ButtonLink } from "@/components/patterns/button-link"
 import { Card, CardGrid, InfoCard } from "@/components/patterns/cards"
@@ -296,7 +296,7 @@ export default function HomePage() {
                 unsubscribe any time.
               </p>
             </div>
-            <NewsletterForm />
+            <DeferredNewsletterForm />
           </div>
         </Container>
       </section>

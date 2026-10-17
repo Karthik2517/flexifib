@@ -2,6 +2,7 @@ import "server-only"
 import { Resend } from "resend"
 
 let client: Resend | null = null
+const EMAIL_TIMEOUT_MS = 10_000
 
 function getResend() {
   const key = process.env.RESEND_API_KEY?.trim()
@@ -36,14 +37,20 @@ export async function sendInternalEmail(options: {
   }
 
   const from = process.env.RESEND_FROM ?? "FlexiFib Website <website@flexifib.com>"
-  const { error } = await resend.emails.send({
-    from,
-    to: options.to,
-    subject: options.subject,
-    text: options.text,
-    replyTo: options.replyTo,
-    attachments: options.attachments,
-  })
+  let error
+  try {
+    ;({ error } = await resend.emails.send({
+      from,
+      to: options.to,
+      subject: options.subject,
+      text: options.text,
+      replyTo: options.replyTo,
+      attachments: options.attachments,
+    }, { signal: AbortSignal.timeout(EMAIL_TIMEOUT_MS) }))
+  } catch (cause) {
+    console.error("[email] Resend request failed or timed out", cause)
+    return "failed"
+  }
   if (error) {
     console.error("[email] Resend error", error)
     return "failed"
@@ -54,11 +61,24 @@ export async function sendInternalEmail(options: {
 export async function addNewsletterContact(email: string): Promise<DeliveryResult> {
   const resend = getResend()
   const segmentId = process.env.RESEND_NEWSLETTER_SEGMENT_ID?.trim()
-  if (!resend || !segmentId) return "logged"
-  const { error } = await resend.contacts.create({
-    email,
-    segments: [{ id: segmentId }],
-  })
+  if (!resend || !segmentId) {
+    if (process.env.NODE_ENV !== "production") {
+      console.info("[newsletter:dev] Would subscribe", email)
+      return "logged"
+    }
+    console.error("[newsletter] Resend or newsletter segment is not configured")
+    return "failed"
+  }
+  let error
+  try {
+    ;({ error } = await resend.contacts.create({
+      email,
+      segments: [{ id: segmentId }],
+    }, { signal: AbortSignal.timeout(EMAIL_TIMEOUT_MS) }))
+  } catch (cause) {
+    console.error("[newsletter] Resend request failed or timed out", cause)
+    return "failed"
+  }
   if (error) {
     console.error("[email] Failed to add newsletter contact", error)
     return "failed"
