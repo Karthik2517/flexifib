@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+import "./dom-setup"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { LazyMotion, domAnimation } from "motion/react"
@@ -38,18 +40,11 @@ describe("<AddToBasket />", () => {
         <AddToBasket product={products[0]} />
       </LazyMotion>
     )
+    expect(screen.getByRole("button", { name: "Decrease quantity" })).toBeDisabled()
     await user.click(screen.getByRole("button", { name: "Increase quantity" }))
     await user.click(screen.getByRole("button", { name: /add to basket/i }))
     expect(useCart.getState().lines).toEqual([{ slug: products[0].slug, quantity: 2 }])
     expect(screen.getByText(/added to basket/i)).toBeInTheDocument()
   })
 
-  it("disables decrease at the minimum", () => {
-    render(
-      <LazyMotion features={domAnimation}>
-        <AddToBasket product={products[0]} />
-      </LazyMotion>
-    )
-    expect(screen.getByRole("button", { name: "Decrease quantity" })).toBeDisabled()
-  })
 })

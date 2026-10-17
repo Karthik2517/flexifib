@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { beforeEach, describe, expect, it } from "vitest"
 import { shipping } from "@/content/products"
 import { selectCount, useCart } from "@/lib/cart-store"

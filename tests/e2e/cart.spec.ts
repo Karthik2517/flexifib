@@ -13,22 +13,23 @@ test.describe("basket", () => {
     const drawer = page.getByRole("dialog", { name: "Your basket" })
     await expect(drawer).toBeVisible()
     await expect(drawer.getByText("2 items")).toBeVisible()
-    await expect(drawer.getByText("£10.00").first()).toBeVisible()
-    await expect(drawer.getByText(/Add £10\.00 more for free UK delivery/)).toBeVisible()
+    const unitPrice = await drawer.getByText(/£[\d,.]+ each$/).textContent()
+    const price = Number(unitPrice!.replace(/[^\d.]/g, ""))
+    const formatPrice = (value: number) => new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(value)
+    await expect(drawer.getByText(formatPrice(price * 2), { exact: true }).first()).toBeVisible()
 
-    // Two more → £20 → free delivery
+    // Changing catalogue prices must not break this journey; shipping boundaries
+    // are covered deterministically by pricing.test.ts.
     await drawer.getByRole("button", { name: "Increase quantity" }).click()
-    await drawer.getByRole("button", { name: "Increase quantity" }).click()
-    await expect(drawer.getByText(/unlocked/)).toBeVisible()
-    await expect(drawer.getByText("Free", { exact: true })).toBeVisible()
+    await expect(drawer.getByText(formatPrice(price * 3), { exact: true }).first()).toBeVisible()
 
     await page.keyboard.press("Escape")
-    await expect(page.getByRole("button", { name: "Open basket, 4 items" })).toBeVisible()
+    await expect(page.getByRole("button", { name: "Open basket, 3 items" })).toBeVisible()
 
     // Survives a reload
     await page.reload()
-    await page.getByRole("button", { name: "Open basket, 4 items" }).click()
-    await expect(page.getByRole("dialog", { name: "Your basket" }).getByText("4 items")).toBeVisible()
+    await page.getByRole("button", { name: "Open basket, 3 items" }).click()
+    await expect(page.getByRole("dialog", { name: "Your basket" }).getByText("3 items")).toBeVisible()
   })
 
   test("removing the last item shows the empty state", async ({ consented: page }) => {

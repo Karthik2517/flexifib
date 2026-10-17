@@ -78,7 +78,7 @@ No third-party script enters production without (a) a consent category, (b) a me
 
 ## 3. Navigation & loading
 
-- Navigations must feel instant: the shell stays, content streams in. Verified with `@next/playwright`'s `instant()` in `tests/e2e/navigation.spec.ts`.
+- Navigation retains the shell and reaches the selected content. Functional navigation is checked in `tests/e2e/navigation.spec.ts`; timing is measured before release instead of asserting scheduler timing on shared CI runners.
 - Routes that read `params`/`searchParams` must either sit behind a `<Suspense>` boundary with a same-size fallback or be linked with `prefetch` (product cards do this).
 - No full-page spinners. Skeletons match the final layout's dimensions; content arriving late must not move buttons, prices or text (CLS).
 - The Back button always works. Shareable state (sort, programme pre-selection) lives in the URL.
@@ -172,7 +172,7 @@ Everything animates only opacity, transform or clip-path. `prefers-reduced-motio
 - Fully keyboard operable; Base UI provides focus management for dialogs, drawers, tabs, accordions.
 - `:focus-visible` outline is global and must never be removed without a replacement.
 - Labels on every input; errors linked with `aria-describedby`, `aria-invalid`; first invalid field receives focus; status/alert regions announce outcomes.
-- Contrast ≥ 4.5:1 for text (axe enforces in CI on every route).
+- Contrast ≥ 4.5:1 for text (axe checks representative shared templates in CI; inspect new templates before release).
 - Touch targets ≥ 44 × 44 px for primary controls (`h-11` buttons/inputs, `size-11` icon buttons).
 - 200% zoom and 320 px width without horizontal scrolling (enforced by the overflow check in `smoke.spec.ts`).
 
@@ -193,12 +193,19 @@ Everything animates only opacity, transform or clip-path. `prefers-reduced-motio
 |---|---|---|
 | Lint, strict types | ESLint, `tsc` | CI `quality` |
 | Unit/component | Vitest + Testing Library (`tests/unit`) | CI `quality` |
-| Component lab | Storybook (`npm run storybook`) — a11y addon set to error | CI builds it |
-| Journeys, keyboard, consent, forms, instant nav | Playwright on Chromium, Firefox, WebKit, Pixel 7, iPhone 15, iPad Mini | CI `e2e` |
-| Accessibility | axe on every public route | CI `e2e` |
-| Visual regression | Playwright screenshots (desktop + mobile) | CI `visual` |
+| Component lab | Storybook (`npm run storybook`) — a11y addon set to error | On demand |
+| Journeys, keyboard, consent, forms, navigation | Playwright on Chromium, targeted Pixel 7 journeys | CI `e2e`, one production build |
+| Compatibility | Firefox, WebKit, iPhone 15, iPad Mini | Manual CI dispatch or `npm run test:e2e:full` |
+| Accessibility | axe on shared home, product, form and account templates | CI `e2e` |
+| Route availability | HTTP status and server-rendered content on every public route | CI `e2e` |
 | Performance budgets | Lighthouse CI (`npm run test:perf`) | Before release |
 | Real users | Web Vitals RUM → GA4 `web_vital` events (with consent) | Production |
+
+Test policy: keep assertions for user-visible failures and security/data correctness.
+Do not gate deployments on pixel snapshots, exact styling, marketing wording or
+instant-prefetch timing. Mock external delivery in server-action tests and assert
+success and failure independently; never accept either outcome as a passing test.
+Run related unit tests during feature work and the complete fast unit suite in CI.
 
 ### Final acceptance rule
 

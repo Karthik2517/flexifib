@@ -41,10 +41,35 @@ Authenticated Playwright basket tests use `E2E_AUTH_STORAGE_STATE`, a path to a 
 | `npm run dev` | Development server |
 | `npm run build` / `npm start` | Production build / server |
 | `npm run lint` · `npm run typecheck` | ESLint · strict TypeScript |
-| `npm test` | Unit and component tests (Vitest) |
-| `npm run test:e2e` | Playwright journeys + axe accessibility on all browsers |
-| `npm run test:visual` | Visual regression screenshots |
+| `npm test` | Fast business-logic, security and component tests |
+| `npm run test:related -- src/lib/pricing.ts` | Run only unit tests affected by the named source files |
+| `npm run test:e2e` | Critical Chromium journeys, representative accessibility checks and targeted mobile coverage |
+| `npm run test:e2e:full` | Optional browser compatibility sweep, including Firefox and Safari |
 | `npm run storybook` | Component lab on http://localhost:6006 |
+
+### Testing policy
+
+Keep a test when its failure identifies a meaningful regression: incorrect money,
+lost basket state, unsafe auth/redirects, failed delivery reported as success,
+invalid submissions, broken navigation, inaccessible controls or consent failure.
+Avoid pixel snapshots, exact CSS values, marketing-copy assertions and tests that
+pass on either success or failure. Exercise shared UI behaviour once per distinct
+template instead of once per content URL/device combination.
+
+During feature work, use `test:related` with the source files you touched; the full
+unit suite still runs on every PR/push. Standard CI runs lint, types, units and a
+single production build with Chromium desktop plus a small mobile subset. Route
+availability is checked over HTTP; browser accessibility checks cover representative
+templates. Storybook, performance measurements and the full compatibility sweep are
+on-demand. Run the full browser sweep locally or select `full_browser_suite` when
+running CI manually in GitHub Actions. Visual screenshot assertions were removed.
+
+Playwright builds production automatically. To reuse a production build you just
+made, use `E2E_SKIP_BUILD=1 npm run test:e2e`. Do not point it at a stale development
+server. Default tests never submit real email or depend on live OAuth/payment
+providers: server-action delivery tests stub the provider and assert explicit
+success/failure. Authenticated basket journeys need the optional saved test session
+described above; without it those journeys skip, while cart/security units still run.
 
 ## Where things live
 

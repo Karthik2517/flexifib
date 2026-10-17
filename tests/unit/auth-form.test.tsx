@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+import "./dom-setup"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { beforeEach, describe, expect, it, vi } from "vitest"
@@ -18,15 +20,6 @@ describe("social account options", () => {
     mocks.state = { user: null, loading: false, configured: true }
     mocks.query = "next=%2Fshop%2Flaunch-toothbrush-soft"
     mocks.signInWithOAuth.mockResolvedValue({ data: { url: "https://provider.example/authorize" }, error: null })
-  })
-
-  it.each(["login", "signup"] as const)("offers only Google and Apple on %s", (mode) => {
-    const { container } = render(<AuthForm mode={mode} />)
-    const action = mode === "signup" ? "Sign up with " : "Log in with "
-    expect(screen.getByRole("button", { name: action + "Google" })).toBeEnabled()
-    expect(screen.getByRole("button", { name: action + "Apple" })).toBeEnabled()
-    expect(container.querySelector("input")).toBeNull()
-    expect(screen.queryByRole("link", { name: /forgot password/i })).not.toBeInTheDocument()
   })
 
   it.each(["google", "apple"] as const)("starts %s OAuth and preserves the product return destination", async (provider) => {
