@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test"
 
-test.describe("cookie consent", () => {
+test.describe("cookie consent", { tag: "@consent" }, () => {
   test("banner offers equal accept/reject choices and remembers rejection", async ({ page }) => {
     const thirdParty: string[] = []
     page.on("request", (request) => {

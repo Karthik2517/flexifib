@@ -1,6 +1,6 @@
 import { expect, test } from "./fixtures"
 
-test.describe("catalogue navigation", () => {
+test.describe("catalogue navigation", { tag: "@shop" }, () => {
   test("shop links open the selected product", async ({ consented: page }) => {
     await page.goto("/shop")
     await page.getByRole("link", { name: /View product: Launch Toothbrush — Medium/ }).click()

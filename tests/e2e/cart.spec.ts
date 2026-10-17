@@ -1,6 +1,6 @@
 import { expect, test, loginTestCustomer } from "./fixtures"
 
-test.describe("basket", () => {
+test.describe("basket", { tag: "@cart" }, () => {
   test.beforeEach(async ({ consented: page }) => { await loginTestCustomer(page) })
   test("add, adjust, persist and price a basket", async ({ consented: page }) => {
     await page.goto("/shop")

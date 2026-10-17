@@ -48,4 +48,5 @@ next-env.d.ts
 /playwright/.auth/
 /blob-report/
 /.lighthouseci/
+/ci-plan.json
 *.storybook.log

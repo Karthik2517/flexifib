@@ -56,13 +56,30 @@ Avoid pixel snapshots, exact CSS values, marketing-copy assertions and tests tha
 pass on either success or failure. Exercise shared UI behaviour once per distinct
 template instead of once per content URL/device combination.
 
-During feature work, use `test:related` with the source files you touched; the full
-unit suite still runs on every PR/push. Standard CI runs lint, types, units and a
-single production build with Chromium desktop plus a small mobile subset. Route
-availability is checked over HTTP; browser accessibility checks cover representative
-templates. Storybook, performance measurements and the full compatibility sweep are
-on-demand. Run the full browser sweep locally or select `full_browser_suite` when
-running CI manually in GitHub Actions. Visual screenshot assertions were removed.
+During feature work, use `test:related` with the source files you touched. On PRs,
+CI compares against the PR merge base; on pushes, it compares the entire push
+against its previous commit (including every commit in a multi-commit push).
+It lints changed files and uses Vitest's dependency graph to run affected unit tests.
+Browser checks follow transitive imports to affected pages and select their tagged
+journeys, HTTP checks and accessibility checks. For example, a contact-page edit
+runs contact checks, not business or newsletter checks. Changes to shared layouts,
+the header, global styles, dependencies or CI configuration widen coverage. An
+unavailable diff base safely falls back to all default checks.
+
+Documentation-only changes skip code checks/builds. Unit-only changes skip browser
+installation and production builds. TypeScript remains a project-wide check when
+typed code changes because type errors can cross file boundaries. A production
+build is run once only when runtime code or browser checks require it. Shared root
+changes use representative templates rather than opening every content page in a
+browser. Storybook and performance measurements remain on-demand. Select
+`full_browser_suite` when running CI manually to force all tests with the extra
+browsers, or run `npm run test:e2e:full` locally. Visual screenshot assertions were removed.
+
+The selector lives in `scripts/ci-plan.mjs`; browser feature tags are in `tests/e2e`.
+New static page routes automatically receive a route smoke check; new browser journeys
+should carry their feature tag. Run `npm run test:ci` after changing CI selection.
+To inspect a page-specific plan locally, use
+`node scripts/ci-plan.mjs --files src/app/contact/page.tsx`.
 
 Playwright builds production automatically. To reuse a production build you just
 made, use `E2E_SKIP_BUILD=1 npm run test:e2e`. Do not point it at a stale development

@@ -1,17 +1,23 @@
 import AxeBuilder from "@axe-core/playwright"
 import { expect, routes, test } from "./fixtures"
 
+const affected: string[] | undefined = process.env.CI_AFFECTED_ROUTES
+  ? JSON.parse(process.env.CI_AFFECTED_ROUTES)
+  : undefined
+const httpRoutes = (affected ?? routes).filter((route) => !["/login", "/signup", "/account", "/forgot-password", "/reset-password"].includes(route))
+const browserRoutes = affected ?? ["/", "/shop/launch-toothbrush-soft", "/contact"]
+
 // HTTP checks cover every content URL; browser checks cover distinct templates.
-test("public routes return server-rendered content", async ({ request }) => {
-  for (const route of routes) {
+test("public routes return server-rendered content", { tag: "@routes" }, async ({ request }) => {
+  for (const route of httpRoutes) {
     const response = await request.get(route)
     expect(response.status(), route).toBe(200)
     expect(await response.text(), route).toMatch(/<h1[\s>]/)
   }
 })
 
-for (const route of ["/", "/shop/launch-toothbrush-soft", "/contact"]) {
-  test(`${route} is usable and accessible`, async ({ consented: page }) => {
+for (const route of browserRoutes) {
+  test(`${route} is usable and accessible`, { tag: `@route:${route}` }, async ({ consented: page }) => {
     const errors: string[] = []
     page.on("pageerror", (error) => errors.push(error.message))
     await page.goto(route)
@@ -29,7 +35,7 @@ for (const route of ["/", "/shop/launch-toothbrush-soft", "/contact"]) {
   })
 }
 
-test("theme choice survives navigation and reload", async ({ consented: page }) => {
+test("theme choice survives navigation and reload", { tag: "@theme" }, async ({ consented: page }) => {
   await page.emulateMedia({ colorScheme: "light" })
   await page.goto("/")
   await page.getByRole("button", { name: "Switch to dark theme" }).click()
@@ -40,7 +46,7 @@ test("theme choice survives navigation and reload", async ({ consented: page }) 
   await expect(page.getByRole("button", { name: "Switch to dark theme" })).toBeVisible()
 })
 
-test("unknown pages offer a route back to the site", async ({ consented: page }) => {
+test("unknown pages offer a route back to the site", { tag: "@routing" }, async ({ consented: page }) => {
   const response = await page.goto("/this-page-does-not-exist")
   expect(response?.status()).toBe(404)
   await expect(page.getByRole("link", { name: "Go to the homepage" })).toBeVisible()

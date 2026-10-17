@@ -1,6 +1,6 @@
 import { expect, test } from "./fixtures"
 
-test("application form focuses invalid fields and rejects an unsupported CV", async ({ consented: page }) => {
+test("application form focuses invalid fields and rejects an unsupported CV", { tag: "@careers" }, async ({ consented: page }) => {
   await page.goto("/careers#apply")
   await page.getByRole("button", { name: "Submit interest" }).click()
   await expect(page.getByLabel("Full name")).toBeFocused()

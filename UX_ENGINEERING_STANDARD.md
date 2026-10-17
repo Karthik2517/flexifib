@@ -191,13 +191,13 @@ Everything animates only opacity, transform or clip-path. `prefers-reduced-motio
 
 | Gate | Tool | Where |
 |---|---|---|
-| Lint, strict types | ESLint, `tsc` | CI `quality` |
-| Unit/component | Vitest + Testing Library (`tests/unit`) | CI `quality` |
+| Lint, strict types | ESLint on changed files; project typecheck when typed code changes | CI `quality` |
+| Unit/component | Vitest dependency-selected tests; all on shared configuration changes | CI `quality` |
 | Component lab | Storybook (`npm run storybook`) — a11y addon set to error | On demand |
-| Journeys, keyboard, consent, forms, navigation | Playwright on Chromium, targeted Pixel 7 journeys | CI `e2e`, one production build |
+| Journeys, keyboard, consent, forms, navigation | Page/feature-selected Playwright on Chromium, targeted Pixel 7 journeys | CI `e2e` when affected, one production build |
 | Compatibility | Firefox, WebKit, iPhone 15, iPad Mini | Manual CI dispatch or `npm run test:e2e:full` |
 | Accessibility | axe on shared home, product, form and account templates | CI `e2e` |
-| Route availability | HTTP status and server-rendered content on every public route | CI `e2e` |
+| Route availability | HTTP status and server-rendered content on affected public routes; full default coverage for shared-root changes | CI `e2e` |
 | Performance budgets | Lighthouse CI (`npm run test:perf`) | Before release |
 | Real users | Web Vitals RUM → GA4 `web_vital` events (with consent) | Production |
 
@@ -205,7 +205,13 @@ Test policy: keep assertions for user-visible failures and security/data correct
 Do not gate deployments on pixel snapshots, exact styling, marketing wording or
 instant-prefetch timing. Mock external delivery in server-action tests and assert
 success and failure independently; never accept either outcome as a passing test.
-Run related unit tests during feature work and the complete fast unit suite in CI.
+Run related unit tests during feature work and dependency-selected unit tests in CI.
+Compare the full PR/push diff, not only its last commit. Shared root/configuration
+changes or an unavailable comparison base widen to the full default suite. Browser
+selection follows local static/dynamic imports and feature tags; new routes get
+their own smoke check. Documentation changes skip checks; unit-only changes skip
+builds/browsers. Keep project-wide typechecking for typed changes and the manual
+full-suite option. Selector safety is covered by `npm run test:ci`.
 
 ### Final acceptance rule
 

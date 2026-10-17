@@ -20,20 +20,37 @@ env:
 
 jobs:
   quality:
-    name: Lint, types & unit tests
+    name: Checks for changed code
     runs-on: ubuntu-latest
+    outputs:
+      e2e: ${{ steps.plan.outputs.e2e }}
+      build: ${{ steps.plan.outputs.build }}
     steps:
       - uses: actions/checkout@v5
+        with: { fetch-depth: 0 }
       - uses: actions/setup-node@v5
         with: { node-version: 22, cache: npm }
       - run: npm ci
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npm test
+      - name: Select checks from this change
+        id: plan
+        env:
+          CI_DIFF_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          E2E_FULL: ${{ inputs.full_browser_suite && '1' || '0' }}
+        run: node scripts/ci-plan.mjs
+      - run: node scripts/ci-run.mjs quality
+      - if: ${{ steps.plan.outputs.e2e != 'true' }}
+        run: node scripts/ci-run.mjs build
+      - if: ${{ steps.plan.outputs.e2e == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-plan
+          path: ci-plan.json
+          retention-days: 1
 
   e2e:
     name: Critical browser checks
     needs: quality
+    if: ${{ needs.quality.outputs.e2e == 'true' }}
     runs-on: ubuntu-latest
     env:
       E2E_FULL: ${{ inputs.full_browser_suite && '1' || '0' }}
@@ -43,6 +60,8 @@ jobs:
       - uses: actions/setup-node@v5
         with: { node-version: 22, cache: npm }
       - run: npm ci
+      - uses: actions/download-artifact@v4
+        with: { name: ci-plan }
       - uses: actions/cache@v4
         with:
           path: .next/cache
@@ -53,8 +72,8 @@ jobs:
         run: npx playwright install --with-deps chromium
       - if: ${{ inputs.full_browser_suite }}
         run: npx playwright install --with-deps chromium firefox webkit
-      - run: npm run build
-      - run: npm run test:e2e
+      - run: node scripts/ci-run.mjs build
+      - run: node scripts/ci-run.mjs e2e
       - if: ${{ failure() }}
         uses: actions/upload-artifact@v4
         with:
